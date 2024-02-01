@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="Description" content="Nowa - Django Bootstrap 5 Admin & Dashboard Template">
+		<meta name="Author" content="Spruko Technologies Private Limited">
+		<meta name="Keywords" content="admin, admin dashboard, admin dashboard template, admin template, bootstrap 5 admin, bootstrap 5 django admin, bootstrap 5 django template, dashboard, dashboard template, django, django admin, django admin dashboard, django admin template, django bootstrap 5, django template."/>
+
+		<!-- Title -->
+		<title> Nowa - Django Bootstrap 5 Admin & Dashboard Template </title>
+
+		{% block styles %}{% endblock %}
+        {% include 'components/layouts/styles.html'%}
+
+	</head>
+
+	<body class="ltr main-body app sidebar-mini">
+
+		<!-- Switcher -->
+		{% include 'components/layouts/switcher.html'%}
+		<!-- Switcher-->
+		
+		<!-- Loader -->
+		<div id="global-loader">
+			<img src="{% static 'assets/img/loader.svg'%}" class="loader-img" alt="Loader">
+		</div>
+		<!-- /Loader -->
+
+		<!-- Page -->
+		<div class="page">
+
+			<div>
+
+                {% include 'components/layouts/app-header.html'%}
+
+                {% include 'components/layouts/app-sidebar.html'%}
+
+			</div>
+
+			<!-- main-content -->
+			<div class="main-content app-content">
+
+				<!-- container -->
+				<div class="main-container container-fluid">
+
+                    {% block content %}{% endblock %}
+
+				</div>
+				<!-- Container closed -->
+			</div>
+			<!-- main-content closed -->
+
+            {% include 'components/layouts/sidebar-right.html'%}
+
+            {% include 'components/layouts/modal.html'%}
+			{% block modal %}{% endblock %}
+
+            {% include 'components/layouts/footer.html'%}
+
+		</div>
+		<!-- End Page -->
+
+        {% include 'components/layouts/scripts.html'%}
+		{% block scripts %}{% endblock %}
+
+    </body>
+</html>

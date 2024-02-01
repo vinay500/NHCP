@@ -1,0 +1,27 @@
+{
+  "name": "nowa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "autoprefixer": "^10.0.0",
+    "browser-sync": "^2.26.12",
+    "gulp-autoprefixer": "^7.0.1"
+  },
+  "devDependencies": {
+    "browsersync": "0.0.1-security",
+    "cssbeautify": "^0.3.1",
+    "gulp": "^4.0.2",
+    "gulp-beautify": "^3.0.0",
+    "gulp-cssbeautify": "^2.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "node-sass": "^4.14.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

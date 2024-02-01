@@ -1,0 +1,29 @@
+*.pyc 
+_pycache_/
+*.py[cod]
+app/_pycache_/
+app/migrations/__pycache__/
+core/_pycache_/
+# tests and coverage
+*.pytest_cache
+.coverage
+
+# database & logs
+*.db
+*.sqlite3
+*.log
+
+# venv
+env
+venv
+.env
+
+# other
+.DS_Store
+
+# javascript
+package-lock.json
+
+staticfiles/*
+!staticfiles/.gitkeep
+.vscode/symbols.json
