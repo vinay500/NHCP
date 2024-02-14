@@ -3,6 +3,8 @@
 
     {% block styles %}
 
+        <link rel="stylesheet" href="{% static 'assets\css\nhcp_css\reset_password.css' %}">
+
     {% endblock %}
 
     {% block class %}
@@ -21,26 +23,34 @@
                                 <!-- Demo content-->
                                 <div class="main-card-signin d-md-flex">
                                     <div class="wd-100p">
-                                        <div class="d-flex mb-3"><a href="index"><img src="{% static 'assets/img/brand/favicon.png'%}" class="sign-favicon ht-40" alt="logo"></a></div>
+                                        <div class="d-flex mb-3" id="reset_password_wellness_logo_div">
+                                            <a href="index">
+                                                <img id="reset_password_wellness_logo" src="{% static 'assets/img/nhcp_imgs/logos/wellness mobile logo transparent.png'%}" class="sign-favicon ht-40" alt="logo">
+                                            </a>
+                                        </div>
                                         <div class="mb-1">
                                             <div class="main-signin-header">
                                                 <div class="">
                                                     <h2>Welcome back!</h2>
                                                     <h4 class="text-start">Reset Your Password</h4>
-                                                    <form>
-                                                        <div class="form-group text-start">
+                                                    <form method="post">
+                                                        {% csrf_token %}
+                                                        <!-- <div class="form-group text-start">
                                                             <label>Email</label>
                                                             <input class="form-control" placeholder="Enter your email" type="text">
-                                                        </div>
+                                                        </div> -->
                                                         <div class="form-group text-start">
                                                             <label>New Password</label>
-                                                            <input class="form-control" placeholder="New Password" type="password">
+                                                            <input class="form-control" placeholder="New Password" type="password" name="new_password">
                                                         </div>
                                                         <div class="form-group text-start">
                                                             <label>Confirm Password</label>
-                                                            <input class="form-control" placeholder="Confirm Password" type="password">
+                                                            <input class="form-control" placeholder="Confirm Password" type="password" name="new_confirm_password">
                                                         </div>
-                                                        <a href="signin" class="btn ripple btn-primary btn-block">Reset Password</a>
+                                                        <!-- <a href="signin" class="btn ripple btn-primary btn-block">Reset Password</a> -->
+                                                        <button type="submit" class="btn btn-primary btn-block" >
+                                                            Reset Password
+                                                        </button>
                                                     </form>
                                                     <div class="mt-4 d-flex mx-auto text-center justify-content-center mb-2">
                                                         <a href="https://www.facebook.com/" target="_blank" class="btn btn-icon btn-facebook me-3" type="button">

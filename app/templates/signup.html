@@ -1,59 +1,114 @@
 {% extends 'components/custom-base.html' %}
 {% load static %}
 
-    {% block styles %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'assets\css\signup.css' %}">
+{% endblock %}
 
-    {% endblock %}
+{% block class %}
 
-    {% block class %}
-
-        <div class="bg-primary">
+<div class="bg-primary">
 
     {% endblock %}
 
     {% block content %}
 
-            <div class="page-single">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-xs-10 card-sigin-main py-45 justify-content-center mx-auto">
-                            <div class="card-sigin mt-5 mt-md-0">
-                                <!-- Demo content-->
-                                <div class="main-card-signin d-md-flex">
-                                    <div class="wd-100p"><div class="d-flex mb-4"><a href="index"><img src="{% static 'assets/img/brand/favicon.png'%}" class="sign-favicon ht-40" alt="logo"></a></div>
-                                        <div class="">
-                                            <div class="main-signup-header">
-                                                <h2 class="text-dark">Get Started</h2>
-                                                <h6 class="font-weight-normal mb-4">It's free to signup and only takes a minute.</h6>
-                                                <form action="#">
-                                                    <div class="form-group">
-                                                        <label>Firstname &amp; Lastname</label> <input class="form-control" placeholder="Enter your firstname and lastname" type="text">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Email</label> <input class="form-control" placeholder="Enter your email" type="text">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Password</label> <input class="form-control" placeholder="Enter your password" type="password">
-                                                    </div><a href="signin" class="btn btn-primary btn-block">Create Account</a>
-                                                    <div class="mt-4 d-flex mx-auto text-center justify-content-center mb-2">
-                                                        <a href="https://www.facebook.com/" target="_blank" class="btn btn-icon btn-facebook me-3" type="button">
-                                                            <span class="btn-inner--icon"> <i class="bx bxl-facebook tx-18 tx-prime"></i> </span>
-                                                        </a>
-                                                        <a href="https://www.twitter.com/" target="_blank" class="btn btn-icon me-3" type="button">
-                                                            <span class="btn-inner--icon"> <i class="bx bxl-twitter tx-18 tx-prime"></i> </span>
-                                                        </a>
-                                                        <a href="https://www.linkedin.com/" target="_blank" class="btn btn-icon me-3" type="button">
-                                                            <span class="btn-inner--icon"> <i class="bx bxl-linkedin tx-18 tx-prime"></i> </span>
-                                                        </a>
-                                                        <a href="https://www.instagram.com/" target="_blank" class="btn  btn-icon me-3" type="button">
-                                                            <span class="btn-inner--icon"> <i class="bx bxl-instagram tx-18 tx-prime"></i> </span>
-                                                        </a>
-                                                    </div>
-                                                </form>
-                                                <div class="main-signup-footer mt-3 text-center">
-                                                    <p>Already have an account? <a href="signin">Sign In</a></p>
-                                                </div>
+    <div class="page-single">
+        <div class="container">
+            <div class="row">
+                <div
+                    class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-xs-10 card-sigin-main py-45 justify-content-center mx-auto">
+                    <div class="card-sigin mt-5 mt-md-0">
+                        <!-- Demo content-->
+                        <div class="main-card-signin d-md-flex">
+                            <div class="wd-100p">
+                                <div class="d-flex mb-4" id="signup_main_logo_div">
+                                    <a href="index">
+                                        <img src="{% static 'assets/img/nhcp_imgs/logos/wellness mobile logo transparent.png'%}" id="signup_form_wellness_logo" class="sign-favicon ht-40" alt="logo">
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <div class="main-signup-header">
+                                        <!-- alert-danger  -->
+                                        <!-- alert-success -->
+                                        <!-- alert-warning -->
+                                        <div id="signup_msg_div" class="alert alert-dismissible fade show" role="alert">
+                                            <span id="signup_msg"></span>
+                                            <button id="signup_msg_btn" type="button" class="btn-close" onclick="hide_signup_msg()">
+                                                <span>×</span>
+                                            </button>
+                                        </div>    
+                                        <h2 class="text-dark">Sign Up</h2>
+                                        <!-- <h6 class="font-weight-normal mb-4">It's free to signup and only takes a minute.
+                                        </h6> -->
+                                        <!-- <div id="error_container">
+                                            <span id="error_msg"></span>
+                                        </div> -->
+                                        
+                                        <form action="" method="post" id="signup-form">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label>Fullname</label> 
+                                                <input id="signup_fullname" class="form-control" name="full_name" placeholder="Enter your fullname" type="text">
+                                                <span style="color:red; display:none;" id="fullname_required_msg" class="signup_error_msg">Fullname is required</span>
                                             </div>
+                                            <!-- <div class="form-group">
+                                                <label> Lastname</label> 
+                                                <input class="form-control" placeholder="Enter your lastname" type="text">
+                                            </div> -->
+                                            <div class="form-group">
+                                                <label>Email</label> 
+                                                <input id="signup_email" class="form-control" placeholder="Enter your email" type="text">
+                                                <span style="color:red; display:none;" id="email_required_msg" class="signup_error_msg">Email is required.</span>
+                                                <span style="color:red; display:none;" id="valid_email_required_msg" class="signup_error_msg">Enter Valid Email</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Phone Number</label> 
+                                                <input id="phone" class="form-control" name="phone" placeholder="Enter your phone number"  type="tel">
+                                                <span style="color:red; display:none;" id="phone_required_msg" class="signup_error_msg">Phone Number is required.</span>
+                                                <span style="color:red; display:none;" id="valid_phone_required_msg" class="signup_error_msg">Enter Valid Phone Number</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Password</label> 
+                                                <input id="signup_password" class="form-control" placeholder="Enter your password" type="password">
+                                                <span style="color:red; display:none;" id="password_required_msg" class="signup_error_msg">Password is required.</span>
+                                                <span style="color:red; display:none;" id="password_match_msg" class="signup_error_msg">Password and Confirm Password should Match</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Confirm Password</label> 
+                                                <input id="signup_confirm_password" class="form-control" placeholder="Re-Enter your password" type="password">
+                                                <span style="color:red; display:none;" id="confirm_password_required_msg" class="signup_error_msg">Confirm Password is required.</span>
+                                                <span style="color:red; display:none;" id="confirm_password_match_msg" class="signup_error_msg">Password and Confirm Password should Match</span>
+                                            </div>
+                                            <!-- <a href="" class="btn btn-primary btn-block">Create Account</a> -->
+                                            <button type="submit" class="btn btn-primary btn-block" >
+                                                Create Account
+                                            </button>
+                                            <div class="mt-4 d-flex mx-auto text-center justify-content-center mb-2">
+                                                <a href="https://www.facebook.com/" target="_blank"
+                                                    class="btn btn-icon btn-facebook me-3" type="button">
+                                                    <span class="btn-inner--icon"> <i
+                                                            class="bx bxl-facebook tx-18 tx-prime"></i> </span>
+                                                </a>
+                                                <a href="https://www.twitter.com/" target="_blank"
+                                                    class="btn btn-icon me-3" type="button">
+                                                    <span class="btn-inner--icon"> <i
+                                                            class="bx bxl-twitter tx-18 tx-prime"></i> </span>
+                                                </a>
+                                                <a href="https://www.linkedin.com/" target="_blank"
+                                                    class="btn btn-icon me-3" type="button">
+                                                    <span class="btn-inner--icon"> <i
+                                                            class="bx bxl-linkedin tx-18 tx-prime"></i> </span>
+                                                </a>
+                                                <a href="https://www.instagram.com/" target="_blank"
+                                                    class="btn  btn-icon me-3" type="button">
+                                                    <span class="btn-inner--icon"> <i
+                                                            class="bx bxl-instagram tx-18 tx-prime"></i> </span>
+                                                </a>
+                                            </div>
+                                        </form>
+                                        <div class="main-signup-footer mt-3 text-center">
+                                            <p>Already have an account? <a href="signin">Sign In</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -62,10 +117,44 @@
                     </div>
                 </div>
             </div>
-            <!-- page-single end -->
         </div>
-    {% endblock %}
+    </div>
+    <!-- page-single end -->
+</div>
+{% endblock %}
 
-    {% block scripts %}
+{% block scripts %}
+<!-- script for  form validation, user entered data validation -->
+<script src="{% static 'assets/js/signup.js'%}"></script>
+<script src="{% static 'assets/js/helper_js/md5.js'%}"></script>
+<!-- <script src="{% static 'assets/js/helper_js/display_signup_form_error_msg.js'%}"></script> -->
 
-    {% endblock %}
+<!-- script for phone number input field -->
+<!-- source: 
+    https://github.com/Kenkarate/phone-number-validation/tree/master/build 
+    https://www.youtube.com/watch?v=aOCKMVE8zvQ&ab_channel=CodeWithAjesh
+-->
+<script>
+    var input = document.querySelector('#phone');
+    console.log('input',input);
+    window.intlTelInput(input,{
+        preferredCountries: ["in","us"],
+        autoPlaceholder:"polite",
+    });
+    
+
+    function toggle_password(){
+        let confirm_password_field = document.querySelector('#confirm_password');
+        confirm_password_field.type = 'text';
+    }
+
+    // var instance = $("[name=phone_no]")
+    // instance.intlTelInput();
+
+    // $("[name=phone_no]").on("blur", function() {
+    // console.log($(this).val())
+    // //get counrty code
+    // })
+</script>
+
+{% endblock %}

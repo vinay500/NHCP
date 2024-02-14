@@ -11024,11 +11024,15 @@ a.tag-addon {
     margin-left: 10px; }
 
 :root {
-  --primary-bg-color: #38cab3;
-  --primary-bg-hover: #5cd3b9;
+  /* default colors provided by theme */
+  /* --primary-bg-color: #38cab3;
+  --primary-bg-hover: #5cd3b9; */
+  /* changed  --primary-bg-color,--primary-bg-hover  as per wellness logo color */
+  --primary-bg-color: #265093;
+  --primary-bg-hover: #008ebc;
   --primary-bg-border: #38cab3;
   --primary02: rgba(28, 213, 174, 0.2);
-  --primary05: rgba(28, 213, 174, 0.5);
+  --primary05:  rgba(28, 213, 174, 0.5);
   --primary-transparentcolor: rgba(28, 213, 174, 0.2);
   --transparentprimary-transparentcolor: rgba(255, 255, 255, 0.05);
   --transparent-body: #38cab3;
@@ -11070,7 +11074,8 @@ a.tag-addon {
 #global-loader {
   position: fixed;
   z-index: 50000;
-  background: #fff;
+  background: gray;
+  opacity: 0.7;
   left: 0;
   top: 0;
   right: 0;
@@ -11078,7 +11083,8 @@ a.tag-addon {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  text-align: center; }
+  text-align: center; 
+}
 
 .loader-img {
   position: absolute;
@@ -12517,7 +12523,8 @@ pre {
 .card-table h4 {
   font-size: 21px;
   font-weight: 700;
-  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+ sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: #1c273c; }
 
 .header-icon-svgs {
@@ -14082,7 +14089,8 @@ a.custom-blog-content:hover {
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 5px;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+ box-shadow 0.15s ease-in-out; }
 
 .theme-container1 button {
   font-weight: 400;
@@ -14095,7 +14103,8 @@ a.custom-blog-content:hover {
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 5px;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+ box-shadow 0.15s ease-in-out; }
 
 .theme-container2 button {
   font-weight: 400;
@@ -14108,7 +14117,8 @@ a.custom-blog-content:hover {
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 5px;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+ box-shadow 0.15s ease-in-out; }
 
 .pickr {
   text-align: center;

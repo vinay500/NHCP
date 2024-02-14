@@ -1,0 +1,23 @@
+#welcome-to-wellness-hospitals{
+    font-size: 18px;
+}
+/* .header{
+    font-size: 20px;
+} */
+.complete_registration_button{
+    color: #fff;
+    background-color: #2490ef;
+    border: 1px solid;
+    border-color: transparent;
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 4px 20px;
+    text-decoration: none; 
+}
+.complete_registration_button a{
+    text-decoration: none;
+    color: white;
+}
+

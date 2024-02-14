@@ -1,0 +1,24 @@
+#error_container{
+    display: none;
+    border: 1px solid red;
+    padding: 5px 5px;
+    color: red;
+    margin-bottom: 10px;
+}
+#signin_main_logo{
+    justify-content: center;
+}
+#signin_main_logo_div{
+    justify-content: center;
+}
+#signin_form_wellness_logo{
+    height: 100px;
+    width: 130px;
+    margin-left: -22px;
+}
+.signin_error_msg{
+    display: none;
+}
+#please_signin_div{
+    font-size: 22px;
+}

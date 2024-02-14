@@ -25,6 +25,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 
 from pathlib import Path, os
+from cryptography.fernet import Fernet
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,7 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +63,6 @@ MIDDLEWARE = [
     # other middleware classes
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
-    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -146,3 +147,30 @@ print(STATIC_DIR)
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# authenticating user using Email rather than Username
+AUTHENTICATION_BACKENDS = [
+    'authentication.authentication.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+# Changed User Model to CustomUser rather than 
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
+
+# configuration for sending mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'care@wellnesshospitals.co.in'
+EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
+
+
+# key for encrypting and decrypting email and expiry time for forgot password token
+EMAIL_VERIFICATION_SECRET_KEY = "4f9d3eb982fcf9c1c240d4e73f1103c8f0a1e1c7b0133b63f02d2c047b855f97"
+
+
+# http://127.0.0.1:8000/
+IP_ADDRESS = '127.0.0.1'
+PORT = '8000'
+

@@ -2,7 +2,7 @@
 {% load static%}
 
     {% block styles %}
-
+        <link rel="stylesheet" href="{% static 'assets\css\signin.css' %}">
     {% endblock %}
 
     {% block class %}
@@ -20,30 +20,60 @@
                             <div class="card-sigin mt-5 mt-md-0">
                                 <!-- Demo content-->
                                 <div class="main-card-signin d-md-flex">
-                                    <div class="wd-100p"><div class="d-flex mb-4"><a href="index"><img src="{% static 'assets/img/brand/favicon.png'%}" class="sign-favicon ht-40" alt="logo"></a></div>
+                                    <div class="wd-100p">
+                                        <div class="d-flex mb-4" id="signin_main_logo_div">
+                                            <a href="index">
+                                                <img id="signin_form_wellness_logo" src="{% static 'assets/img/nhcp_imgs/logos/wellness mobile logo transparent.png'%}" class="sign-favicon ht-40" alt="logo">
+                                            </a>
+                                        </div>
                                         <div class="">
                                             <div class="main-signup-header">
-                                                <h2>Welcome back!</h2>
-                                                <h6 class="font-weight-semibold mb-4">Please sign in to continue.</h6>
+                                                {% if verify_mail_sucess_message %}
+                                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                        <span>{{ verify_mail_sucess_message }}</span>
+                                                        <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                {% endif %}
+                                                {% if verify_mail_failure_message %}
+                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                        <span>{{ verify_mail_failure_message }}</span>
+                                                        <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                {% endif %}
+                                                <h2 id='please_signin_div'>Please sign in to continue</h2>
+                                                <!-- <h6 class="font-weight-semibold mb-4">Please sign in to continue.</h6> -->
                                                 <div class="panel panel-primary">
                                                 <div class=" tab-menu-heading mb-2 border-bottom-0">
                                                     <div class="tabs-menu1">
                                                         <ul class="nav panel-tabs">
-                                                            <li class="me-2"><a href="#tab5" class="active" data-bs-toggle="tab">Email</a></li>
-                                                            <li><a href="#tab6" data-bs-toggle="tab" class="">Mobile no</a></li>
+                                                            <!-- <li class="me-2"><a href="#tab5" class="active" data-bs-toggle="tab">Email</a></li> -->
+                                                            <!-- <li><a href="form #tab6" data-bs-toggle="tab" class="">Mobile no</a></li> -->
                                                         </ul>
                                                     </div>
                                                 </div>
                                                 <div class="panel-body tabs-menu-body border-0 p-3">
                                                     <div class="tab-content">
                                                         <div class="tab-pane active" id="tab5">
-                                                            <form action="#">
+                                                            <div id="error_container">
+                                                                <span id="error_msg">Try Again</span>
+                                                            </div>
+                                                            <form action="" id="signin-form">
+                                                                {% csrf_token %}
                                                                 <div class="form-group">
-                                                                    <label>Email</label> <input class="form-control" placeholder="Enter your email" type="text">
+                                                                    <label>Email</label> 
+                                                                    <input id="signin_email" class="form-control" placeholder="Enter your email" type="text">
+                                                                    <span style="color:red; display:none;" id="email_required_msg" class="signin_error_msg">Mail is required</span>
+                                                                    <span style="color:red; display:none;" id="valid_email_required_msg" class="signin_error_msg">Enter Valid Email</span>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Password</label> <input class="form-control" placeholder="Enter your password" type="password">
-                                                                </div><a href="index" class="btn btn-primary btn-block">Sign In</a>
+                                                                    <label>Password</label> 
+                                                                    <input id="signin_password" class="form-control" placeholder="Enter your password" type="password">
+                                                                    <span style="color:red; display:none;" id="password_required_msg" class="signin_error_msg">Password is required.</span>
+                                                                </div>
+                                                                <!-- <a href="" class="btn btn-primary btn-block">Sign In</a> -->
+                                                                <button type="submit" class="btn btn-primary btn-block" onclick="submit_func()">
+                                                                    Sign In
+                                                                </button>
                                                                 <div class="mt-4 d-flex mx-auto text-center justify-content-center mb-2">
                                                                     <a href="https://www.facebook.com/" target="_blank" class="btn btn-icon btn-facebook me-3" type="button">
                                                                         <span class="btn-inner--icon"> <i class="bx bxl-facebook tx-18 tx-prime"></i> </span>
@@ -58,34 +88,46 @@
                                                                         <span class="btn-inner--icon"> <i class="bx bxl-instagram tx-18 tx-prime"></i> </span>
                                                                     </a>
                                                                 </div>
-                                                                </form>
+                                                            </form>
                                                         </div>
+                                                        
                                                         <div class="tab-pane" id="tab6">
-                                                            <div id="mobile-num" class="wrap-input100 validate-input input-group mb-2">
-                                                                <a href="javascript:void(0);" class="input-group-text bg-white text-muted">
-                                                                    <span>+91</span>
-                                                                </a>
-                                                                <input class="input100 form-control" type="mobile" placeholder="Mobile">
+                                                            <div id="error_container">
+                                                                <span id="error_msg">Try Again</span>
                                                             </div>
-                                                            <div id="login-otp" class="justify-content-around mb-4">
-                                                                <input class="form-control  text-center me-2" id="txt1" maxlength="1">
-                                                                <input class="form-control  text-center me-2" id="txt2" maxlength="1">
-                                                                <input class="form-control  text-center me-2" id="txt3" maxlength="1">
-                                                                <input class="form-control  text-center" id="txt4" maxlength="1">
-                                                            </div>
-                                                            <span>Note : Login with registered mobile number to generate OTP.</span>
-                                                            <div class="container-login100-form-btn mt-3">
-                                                                <a href="javascript:void(0);" class="btn login100-form-btn btn-primary" id="generate-otp">
-                                                                        Proceed
-                                                                </a>
-                                                            </div>
+                                                            <form action="">
+                                                                <div id="mobile-num" class="wrap-input100 validate-input input-group mb-2">
+                                                                    <!-- <a href="javascript:void(0);" class="input-group-text bg-white text-muted">
+                                                                        <span>+91</span>
+                                                                    </a> -->
+                                                                    <!-- <input class="input100 form-control" id="signin_mobile" type="mobile" style="display: block;" placeholder="Mobile"> -->
+                                                                    <input id="phone" class="form-control" name="phone" placeholder="Enter your phone number"  type="tel">
+                                                                </div>
+                                                                <span style="color:red; display:none;" id="mobile_number_required_msg" class="signin_error_msg">Mobile Number is required.</span>
+                                                                <div id="login-otp" class="justify-content-around mb-4">
+                                                                    <input class="form-control  text-center me-2" id="txt1" maxlength="1">
+                                                                    <input class="form-control  text-center me-2" id="txt2" maxlength="1">
+                                                                    <input class="form-control  text-center me-2" id="txt3" maxlength="1">
+                                                                    <input class="form-control  text-center" id="txt4" maxlength="1">
+                                                                </div>
+                                                                <span>Note : Login with registered mobile number to generate OTP.</span>
+                                                                <div class="container-login100-form-btn mt-3">
+                                                                    <!-- <a href="javascript:void(0);" class="btn login100-form-btn btn-primary" id="generate-otp">
+                                                                            Proceed
+                                                                    </a> -->
+                                                                    <!-- <a href="/auth/signin"> -->
+                                                                        <input type="" class="btn btn-primary btn-block" onclick="submit_func()" value="Proceed"/>
+                                                                    <!-- </a> -->
+                                                                    
+                                                                </div>
+                                                            </form>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                                 <div class="main-signin-footer text-center mt-3">
-                                                    <p><a href="forgot" class="mb-3">Forgot password?</a></p>
+                                                    <p><a href="forgot_password_page" class="mb-3">Forgot password?</a></p>
                                                     <p>Don't have an account? <a href="signup">Create an Account</a></p>
                                                 </div>
                                             </div>
@@ -102,8 +144,14 @@
     {% endblock %}
 
     {% block scripts %}
-
+        <!-- script for  form validation, user entered data validation -->
+        <script src="{% static 'assets/js/signin.js'%}"></script>
+        <script src="{% static 'assets/js/helper_js/md5.js'%}"></script>
+        <script src="{% static 'assets/js/helper_js/display_signup_form_error_msg.js'%}"></script>
 		<!-- generate-otp js -->
 		<script src="{% static 'assets/js/generate-otp.js'%}"></script>
+
+                 
+
 
     {% endblock %}

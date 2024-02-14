@@ -14,7 +14,10 @@
 		<title> Nowa - Django Bootstrap 5 Admin & Dashboard Template </title>
 
 		{% include 'components/layouts/custom-styles.html'%}
-        {% block styles %}{% endblock %}
+        {% block styles %}
+            <!-- styling for centering the global loader -->
+		    <link rel="stylesheet" href="{% static 'assets\css\center_global_loader.css' %}">
+        {% endblock %}
 
     </head>
 	<body class="ltr error-page1">
@@ -23,7 +26,23 @@
 
             <!-- Loader -->
             <div id="global-loader">
-                <img src="{% static 'assets/img/loader.svg'%}" class="loader-img" alt="Loader">
+                <!-- <img src="{% static 'assets/img/loader.svg'%}" class="loader-img" alt="Loader"> -->
+                <div class="text-center">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
             </div>
             <!-- /Loader -->
 

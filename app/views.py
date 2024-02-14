@@ -1,4 +1,29 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+import logging
+
+# log configuration
+logging.basicConfig(
+    format='%(asctime)s [%(filename)s:%(lineno)d] %(levelname)-8s %(message)s',
+    level=logging.INFO,
+    datefmt='[%d/%b/%Y %H:%M:%S]')
+# examples
+# logging.info("Log Info Message")
+# logging.warning("Log Warning Message")
+# logging.error("Log Error Message")
+
+
+@login_required(login_url='auth/signin')
+def index(request):
+    return render(request, 'index.html')
+
+
+
+
+
+    
 
 # Create your views here.
 def aboutus(request):
@@ -129,8 +154,9 @@ def image_compare(request):
     return render(request, 'image-compare.html')
 def images(request):
     return render(request, 'images.html')
-def index(request):
-    return render(request, 'index.html')
+
+
+
 def index1(request):
     return render(request, 'index1.html')
 def index2(request):
@@ -195,10 +221,7 @@ def settings(request):
     return render(request, 'settings.html')
 def shop(request):
     return render(request, 'shop.html')
-def signin(request):
-    return render(request, 'signin.html')
-def signup(request):
-    return render(request, 'signup.html')
+
 def spinners(request):
     return render(request, 'spinners.html')
 def sweet_alert(request):

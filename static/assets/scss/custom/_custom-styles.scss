@@ -50,7 +50,8 @@
 #global-loader {
   position: fixed;
   z-index: 50000;
-  background: $white;
+  background: gray;
+  opacity: 0.7;
   left: 0;
   top: 0;
   right: 0;

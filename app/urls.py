@@ -45,7 +45,7 @@ urlpatterns = [
         path('file-manager', views.file_manager , name = 'file-manager'),
         path('file-manager1', views.file_manager1 , name = 'file-manager1'),
         path('flex', views.flex , name = 'flex'),
-        path('forgot', views.forgot , name = 'forgot'),
+        
         path('form-advanced', views.form_advanced , name = 'form-advanced'),
         path('form-editor', views.form_editor , name = 'form-editor'),
         path('form-elements', views.form_elements , name = 'form-elements'),
@@ -102,8 +102,6 @@ urlpatterns = [
         path('search', views.search , name = 'search'),
         path('settings', views.settings , name = 'settings'),
         path('shop', views.shop , name = 'shop'),
-        path('signin', views.signin , name = 'signin'),
-        path('signup', views.signup , name = 'signup'),
         path('spinners', views.spinners , name = 'spinners'),
         path('sweet-alert', views.sweet_alert , name = 'sweet-alert'),
         path('switcherpage', views.switcherpage , name = 'switcherpage'),
