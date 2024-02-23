@@ -60303,4 +60303,29 @@ a.text-dark:hover, a.text-dark:focus {
 .btn-w-lg {
   min-width: 150px; }
 
+  /* added by vinay */
+  .nhcp_programs_div{
+    width: 100%;
+    justify-content: center;
+  }
+  .know_more_btn{
+    margin-right: 10px;
+    background-color: #265093;
+    
+    color: white;
+    border-radius: 0;
+  }
+  .know_more_btn:hover {
+    background-color: #4489f6;
+    color: white;
+  }
+  .know_more_btn:focus {
+    /* margin-right: 10px; */
+    background-color: #4489f6;
+  }
+  .register_btn{
+    border-radius: 0;
+    background-color: #198754;
+  }
+
 /*# sourceMappingURL=style.css.map */

@@ -19,7 +19,13 @@ logging.basicConfig(
 def index(request):
     return render(request, 'index.html')
 
+@login_required(login_url='auth/signin')
+def add_dependents(request):
+    return render(request, 'nhcp_registration.html')
 
+# def reset_password_invalid_token(request):
+#     print('in reset_password_invalid_token')
+#     return render(request, 'reset_password_invalid_token.html')
 
 
 

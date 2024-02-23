@@ -33,7 +33,10 @@
                                                 <div class="">
                                                     <h2>Welcome back!</h2>
                                                     <h4 class="text-start">Reset Your Password</h4>
-                                                    <form method="post">
+                                                    <div id="error_container">
+                                                        <span id="error_msg">Try Again</span>
+                                                    </div>
+                                                    <form id="reset_password_form">
                                                         {% csrf_token %}
                                                         <!-- <div class="form-group text-start">
                                                             <label>Email</label>
@@ -41,11 +44,15 @@
                                                         </div> -->
                                                         <div class="form-group text-start">
                                                             <label>New Password</label>
-                                                            <input class="form-control" placeholder="New Password" type="password" name="new_password">
+                                                            <input id="reset_password" class="form-control" placeholder="New Password" type="password" name="new_password">
+                                                            <span style="color:red; display:none;" id="password_required_msg" class="signin_error_msg">Password is required.</span>
+                                                            <span style="color:red; display:none;" id="password_match_msg" class="signup_error_msg">Password and Confirm Password should Match</span>
                                                         </div>
                                                         <div class="form-group text-start">
                                                             <label>Confirm Password</label>
-                                                            <input class="form-control" placeholder="Confirm Password" type="password" name="new_confirm_password">
+                                                            <input id="confirm_reset_password" class="form-control" placeholder="Confirm Password" type="password" name="new_confirm_password">
+                                                            <span style="color:red; display:none;" id="confirm_password_required_msg" class="signin_error_msg">Confirm Password is required.</span>
+                                                            <span style="color:red; display:none;" id="confirm_password_match_msg" class="signup_error_msg">Password and Confirm Password should Match</span>
                                                         </div>
                                                         <!-- <a href="signin" class="btn ripple btn-primary btn-block">Reset Password</a> -->
                                                         <button type="submit" class="btn btn-primary btn-block" >
@@ -69,7 +76,7 @@
                                                 </div>
                                             </div>
                                             <div class="main-signup-footer mg-t-20 text-center">
-                                            <p>Already have an account? <a href="signin">Sign In</a></p>
+                                            <p>Already have an account? <a href="/auth/signin">Sign In</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -84,5 +91,7 @@
     {% endblock %}
 
     {% block scripts %}
-
+        <!-- script for  form validation, user entered data validation -->
+        <script src="{% static 'assets/js/helper_js/reset_password.js'%}"></script>
+        <script src="{% static 'assets/js/helper_js/md5.js'%}"></script>
     {% endblock %}>

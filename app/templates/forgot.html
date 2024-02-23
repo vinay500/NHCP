@@ -7,8 +7,8 @@
 
     {% block class %}
 
-        <div class="cover-image" data-image-src="{% static 'assets/img/backgrounds/1.jpg'%}">
-
+        <!-- <div class="cover-image" data-image-src="{% static 'assets/img/backgrounds/1.jpg'%}"> -->
+        <div class="bg-primary">
     {% endblock %}
 
     {% block content %}
@@ -40,23 +40,32 @@
                                                         <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
                                                     </div>
                                                 {% endif %}
+                                                <div id="error_container">
+                                                    <span id="error_msg">Try Again</span>
+                                                </div>
+                                                <div id="success_container">
+                                                    <span id="success_msg">Try Again</span>
+                                                </div>
                                                 <div class="main-signin-header">
                                                     <h2>Forgot Password!</h2>
                                                     <h4>Please Enter Your Email</h4>
-                                                    <form action="" method="post">
+                                                    <form method="post" id="forgot_password_form">
                                                         {% csrf_token %}
                                                         <div class="form-group">
                                                             <label>Email</label> 
-                                                            <input class="form-control" name="email" placeholder="Enter your email" type="text">
+                                                            <input id="forgot_password_mail" class="form-control" name="email" placeholder="Enter your email" type="text">
+                                                            <span style="color:red; display:none;" id="email_required_msg" class="signin_error_msg">Mail is required</span>
+                                                            <span style="color:red; display:none;" id="valid_email_required_msg" class="signin_error_msg">Enter Valid Email</span>
                                                         </div>
                                                         <!-- <a href="forgot_password_page" class="btn btn-primary btn-block">Send</a> -->
-                                                        <button type="submit" class="btn btn-primary btn-block" >
-                                                            Send
-                                                        </button>
+                                                        <button type="submit" class="btn btn-primary btn-block">Send</button>
+                                                        <!-- <button type="submit" class="btn btn-primary btn-block" >
+                                                            Create Account
+                                                        </button> -->
                                                     </form>
                                                 </div>
                                                 <div class="main-signup-footer mg-t-20 text-center">
-                                                    <p>Forget it, <a href="signin"> Send me back</a> to the sign in screen.</p>
+                                                    <p>Forget it, <a href="/auth/signin"> Send me back</a> to the sign in screen.</p>
                                                     
                                                 </div>
                                             </div>
@@ -74,5 +83,6 @@
     {% endblock %}
 
     {% block scripts %}
-
+        <!-- script for  form validation, user entered data validation -->
+        <script src="{% static 'assets/js/helper_js/forgot_password.js'%}"></script>
     {% endblock %}

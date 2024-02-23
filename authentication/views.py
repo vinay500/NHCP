@@ -6,9 +6,10 @@ from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import render
 from helper_views.authentication.send_signup_mail import send_registration_mail
 from helper_views.authentication.generate_verify_mail_token import get_mail_from_token
-from helper_views.authentication.send_forgot_password_mail import send_forgot_password_mail, decode_forgot_password_token, generate_forgot_password_token
+from helper_views.authentication.send_forgot_password_mail import send_forgot_password_mail, decode_forgot_password_token, generate_forgot_password_token, reset_password_token_expired_or_not
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime
+from datetime import datetime, timedelta
+from django.utils import timezone
 import logging
 
 # log configuration
@@ -333,7 +334,7 @@ def signup(request):
         return render(request, 'signup.html')
     
 
-def signin(request):
+def signin(request, reset_password_msg=None):
     if request.method=="POST":
         logging.info('in signin()')
         if request.POST['email']:
@@ -366,6 +367,9 @@ def signin(request):
         else:
             logging.error('{0} - User not found, Please Sign Up'.format(email))
             return HttpResponse("No account found for this email. Please verify email or sign up") 
+    elif reset_password_msg!=None:
+        logging.info(f'reset password msg: {reset_password_msg}')  
+        return render(request, 'signin.html',{'reset_password_msg':reset_password_msg})
     else:
         logging.warning('Not post request')
         return render(request, 'signin.html') 
@@ -399,28 +403,116 @@ def verify_mail(request, token):
                 return render(request, 'signin.html', {'verify_mail_failure_message':"Can't Verify Mail, Try Again"})
     
 
-def forgot_password_page(request):
+# error messages in forgot password page when this page is rendered from the reset password page
+# error_msg param is error message of the forgot password page
+def forgot_password_page(request, error_msg=None):
+    logging.info('in forgot_password_page')
     if request.method=="POST":
         email = request.POST['email']
-        logging.info(f'email: {email}')
+        logging.info(f'Email entered for Forgot Password Request: {email}')
         try:
             user_obj = CustomUser.objects.get(email = email)
+            logging.info(f'User Object with above email: {user_obj}')
             username = user_obj.username
-            logging.info(f'Sending Forgot Password Mail for {user_obj}')
-            email_token,  = generate_forgot_password_token(user_obj.email)
-            forgot_password = Forgot_Password_Request()
-            forgot_password.user = user_obj
-            # forgot_password.timestamp = 
+            logging.info(f'Username: {username}')
 
-            send_forgot_password_mail(email, username)
-            return render(request, 'forgot.html', {'forgot_password_mail_success':"Reset Password Link Sent, Kindly Check Your Mail"})
+            creat_new_forgot_password_request = False
+            delete_existing_forgot_password_request = False
+
+            logging.info(f'checking if the user has any forgot password request existing or not')
+            # checking if the user has any forgot password request existing or not
+            if Forgot_Password_Request.objects.filter(user = user_obj).exists():
+                logging.info(f'Forgot Password Request already Exists for User {user_obj}')
+                user_forgot_password_req = Forgot_Password_Request.objects.get(user = user_obj)
+                # Calculate the expiration time (24 hours from the timestamp)
+                expiration_time = user_forgot_password_req.timestamp + timezone.timedelta(minutes=10)
+                # Get the current time
+                current_time = timezone.now()
+                # checking if the existing forgot password object expired or not
+                if current_time > expiration_time:
+                    # forgot password request object expired
+                    creat_new_forgot_password_request = True
+                    delete_existing_forgot_password_request = True
+                    logging.info(f'Existing Forgot Password Request is Expired for user: {user_forgot_password_req}')
+                else:
+                    logging.info(f'Existing Forgot Password Request not Expired for user: {user_forgot_password_req}')
+                    # forgot password request object not expired
+                    try:
+                        # logging.info(f'Generating Token for Forgot Password Request')
+                        # user_forgot_password_req
+                        # token = generate_forgot_password_token(email)
+                        try:
+                            logging.info(f'Generating Token for Forgot Password Request')
+                            logging.info(f'Sending Mail for Forgot Password Request with Existing Token')
+                            #sending mail with existing token
+                            send_forgot_password_mail(email, username, user_forgot_password_req.token, expiration_time)
+                            # return render(request, 'forgot.html', {'forgot_password_mail_success':"Reset Password Link Sent, Kindly Check Your Mail"})
+                            return HttpResponse('forgot_password_success')
+                        except Exception as e:
+                            logging.error(f'e: {e}')
+                            logging.error("Can't Send Forgot Password Mail")
+                            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+                            return HttpResponse('Something Went Wrong, Try Again')
+                    except Exception as e:
+                        logging.error(f'e: {e}')
+                        logging.error("Can't Generate Forgot Password Token")
+                        # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+                        return HttpResponse('Something Went Wrong, Try Again')
+            else:
+                logging.info(f"Forgot Password Request doesn't Exists for User {user_obj}")
+                creat_new_forgot_password_request = True
+            if creat_new_forgot_password_request:
+                if delete_existing_forgot_password_request:
+                    logging.info(f"Deleting Existing Forgot Password Request for User {user_obj}")
+                    # fetching existing forgot password request
+                    user_forgot_password_req = Forgot_Password_Request.objects.get(user = user_obj)
+                    # deleting existing forgot password request
+                    user_forgot_password_req.delete()
+                try:
+                    logging.info(f'Generating Token for Forgot Password Request')
+                    reset_password_token  = generate_forgot_password_token(user_obj.email)
+                    try:
+                        logging.info(f"Generating Forgot Password Request for User {user_obj}")
+
+                        # creating new forgot password request 
+                        forgot_password_obj = Forgot_Password_Request()
+                        forgot_password_obj.user = user_obj
+                        forgot_password_obj.token = reset_password_token
+                        forgot_password_obj.save()
+                        try:
+                            expiry_time = timezone.now() + timezone.timedelta(hours=1)
+                            logging.info(f'Sending Forgot Password Mail for {user_obj}')
+                            #sending forgot password mail
+                            send_forgot_password_mail(email, username, reset_password_token, expiry_time)
+                            # return render(request, 'forgot.html', {'forgot_password_mail_success':"Reset Password Link Sent, Kindly Check Your Mail"})
+                            return HttpResponse('forgot_password_success')
+                        except Exception as e:
+                            logging.error(f'e: {e}')
+                            logging.error("Can't Send Forgot Password Mail")
+                            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+                            return HttpResponse('Something Went Wrong, Try Again')
+                    except Exception as e:
+                        logging.error(f'e: {e}')
+                        logging.error("Can't Create Forgot Password Request")
+                        # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+                        return HttpResponse('Something Went Wrong, Try Again')
+                except Exception as e:
+                    logging.error(f'e: {e}')
+                    logging.error("Can't Generate Forgot Password Token")
+                    # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+                    return HttpResponse('Something Went Wrong, Try Again')
         except ObjectDoesNotExist:
             logging.error("Can't Send Forgot Password Mail as Email not Registered")
-            return render(request, 'forgot.html', {'forgot_password_mail_failure':"Email not Registered, Try with Registered Mail"})
+            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Email not Registered, Try with Registered Mail"})
+            return HttpResponse('Email not Registered')
         except Exception as e:
             logging.error(f'e: {e}')
             logging.error("Can't Send Forgot Password Mail")
-            return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+            return HttpResponse('Something Went Wrong, Try Again')
+    elif error_msg!=None:
+        logging.info(f'error msg: {error_msg}')  
+        return render(request, 'forgot.html',{'forgot_password_mail_failure':error_msg})
     else: 
         logging.info(f'GET request for forgot_password_page()')  
         return render(request, 'forgot.html')
@@ -429,21 +521,61 @@ def forgot_password_page(request):
 def reset_password(request, token):
     if request.method=="POST":
         logging.info(f'Reset Password Token Received: {token}')
-        user_mail, expiry_timestamp = decode_forgot_password_token(token) 
-        logging.info(f'User Mail and Expiry Timestamp from Token: {user_mail}, {expiry_timestamp}')
-        current_time = datetime.utcnow()
-        logging.info(f'Current Time {current_time}')
-        if expiry_timestamp > current_time:
+        token_expired_or_not = reset_password_token_expired_or_not(token)
+        if token_expired_or_not == 'Reset Password Token not Expired':
             new_password = request.POST['new_password']
             new_confirm_password = request.POST['new_confirm_password']
             logging.info(f'User Reset Password new_password: {new_password} new_confirm_password: {new_confirm_password}')
-            return HttpResponse('POST req reset_password')
+            if new_password == new_confirm_password:
+                forgot_password_request_obj = Forgot_Password_Request.objects.get(token = token)
+                if forgot_password_request_obj:
+                    logging.info(f'Resetting Password for Forgot Password Request: {forgot_password_request_obj}')
+                    user_obj = forgot_password_request_obj.user
+                    user_obj.set_password(new_password)
+                    user_obj.save()
+                    return HttpResponse('Password Reset Successful')
+                    # return render(request, 'index.html', {'verify_mail_sucess_message':'Password Reset Successful'})
+                else:
+                    logging.error(f"Forgot Password Request Object doesn't exist")
+                    return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again With Link Sent In The Mail"})  
+            else:
+                logging.error(f"New Password and New Confirm Password are not Equal")
+                return render(request, 'reset.html', {'reset_password_failure':"Password and Confirm Password are not Equal"})
+        elif token_expired_or_not == "Can't Decode Token, Try Again":
+             return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
+        elif (token_expired_or_not == 'Token has expired') or (token_expired_or_not == 'Reset Password Token Expired'):
+            return HttpResponse('Reset Password Link Expired, Try Again')
+            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Reset Password Link Expired, Try Again"})
         else:
-            logging.error('')
-            return render(request, 'signin.html', {'verify_mail_failure_message':"Reset Password Link Expired, Try Again"})
+            logging.error(f'Something Went Wrong')
+            return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
     else:
-        return render(request, 'reset.html')
+        token_expired_or_not = reset_password_token_expired_or_not(token)
+        if token_expired_or_not == 'Reset Password Token not Expired':
+            logging.info('Reset Password Token not Expired')
+            return render(request, 'reset.html')
+        elif token_expired_or_not == "Invalid Token":
+             logging.info("Invalid Token")
+             return render(request, 'reset_password_invalid_token.html',{'msg':'Invalid Link, Try Again With Link Sent In The Mail'})
+        elif token_expired_or_not == "Can't Decode Token, Try Again":
+             logging.info("Can't Decode Token, Try Again")
+             return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
+        elif (token_expired_or_not == 'Reset Password Token Expired'):
+            logging.info('Token has expired')
+            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Reset Password Link Expired, Try Again"})
+            # return HttpResponse('Reset Password Link Expired, Try Again')
+            # below redirect will hit the dynamic url of forgot_password_page 
+            # ie., path('forgot_password_page/<str:error_msg>', views.forgot_password_page, name = 'forgot_password_page'), 
+            return redirect('forgot_password_page', error_msg='Reset Password Link Expired, Try Again')
+        else:
+            logging.info('Something Went Wrong, Try Again')
+            return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
 
+
+
+def reset_password_invalid_token(request):
+    # print('in reset_password_invalid_token')
+    return render(request, 'reset_password_invalid_token.html')
 
 
 @login_required(login_url='signin')

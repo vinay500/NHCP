@@ -64,7 +64,7 @@ class CustomUser(AbstractUser):
 class Forgot_Password_Request(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
-    token = models.TextField( unique=True)
+    token = models.TextField(unique=True)
 
     def __str__(self):
         return self.user.email

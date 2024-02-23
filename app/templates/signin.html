@@ -28,15 +28,9 @@
                                         </div>
                                         <div class="">
                                             <div class="main-signup-header">
-                                                {% if verify_mail_sucess_message %}
+                                                {% if reset_password_msg %}
                                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                        <span>{{ verify_mail_sucess_message }}</span>
-                                                        <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
-                                                    </div>
-                                                {% endif %}
-                                                {% if verify_mail_failure_message %}
-                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                        <span>{{ verify_mail_failure_message }}</span>
+                                                        <span>{{ reset_password_msg }}</span>
                                                         <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
                                                     </div>
                                                 {% endif %}
@@ -54,10 +48,16 @@
                                                 <div class="panel-body tabs-menu-body border-0 p-3">
                                                     <div class="tab-content">
                                                         <div class="tab-pane active" id="tab5">
+                                                            {% if reset_password_success %}
+                                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                                    <span>{{ reset_password_success_msg }}</span>
+                                                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
+                                                                </div>
+                                                            {% endif %} 
                                                             <div id="error_container">
                                                                 <span id="error_msg">Try Again</span>
                                                             </div>
-                                                            <form action="" id="signin-form">
+                                                            <form id="signin-form" method="post">
                                                                 {% csrf_token %}
                                                                 <div class="form-group">
                                                                     <label>Email</label> 
@@ -71,7 +71,8 @@
                                                                     <span style="color:red; display:none;" id="password_required_msg" class="signin_error_msg">Password is required.</span>
                                                                 </div>
                                                                 <!-- <a href="" class="btn btn-primary btn-block">Sign In</a> -->
-                                                                <button type="submit" class="btn btn-primary btn-block" onclick="submit_func()">
+                                                                <!-- <button type="submit" class="btn btn-primary btn-block" onclick="submit_func()"> -->
+                                                                <button type="submit" class="btn btn-primary btn-block">
                                                                     Sign In
                                                                 </button>
                                                                 <div class="mt-4 d-flex mx-auto text-center justify-content-center mb-2">
@@ -127,8 +128,8 @@
                                                 </div>
                                             </div>
                                                 <div class="main-signin-footer text-center mt-3">
-                                                    <p><a href="forgot_password_page" class="mb-3">Forgot password?</a></p>
-                                                    <p>Don't have an account? <a href="signup">Create an Account</a></p>
+                                                    <p><a href="/auth/forgot_password_page" class="mb-3">Forgot password?</a></p>
+                                                    <p>Don't have an account? <a href="/auth/signup">Create an Account</a></p>
                                                 </div>
                                             </div>
                                         </div>

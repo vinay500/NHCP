@@ -3,6 +3,9 @@ from . import views
 
 
 urlpatterns = [
+        # new paths
+        path('add_dependents', views.add_dependents , name = 'add_dependents'),
+        # path('reset_password_invalid_token', views.reset_password_invalid_token , name = 'reset_password_invalid_token'),
         
         path('', views.index , name = 'index'),
         path('aboutus', views.aboutus , name = 'aboutus'),
