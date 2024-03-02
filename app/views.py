@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.conf import settings as SETTINGS
 import logging
+import os
 
 # log configuration
 logging.basicConfig(
@@ -23,9 +25,34 @@ def index(request):
 def add_dependents(request):
     return render(request, 'nhcp_registration.html')
 
-# def reset_password_invalid_token(request):
-#     print('in reset_password_invalid_token')
-#     return render(request, 'reset_password_invalid_token.html')
+@login_required(login_url='auth/signin')
+def add_dependents_test(request):
+    return render(request, 'nhcp_registration_test.html')
+
+@login_required(login_url='auth/signin')
+def save_dependent(request):
+    # print('request.data: ',request.data)
+    print("POST data:")
+    for key, value in request.POST.items():
+        print(f"{key}: {value}")
+    if request.method == 'POST':
+        uploaded_file = request.FILES.get('dependent_docs')
+        print('uploaded_file ',uploaded_file)
+        if uploaded_file:
+            # Handle file processing
+            print(f"Received file: {uploaded_file.name}")
+            save_path = os.path.join(SETTINGS.BASE_DIR, 'static', 'assets', 'img', 'beyond_border_dependents_doc', uploaded_file.name)
+            try:
+                # Writing the uploaded file to the specified directory
+                with open(save_path, 'wb+') as destination:
+                    for chunk in uploaded_file.chunks():
+                        destination.write(chunk)
+                return HttpResponse("File uploaded successfully.")
+            except Exception as e:
+                # Handle exceptions that occurred during file upload
+                print(f"Failed to upload file. Error: {e}")
+                return HttpResponse("Failed to upload file.", status=500)
+    return render(request, 'nhcp_registration_test.html')
 
 
 

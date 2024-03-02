@@ -151,7 +151,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // let msg = document.getElementById('signup_msg');
             // msg.innerText='This email is already registered. Please use a different email';
             // signup_msg_div.style.display = 'block';
-            // window.location.href = "/auth/signin";
+            console.log('redirect user');
+            window.location.href = "/auth/signin";
             return;
           } else if (data = "This email is already registered. Please use a different email"){
               console.log('in different email');

@@ -562,8 +562,9 @@ def reset_password(request, token):
              return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
         elif (token_expired_or_not == 'Reset Password Token Expired'):
             logging.info('Token has expired')
+            # if render() is used then forgot.html is rendering but the url is not changing to forgot_password_page instead it is 
+            # being http://127.0.0.1:8000/auth/reset_password/token
             # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Reset Password Link Expired, Try Again"})
-            # return HttpResponse('Reset Password Link Expired, Try Again')
             # below redirect will hit the dynamic url of forgot_password_page 
             # ie., path('forgot_password_page/<str:error_msg>', views.forgot_password_page, name = 'forgot_password_page'), 
             return redirect('forgot_password_page', error_msg='Reset Password Link Expired, Try Again')

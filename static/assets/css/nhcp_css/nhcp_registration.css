@@ -1,3 +1,49 @@
+#wizard2{
+    padding: 10px 20px;
+}
+#wizard_div{
+    padding-left: 0;
+}
+.wizard_heading{
+    color: var(--primary-bg-color);
+}
+.tab-content{
+    overflow: visible;
+}
 #wizard2-p-1{
     display: block;
+}
+.nav-tabs {
+    border-bottom: 0;
+}
+.tab-number {
+    background-color: #d6d6e6;
+    color: white;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    text-align: center;
+  }
+  .tab-heading {
+    display: none; /* hide text initially */
+    margin-left: 8px; /* margin between number and text */
+  }
+  .nav-link.active .tab-number {
+    background-color: #265093;
+  }
+  .nav-link.active .tab-heading {
+    display: inline; /* show text when active */
+    color: #265093;
+  }
+#dob_label{
+    margin-bottom: 0;
+}
+#dob_input_group{
+    margin-top: 5px;
+}
+#submit_btn_div{
+    padding: 0;
+}
+#submit_btn{
+    margin-top: 10px;
 }

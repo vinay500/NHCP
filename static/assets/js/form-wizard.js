@@ -13,19 +13,38 @@
         autoFocus: true,
         titleTemplate: '<span class="number">#index#<\/span> <span class="title">#title#<\/span>',
         onStepChanging: function(event, currentIndex, newIndex) {
+            // console.log('current index before step 1', currentIndex)
             if (currentIndex < newIndex) {
                 // Step 1 form validation
                 if (currentIndex === 0) {
                     var fname = $('#firstname').parsley();
+                    // var fname = $('#datepicker-date').parsley();
                     var lname = $('#lastname').parsley();
-                    if (fname.isValid() && lname.isValid()) {
+                    // var lname = $('#user_gender').parsley();
+                    // if condition is executed when input fields are non-empty
+                    // if (fname.isValid() && lname.isValid()) {
+                    if (fname.validate() && lname.validate()) {
+                        console.log('in if AT LINE 25');
                         return true;
                     } else {
+                        // else is executed when input fields are empty
+                        // fname and lname is validated and error message is shown
                         fname.validate();
                         lname.validate();
+                        console.log('in else AT LINE 31');
+
+                        return false;
                     }
+                    // console.log('fname.isValid():',fname.isValid())
+                    // console.log('fname.validate():',fname.validate())
+                    // console.log('lname.validate():',lname.validate())
+                    // if (fname.validate() && lname.validate()) {
+                    //     console.log('in if AT LINE 25');
+                    //     return true;
+                    // } 
                 }
                 // Step 2 form validation
+                console.log('current index after step 1', currentIndex)
                 if (currentIndex === 1) {
                     var email = $('#email').parsley();
                     if (email.isValid()) {

@@ -1,8 +1,10 @@
-{% extends 'components/custom-base.html' %}
+{# extends 'components/custom-base.html' #}
+{% extends 'components/base.html' %}
 {% load static %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'assets\css\nhcp_css\nhcp_registration.css' %}">
+
 {% endblock %}
 
 {% block class %}
@@ -10,247 +12,145 @@
 {% endblock %}
 
 {% block content %}
-
-<!-- <div id="wizard2" role="application" class="wizard clearfix">
-    <div class="steps clearfix">
-        <ul role="tablist">
-            <li role="tab" class="first current error" aria-disabled="false" aria-selected="true">
-                <a id="wizard2-t-0" href="#wizard2-h-0" aria-controls="wizard2-p-0">
-                    <span class="current-info audible">current step:</span>
-                    <span class="number">1</span>
-                    <span class="title">Personal Information</span>
-                </a>
-            </li>
-            <li role="tab" class="disabled" aria-disabled="true" onclick="show_form_wizard('wizard2-h-1','wizard2-p-1')">
-                <a id="wizard2-t-1" href="#wizard2-h-1" aria-controls="wizard2-p-1">
-                    <span class="number">2</span>
-                    <span class="title">Billing Information</span>
-                </a>
-            </li>
-            <li role="tab" class="disabled last" aria-disabled="true">
-                <a id="wizard2-t-2" href="#wizard2-h-2" aria-controls="wizard2-p-2">
-                    <span class="number">3</span>
-                    <span class="title">Payment Details</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="content clearfix">
-        <h3 id="wizard2-h-0" tabindex="-1" class="title current">Personal Information</h3>
-        <section id="wizard2-p-0" role="tabpanel" aria-labelledby="wizard2-h-0" class="body current"
-            aria-hidden="false">
-            <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
-            <div class="row row-sm">
-                <div class="col-md-5 col-lg-4">
-                    <label class="form-control-label">Firstname: <span class="tx-danger">*</span></label> <input
-                        class="form-control parsley-error" id="firstname" name="firstname" placeholder="Enter firstname"
-                        required="" type="text" data-parsley-id="3" aria-describedby="parsley-id-3">
-                    <ul class="parsley-errors-list filled" id="parsley-id-3">
-                        <li class="parsley-required">This value is required.</li>
-                    </ul>
+    <div class="card">
+        <div class="card-body">
+            <div id="wizard2" role="application" class="wizard clearfix">
+                <div class="steps clearfix" id="wizard_div">
+                    <ul class="nav">
+                        <li class="nav-item">
+                          <a class="nav-link active" data-bs-toggle="tab" href="#wizard2-p-0">
+                            <span class="tab-number">1</span>
+                            <span class="tab-heading">Personal Information</span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="tab" href="#wizard2-p-1">
+                            <span class="tab-number">2</span>
+                            <span class="tab-heading">Add Dependents</span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-bs-toggle="tab" href="#wizard2-p-2">
+                            <span class="tab-number">3</span>
+                            <span class="tab-heading">Heading 3</span>
+                          </a>
+                        </li>
+                      </ul>
                 </div>
-                <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
-                    <label class="form-control-label">Lastname: <span class="tx-danger">*</span></label> <input
-                        class="form-control parsley-error" id="lastname" name="lastname" placeholder="Enter lastname"
-                        required="" type="text" data-parsley-id="5" aria-describedby="parsley-id-5">
-                    <ul class="parsley-errors-list filled" id="parsley-id-5">
-                        <li class="parsley-required">This value is required.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <h3 id="wizard2-h-1" tabindex="-1" class="title">Billing Information</h3>
-        <section id="wizard2-p-1" role="tabpanel" aria-labelledby="wizard2-h-1" class="body" aria-hidden="true"
-            style="display: none;">
-            <p>Wonderful transition effects.</p>
-            <div class="form-group wd-xs-300">
-                <label class="form-control-label">Email: <span class="tx-danger">*</span></label> <input
-                    class="form-control" id="email" name="email" placeholder="Enter email address" required=""
-                    type="email">
-            </div>
-        </section>
-        <h3 id="wizard2-h-2" tabindex="-1" class="title">Payment Details</h3>
-        <section id="wizard2-p-2" role="tabpanel" aria-labelledby="wizard2-h-2" class="body" aria-hidden="true"
-            style="display: none;">
-            <div class="form-group">
-                <label class="form-label">CardHolder Name</label>
-                <input type="text" class="form-control" id="name11" placeholder="First Name">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Card number</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-append">
-                        <button class="btn btn-secondary" type="button"><i class="fab fa-cc-visa"></i> &nbsp; <i
-                                class="fab fa-cc-amex"></i> &nbsp;
-                            <i class="fab fa-cc-mastercard"></i></button>
-                    </span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group mb-sm-0">
-                        <label class="form-label">Expiration</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" placeholder="MM" name="expiremonth">
-                            <input type="number" class="form-control" placeholder="YY" name="expireyear">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="wizard2-p-0" role="tabpanel" aria-labelledby="wizard2-h-0">
+                        <div>
+                            <form class="g-3 needs-validation">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="datepicker-date" class="form-label" id="dob_label">DATE OF BIRTH</label>
+                                        <div class="input-group" id="dob_input_group">
+                                            <div class="input-group-text">
+                                                <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                            </div>
+                                            <input class="form-control" id="datepicker-date" placeholder="MM/DD/YYYY" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="user_gender" class="form-label">Gender</label>
+                                        <select id="user_gender" name="somename" class="form-control SlectBox" onclick="console.log($(this).val())" onchange="console.log('change is firing')">
+                                            <option selected disabled value="">Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="foreign_address" class="form-label">Foreign Address</label>
+                                        <textarea id="foreign_address" class="form-control" placeholder="" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="wizard2-p-1" role="tabpanel" aria-labelledby="wizard2-h-1">
+                        <div>
+                            <p>hi second div</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="wizard2-p-2" role="tabpanel" aria-labelledby="wizard2-h-2">
+                        <div>
+                            <p>hi third div</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 ">
-                    <div class="form-group mb-0">
-                        <label class="form-label">CVV <i class="fa fa-question-circle"></i></label>
-                        <input type="number" class="form-control" required="">
-                    </div>
-                </div>
             </div>
-        </section>
-    </div>
-    <div class="actions clearfix">
-        <ul role="menu" aria-label="Pagination">
-            <li class="disabled" aria-disabled="true"><a href="#previous" role="menuitem">Previous</a></li>
-            <li aria-hidden="false" aria-disabled="false"><a href="#next" role="menuitem">Next</a></li>
-            <li aria-hidden="true" style="display: none;"><a href="#finish" role="menuitem">Finish</a></li>
-        </ul>
-    </div>
-</div> -->
-
-
-<!-- <div id="wizard2" role="application" class="wizard clearfix">
-    <div class="steps clearfix">
-        <ul role="tablist">
-            <li role="tab" class="first current error" aria-disabled="false" aria-selected="true">
-                <a id="wizard2-t-0" data-toggle="collapse" aria-expanded="false" href="#wizard2-h-0" aria-controls="wizard2-p-0">
-                    <span class="current-info audible">current step:</span>
-                    <span class="number">1</span>
-                    <span class="title">Personal Information</span>
-                </a>
-            </li>
-            <li role="tab" class="first current" aria-disabled="false" aria-selected="true">
-                <a id="wizard2-t-1" href="#wizard2-h-1" aria-controls="wizard2-p-1" role="button" aria-expanded="false" >
-                    <span class="number">2</span>
-                    <span class="title">Billing Information</span>
-                </a>
-            </li>
-            <li role="tab" class="disabled last" aria-disabled="true">
-                <a id="wizard2-t-2" href="#wizard2-h-2" aria-controls="wizard2-p-2">
-                    <span class="number">3</span>
-                    <span class="title">Payment Details</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="content clearfix">
-        <h3 id="wizard2-h-0" tabindex="-1" class="title current">Personal Information</h3>
-        <section id="wizard2-p-0" role="tabpanel" aria-labelledby="wizard2-h-0" class="body current"
-            aria-hidden="false">
-            <p class="mg-b-20">Try the keyboard navigation by clicking arrow left or right!</p>
-            <div class="row row-sm">
-                <div class="col-md-5 col-lg-4">
-                    <label class="form-control-label">Firstname: <span class="tx-danger">*</span></label> <input
-                        class="form-control parsley-error" id="firstname" name="firstname" placeholder="Enter firstname"
-                        required="" type="text" data-parsley-id="3" aria-describedby="parsley-id-3">
-                    <ul class="parsley-errors-list filled" id="parsley-id-3">
-                        <li class="parsley-required">This value is required.</li>
-                    </ul>
-                </div>
-                <div class="col-md-5 col-lg-4 mg-t-20 mg-md-t-0">
-                    <label class="form-control-label">Lastname: <span class="tx-danger">*</span></label> <input
-                        class="form-control parsley-error" id="lastname" name="lastname" placeholder="Enter lastname"
-                        required="" type="text" data-parsley-id="5" aria-describedby="parsley-id-5">
-                    <ul class="parsley-errors-list filled" id="parsley-id-5">
-                        <li class="parsley-required">This value is required</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <h3 id="wizard2-h-1" tabindex="-1" class="title">Billing Information</h3>
-        <section id="wizard2-p-1" role="tabpanel" aria-labelledby="wizard2-h-1" class="body" aria-hidden="true"
-            style="display: none;">
-            <p>Wonderful transition effects.</p>
-            <div class="form-group wd-xs-300">
-                <label class="form-control-label">Email: <span class="tx-danger">*</span></label> <input
-                    class="form-control" id="email" name="email" placeholder="Enter email address" required=""
-                    type="email">
-            </div>
-        </section>
-        <h3 id="wizard2-h-2" tabindex="-1" class="title">Payment Details</h3>
-        <section id="wizard2-p-2" role="tabpanel" aria-labelledby="wizard2-h-2" class="body" aria-hidden="true"
-            style="display: none;">
-            <div class="form-group">
-                <label class="form-label">CardHolder Name</label>
-                <input type="text" class="form-control" id="name11" placeholder="First Name">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Card number</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-append">
-                        <button class="btn btn-secondary" type="button"><i class="fab fa-cc-visa"></i> &nbsp; <i
-                                class="fab fa-cc-amex"></i> &nbsp;
-                            <i class="fab fa-cc-mastercard"></i></button>
-                    </span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group mb-sm-0">
-                        <label class="form-label">Expiration</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" placeholder="MM" name="expiremonth">
-                            <input type="number" class="form-control" placeholder="YY" name="expireyear">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 ">
-                    <div class="form-group mb-0">
-                        <label class="form-label">CVV <i class="fa fa-question-circle"></i></label>
-                        <input type="number" class="form-control" required="">
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-    <div class="actions clearfix">
-        <ul role="menu" aria-label="Pagination">
-            <li class="disabled" aria-disabled="true"><a href="#previous" role="menuitem">Previous</a></li>
-            <li aria-hidden="false" aria-disabled="false"><a href="#next" role="menuitem">Next</a></li>
-            <li aria-hidden="true" style="display: none;"><a href="#finish" role="menuitem">Finish</a></li>
-        </ul>
-    </div>
-</div> -->
-
-<p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Toggle second element</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Toggle both elements</button>
-  </p>
-  <div class="row">
-    <div class="col">
-      <div class="collapse multi-collapse" id="multiCollapseExample1">
-        <div class="card card-body">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
         </div>
-      </div>
     </div>
-    <div class="col">
-      <div class="collapse multi-collapse" id="multiCollapseExample2">
-        <div class="card card-body">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
-      </div>
-    </div>
-  </div>
 
 {% endblock %}
 
 {% block scripts %}
 
-<script>
-    function show_form_wizard(heading_id, section_id){
-        document.getElementById('heading_id').classList.add('current')
-        document.getElementById('section_id').style.display='block'
-    }
-</script>
+<!-- <script>
+    $("#example-basic").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        autoFocus: true
+    });
+</script> -->
+
+
+
+
+    <script src="{% static 'assets/plugins/jquery/jquery.min.js'%}"></script>
+    <!--Internal  Datepicker js -->
+    <script src="{% static 'assets/plugins/jquery-ui/ui/widgets/datepicker.js'%}"></script>
+    <!--Bootstrap-datepicker js-->
+    <script src="{% static 'assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js'%}"></script>
+
+    <!--Internal  Select2 js -->
+    <script src="{% static 'assets/plugins/select2/js/select2.min.js'%}"></script>
+
+    <!-- Internal Jquery.steps js --> 
+    
+    <script src="{% static 'assets/plugins/parsleyjs/parsley.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/jquery-steps/jquery.steps.min.js'%}"></script>
+
+
+    <script>
+        //Date picker
+        // $('#datepicker-date').bootstrapdatepicker({
+        //     format: "dd-mm-yyyy",
+        //     viewMode: "date",
+        //     multidate: true,
+        //     multidateSeparator: "-",
+        // })
+        // jquery steps
+        // $("#wizard2").steps({
+        //     headerTag: "h3",
+        //     bodyTag: "section",
+        //     transitionEffect: "slideLeft",
+        //     autoFocus: true
+        // });
+    </script>
+    <script src="{% static 'assets/js/helper_js/nhcp_registration.js'%}"></script>    
+    <script src="/static/assets/js/form-wizard.js"></script>
+    <!-- <script src="{% static 'assets/plugins/fileuploads/js/fileupload.js'%}"></script>
+    <script src="{% static 'assets/plugins/fileuploads/js/file-upload.js'%}"></script>
+
+    <script src="{% static 'assets/plugins/fancyuploder/jquery.ui.widget.js'%}"></script>
+    <script src="{% static 'assets/plugins/fancyuploder/jquery.fileupload.js'%}"></script>
+    <script src="{% static 'assets/plugins/fancyuploder/jquery.iframe-transport.js'%}"></script>
+    <script src="{% static 'assets/plugins/fancyuploder/jquery.fancy-fileupload.js'%}"></script>
+    <script src="{% static 'assets/plugins/fancyuploder/fancy-uploader.js'%}"></script>
+
+	<script src="{% static 'assets/js/themecolor.js'%}"></script>
+
+    <script src="/static/assets/plugins/jquery-steps/jquery.steps.min.js"></script> -->
+
+
+    
+
+
+
+    
 
 {% endblock %}

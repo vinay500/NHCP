@@ -4,6 +4,7 @@
     {% block styles %}
 		<!-- styling for centering the global loader -->
 		<link rel="stylesheet" href="{% static 'assets/css/center_global_loader.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/nhcp_css/index.css' %}">
     {% endblock %}
 
     {% block content %}
@@ -21,6 +22,7 @@
 						</div>
 					</div>
 					<!-- /breadcrumb -->
+					
 					<!-- Programs Container -->
 					<div class="row">
 						<div class="col-xxl-6 col-xl-12 col-lg-12 col-md-12">
@@ -40,10 +42,10 @@
 											<!-- <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 tx-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
 											<a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 tx-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a> -->
 											<button class="mr-3 btn  know_more_btn">Know More</button>
-											<a href="">
-												<button class="btn btn-success register_btn">Register</button>
-											</a>
-											
+											<!-- <a href="">
+												<button class="btn btn-success register_btn" data-bs-target="#scrollmodal" data-bs-toggle="modal" href>Register</button>
+											</a> -->
+											<button class="btn btn-success register_btn" data-bs-target="#scrollmodal" data-bs-toggle="modal" href>Register</button>
 										</div>
 									</div>
 								</div>
@@ -66,7 +68,7 @@
 											<!-- <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 tx-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
 											<a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 tx-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a> -->
 											<button class="mr-3 btn know_more_btn">Know More</button>
-											<button class="btn btn-success register_btn">Register</button>
+											<button class="btn btn-success register_btn" data-bs-target="#scrollmodal" data-bs-toggle="modal" href>Register</button>
 										</div>
 									</div>
 								</div>
@@ -122,6 +124,50 @@
 							</div>
 						</div>
 					</div>
+					<!-- Scroll with content modal -->
+                    <div class="modal fade" id="scrollmodal">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content modal-content-demo">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">Terms and Conditions</h6>
+									<button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button">
+										<span aria-hidden="true">&times;</span>
+									</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                                    <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. </p>
+                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+                                    <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
+                                    <p>These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.</p>
+								</div>
+                                <div class="modal-footer">
+									<form action="" method="post">
+										{% csrf_token %}
+										<div class="modal_footer_form_content">
+											<div>
+												<input type="checkbox" id="beyond_borders_terms_conditions" onclick="beyond_borders_terms_and_condition_register_btn(this,'beyond_borders_register_btn')" style="margin-top: 3px;">
+												<label for="beyond_borders_terms_conditions">Accept Terms and Conditions</label>
+											</div>
+											<div>
+												<button class="btn ripple btn-primary" id="beyond_borders_register_btn" type="button" disabled>
+													<a>Register</a>
+												</button>
+											</div>
+										</div>
+										
+										
+									</form>
+                                    
+										
+										
+									
+                                    <!-- <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">Close</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Scroll with content modal -->
 					<!-- row -->
 	<!-- commented from here for nhcp homepage -->
 					<!-- <div class="row">

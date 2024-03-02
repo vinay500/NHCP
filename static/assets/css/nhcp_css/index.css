@@ -1,0 +1,10 @@
+.modal-footer form{
+    width: 100%;
+} 
+.modal_footer_form_content{
+    display: flex; 
+    justify-content: space-between;
+}
+#beyond_borders_register_btn a{
+    color: white;
+}
