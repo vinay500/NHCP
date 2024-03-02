@@ -1,3 +1,6 @@
+#ingnore the images while adding dependents in beyond borders program 
+static/assets/img/beyond_border_dependents_doc/*
+
 *.pyc 
 _pycache_/
 *.py[cod]
