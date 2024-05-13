@@ -1,0 +1,92 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'assets\css\nhcp_css\view_dependent.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="view_dependent_parent_div">
+    <h3 id="add_dependent_section_heading">Dependent Details</h3>
+    <!-- <section id="membership_card">
+        <div class="card_container"> 
+            <img class="card__front-square card__square" src="{% static 'assets\img\nhcp_imgs\logos\wellness mobile logo transparent.png' %}">
+            <p class="card_numer">{{ dependent_dict.membership_id }}</p>
+            <div class="card__space-75"> <span class="card__label">Card holder</span>
+                <p class="card__info">{{ dependent_dict.first_name }}</p>
+            </div>
+            <div class="card__space-25"> <span class="card__label">Expires</span>
+                <p class="card__info">10/25</p>
+            </div>
+        </div>
+    </section> -->
+    <section id="dependent_details">
+        <div class="row">
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">First Name</label>
+                <div id="firstname" class="text-display">{{ dependent_dict.first_name }}</div>
+            </div>
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Last Name</label>
+                <div id="lastname" class="text-display">{{ dependent_dict.last_name }}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Email</label>
+                <div id="email" class="text-display">{{ dependent_dict.email }}</div>
+            </div>
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Phone Number</label>
+                <div id="mobile-number" class="text-display">{{ dependent_dict.phone_number }}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">DATE OF BIRTH</label>
+                <div id="dependent_datepicker-date" class="text-display">{{ dependent_dict.date_of_birth }}</div>
+            </div>
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Address</label>
+                <div id="dependent_address" class="text-display">{{ dependent_dict.address }}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Gender</label>
+                <div id="dependent_gender" class="text-display">{{ dependent_dict.gender }}</div>
+            </div>
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Relation</label>
+                <div id="relation" class="text-display">{{ dependent_dict.relation }}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Current Issue and Treatment Expected</label>
+                <div id="current_issue_treatment_expected" class="text-display">{{dependent_dict.current_issue_treatment_expected }}</div>
+            </div>
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Health Insurance Details:</label>
+                <div id="health_insurance_details" class="text-display">{{ dependent_dict.health_insurance_details }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 view_dependent_form_field">
+                <label class="form-label">Any Documents</label>
+                {% if dependent_dict.image_data %}
+                    <img src="data:image/jpeg;base64,{{ dependent_dict.image_data }}" alt="Dependent Image">
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

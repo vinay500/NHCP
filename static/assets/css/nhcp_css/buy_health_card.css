@@ -1,0 +1,104 @@
+.main_container{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    background-color: #fff;
+    padding: 20px;
+}
+.community_health_cards_poster{
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#community_health_cards_poster_img{
+    margin: 0 auto;
+    max-width: 60%;
+}
+.main_content{
+    width: 35%;
+    margin: 0;
+    background-color: rgb(153 153 153 / 7%);
+    height: 85vh;
+    overflow: hidden auto;
+}
+.membership_card_div{
+    padding-top: 20px;  
+    text-align: center;
+    position: sticky;
+    top: 0;
+    /* background-color: rgb(0, 93, 172); */
+    background-color: #fff;
+    z-index: 99;
+    box-shadow: rgba(0, 0, 0, 0.26) 0px -4px 12px 0px;
+}
+.membership_card_div img{
+    width: 70%;
+    padding-bottom: 15px;
+}
+.plan_benefits_div{
+    margin: 20px 10px 0 20px;
+    overflow:auto hidden;
+}
+.plan_benefits{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.plan_benefit{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    gap: 5px;
+    padding: 20px 15px;
+    border-radius: 10px;
+    box-shadow: rgba(164, 169, 173, 0.2) 0px 0px 33px 0px;
+    background-color: #fff;
+}
+.plan_benefits_heading{
+    color: rgb(0, 93, 172);
+    line-height: 1.5;
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 0px 0px, 0px 0px, rgb(136, 136, 136) 0px 0px;
+    text-align: center;
+    margin: 0px 10px 15px;
+}
+.payment_form_div{
+    
+}
+.intl-tel-input{
+    width: 100%;
+}
+#mobile-number{
+    width: 100%;
+}
+.submit_div{
+    padding: 20px 0;
+    text-align: center;
+    background-color: #fff; 
+    box-shadow: rgba(0, 0, 0, 0.26) 0px -4px 12px 0px;
+    margin-top: 40px;
+    position: sticky;
+    bottom: 0;
+}
+.submit_div button{
+    background-color: var(--primary-bg-color);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 10px;
+    color: white;
+}
+@media  screen and (max-width:700px) {
+    .membership_card_div img{
+        width: 40%;
+    }
+}
+
+
+@media  screen and (max-width:500px) {
+    .membership_card_div img{
+        width: 70%;
+    }
+}
+

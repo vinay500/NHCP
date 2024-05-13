@@ -3,7 +3,7 @@
 <div class="sticky">
 	<aside class="app-sidebar">
 		<div class="main-sidebar-header active">
-			<a class="header-logo active" href="index">
+			<a class="header-logo active" href="/index">
 				<img src="{% static 'assets/img/nhcp_imgs/logos/transparent_logo.png' %}"
 					class="main-logo  desktop-logo" alt="logo">
 				<img src="{% static 'assets/img/brand/logo-white.png' %}" class="main-logo  desktop-dark" alt="logo">
@@ -17,24 +17,92 @@
 					width="24" height="24" viewBox="0 0 24 24">
 					<path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" />
 				</svg></div>
-			<ul class="side-menu">
-				<li class="side-item side-item-category">Main</li>
+			<ul class="side-menu" id="side_menu">
+				<!-- <li class="side-item side-item-category">Main</li> -->
 				<li class="slide">
-					<a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg
+					<a class="side-menu__item" data-bs-toggle="slide" href="/add_dependents_test"><svg
 							xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
 							viewBox="0 0 24 24">
 							<path
 								d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
-						</svg><span class="side-menu__label">Home</span>
+						</svg><span class="side-menu__label" style="" disabled>Home</span>
 						<!-- <i class="angle fe fe-chevron-right"></i> -->
 					</a>
-					<!-- <ul class="slide-menu">
-										<li class="side-menu__label1"><a href="javascript:void(0);">Dashboards</a></li>
-										<li><a class="slide-item active" href="index">Dashboard-1</a></li>
-										<li><a class="slide-item" href="index1">Dashboard-2</a></li>
-										<li><a class="slide-item" href="index2">Dashboard-3</a></li>
-									</ul> -->
 				</li>
+				{% if programs_registered %}
+					<!-- {{ programs_registered }} -->
+					<!-- <div><p>in program loop</p></div> -->
+					{% if 'Beyond Borders' in programs_registered %}
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="/add_dependents_test"><svg
+									xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
+									viewBox="0 0 24 24">
+									<path
+										d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
+								</svg><span class="side-menu__label" style="" disabled>Beyond Borders</span>
+								<!-- <i class="angle fe fe-chevron-right"></i> -->
+							</a>
+							<ul class="slide-menu">
+								<li><a class="slide-item active" href="">Add Dependent</a></li>
+								<li><a class="slide-item" href="/view_dependents">View Dependent</a></li>
+							</ul>
+						</li>
+					{% endif %}
+					{% if 'Community Health Cards' in programs_registered %}
+					<li class="slide">
+						<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
+								xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
+								viewBox="0 0 24 24">
+								<path
+									d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
+							</svg><span class="side-menu__label" style="" disabled>Community Health Cards</span>
+							<!-- <i class="angle fe fe-chevron-right"></i> -->
+						</a>
+						<ul class="slide-menu">
+							<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
+							<li><a class="slide-item active" href="index">Dashboard-1</a></li>
+							<li><a class="slide-item" href="index1">Dashboard-2</a></li>
+							<li><a class="slide-item" href="index2">Dashboard-3</a></li>
+						</ul>
+					</li>
+					{% endif %}
+					{% if 'Heal In India' in programs_registered %}
+					<li class="slide">
+						<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
+								xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
+								viewBox="0 0 24 24">
+								<path
+									d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
+							</svg><span class="side-menu__label" style="" disabled>Heal In India</span>
+							<!-- <i class="angle fe fe-chevron-right"></i> -->
+						</a>
+						<ul class="slide-menu">
+							<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
+							<li><a class="slide-item active" href="index">Dashboard-1</a></li>
+							<li><a class="slide-item" href="index1">Dashboard-2</a></li>
+							<li><a class="slide-item" href="index2">Dashboard-3</a></li>
+						</ul>
+					</li>
+					{% endif %}
+					{% if 'Home Care Services' in programs_registered %}
+					<li class="slide">
+						<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
+								xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
+								viewBox="0 0 24 24">
+								<path
+									d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
+							</svg><span class="side-menu__label" style="" disabled>Home Care Services</span>
+							<!-- <i class="angle fe fe-chevron-right"></i> -->
+						</a>
+						<ul class="slide-menu">
+							<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
+							<li><a class="slide-item active" href="index">Dashboard-1</a></li>
+							<li><a class="slide-item" href="index1">Dashboard-2</a></li>
+							<li><a class="slide-item" href="index2">Dashboard-3</a></li>
+						</ul>
+					</li>
+					{% endif %}
+				{% endif %}
 				<!-- <li class="side-item side-item-category">WEB APPS</li>
 								<li class="slide">
 									<a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M10 3H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM9 9H5V5h4v4zm11-6h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 6h-4V5h4v4zm-9 4H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1zm-1 6H5v-4h4v4zm8-6c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0 6c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/></svg><span class="side-menu__label">Apps</span><i class="angle fe fe-chevron-right"></i></a>
@@ -268,4 +336,149 @@
 		</div>
 	</aside>
 </div>
+
+
+<script>
+// Simulated response from the backend
+// const programsFromBackend = ['Beyond Borders', 'Community Health Cards', 'Home Care Services'];
+
+function display_submenu_options(submenu_id){
+	console.log('in display_submenu_options')
+	
+	let x = document.getElementById(submenu_id);
+	console.log('x.style.display: ',x.style.display)
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
+	}
+}
+
+// Data structure mapping program names to their HTML content
+const programsData = {
+	'Beyond Borders': `<li class="slide" onclick="display_submenu_options('beyond_borders_submenu')" style="cursor:pointer">
+							<!-- SVG for Beyond Borders -->
+							<a class="side-menu__item" href="javascript:void(0)">
+								<span class="side-menu__label">Beyond Borders</span>	
+							</a>
+							<ul class="slide-menu" id="beyond_borders_submenu" style="display:none">
+							<li><a class="slide-item" href="/add_dependents_test">Add Dependent</a></li>
+							<li><a class="slide-item" href="/view_dependents">View Dependent</a></li>
+							</ul>
+						</li>`,
+  'Community Health Cards': `<li class="slide" onclick="display_submenu_options('community_health_cards_submenu')">
+                              <a class="side-menu__item" href="javascript:void(0)">
+                                <!-- SVG for Community Health Cards -->
+                                <span class="side-menu__label">Community Health Cards</span>
+                              </a>
+                              <ul class="slide-menu" id="community_health_cards_submenu" style="display:none">
+                                <li><a class="slide-item" href="/community_health_cards">Buy Health Card</a></li>
+                              </ul>
+                            </li>`,
+  'Home Care Services': `<li class="slide" onclick="display_submenu_options('home_care_services_submenu')" style="cursor:pointer">
+                          <a class="side-menu__item" href="#">
+                            <!-- SVG for Home Care Services -->
+                            <span class="side-menu__label">Home Care Services</span>
+                          </a>
+                          <ul class="slide-menu" id="home_care_services_submenu" style="display:none">
+                            <li><a class="slide-item" href="index">Dashboard-1</a></li>
+                            <li><a class="slide-item" href="index1">Dashboard-2</a></li>
+                            <li><a class="slide-item" href="index2">Dashboard-3</a></li>
+                          </ul>
+                        </li>`,
+  'Heal In India': `<li class="slide" onclick="display_submenu_options('heal_in_india_submenu')"  style="cursor:pointer">
+                      <a class="side-menu__item" href="#">
+                        <!-- SVG for Heal In India -->
+                        <span class="side-menu__label">Heal In India</span>
+                      </a>
+                      <ul class="slide-menu" id="heal_in_india_submenu" style="display:none">
+                        <li><a class="slide-item" href="index">Dashboard-1</a></li>
+                        <li><a class="slide-item" href="index1">Dashboard-2</a></li>
+                        <li><a class="slide-item" href="index2">Dashboard-3</a></li>
+                      </ul>
+                    </li>`
+};
+
+// Select the menu container
+const menuContainer = document.getElementById('side_menu');
+
+
+// Function to render the programs menu based on the backend response
+function renderProgramsMenu(programs) {
+        const menuContainer = document.getElementById('side_menu');
+        menuContainer.innerHTML = ''; // Clear the menu container first
+		console.log("programs: ",programs)
+		console.log("programs['programs_registered']: ",programs['programs_registered'])
+        // Assuming programs is an array of program names
+        programs.forEach(program => {
+            if(programsData[program]) {
+                // Directly insert HTML without creating a div
+                menuContainer.insertAdjacentHTML('beforeend', programsData[program]);
+            }
+        });
+    }
+
+// Call the function with the backend response
+// renderProgramsMenu(programsFromBackend);
+
+function getCSRFToken() {
+  let csrfToken = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, "csrftoken".length + 1) === ("csrftoken" + '=')) {
+        csrfToken = decodeURIComponent(cookie.substring("csrftoken".length + 1));
+        break;
+      }
+    }
+  }
+  return csrfToken;
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Async function to call a backend URL
+    async function fetchBackendData() {
+        console.log('in fetch');
+        const url = '/get_user_programs'; // Replace with your actual backend URL
+        const csrfToken = getCSRFToken();
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log('fetch data:', data);
+            return data;
+        } catch (error) {
+            console.error('There was a problem with your fetch operation:', error);
+        }
+    }
+
+    // Call the async function
+    fetchBackendData().then(data => {
+        if(data && data.programs_registered) {
+            console.log('Data received from backend:', data);
+            renderProgramsMenu(data.programs_registered);
+        }
+    }).catch(error => {
+        console.error('Error fetching data:', error);
+    });
+});
+</script>
+
+
+
+
 <!-- main-sidebar -->

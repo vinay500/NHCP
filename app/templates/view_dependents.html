@@ -1,0 +1,101 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+    {% block styles %}
+        <link rel="stylesheet" href="{% static 'assets\css\nhcp_css\view_dependents.css' %}">
+    {% endblock %}
+
+    {% block content %}
+
+        <div class="row row-sm">
+            <div class="col-lg-12">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <!-- <div>
+                            <h6 class="main-content-label mb-1">Deleted Row DataTable</h6>
+                            <p class="text-muted card-sub-title">Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.</p>
+                        </div> -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap border-bottom" id="responsive-datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Membership ID</th>
+                                        <th>First name</th>
+                                        <th>Last name</th>
+                                        <th>E-mail</th>
+                                        <th>Date Of Birth</th>
+                                        <th>Gender</th>
+                                        <th>Relation</th>
+                                        <th>Phone Number</th>
+                                        <th>Country</th>
+                                        <!-- <th>View</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td>Prasanna</td>
+                                        <td>Nixon</td>
+                                        <td>t.nixon@datatables.net</td>
+                                        <td>System Architect</td>
+                                        <td>Edinburgh</td>
+                                        <td>61</td>
+                                        <td>2011/04/25</td>
+                                        <td>$320,800</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Garrett</td>
+                                        <td>Winters</td>
+                                        <td>g.winters@datatables.net</td>
+                                        <td>Accountant</td>
+                                        <td>Tokyo</td>
+                                        <td>63</td>
+                                        <td>2011/07/25</td>
+                                        <td>$170,750</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ashton</td>
+                                        <td>Cox</td>
+                                        <td>a.cox@datatables.net</td>
+                                        <td>Junior Technical Author</td>
+                                        <td>San Francisco</td>
+                                        <td>66</td>
+                                        <td>2009/01/12</td>
+                                        <td>$86,000</td>
+                                    </tr> -->
+                                    {% for dependent in dependents_list %}
+                                        <tr mem_id="{{ dependent.membership_id }}">
+                                            <td>{{ dependent.membership_id }}</td>
+                                            <td>{{ dependent.first_name }}</td>
+                                            <td>{{ dependent.last_name }}</td>
+                                            <td>{{ dependent.email }}</td>
+                                            <!-- Use the date filter to format the date_of_birth -->
+                                            <td>{{ dependent.date_of_birth|date:"d-m-Y" }}</td>
+                                            <td>{{ dependent.gender }}</td>
+                                            <td>{{ dependent.relation }}</td>
+                                            <td>{{ dependent.phone_number }}</td>
+                                            <td>{{ dependent.country }}</td>
+                                            <!-- <td>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </td> -->
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block scripts %}
+        <script src="{% static 'assets/plugins/datatable/dataTables.responsive.min.js'%}"></script>
+        <script src="{% static 'assets/plugins/datatable/js/jquery.dataTables.min.js'%}"></script>
+		<script src="{% static 'assets/plugins/datatable/dataTables.responsive.min.js'%}"></script>
+		<script src="{% static 'assets/plugins/datatable/responsive.bootstrap5.min.js'%}"></script>
+		<script src="{% static 'assets/js/table-data.js'%}"></script>
+
+        <script src="{% static 'assets/js/helper_js/view_dependents.js'%}"></script>
+    {% endblock %}

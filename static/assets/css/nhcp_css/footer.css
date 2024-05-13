@@ -1,0 +1,19 @@
+#footer_content{
+    gap:10px;
+}
+
+@media screen and (max-width:800px) {
+    #footer_content{
+        display: flex;
+        flex-direction: column;
+    }
+        .footer_content_item{
+        margin: 5px 0;
+    }
+    .footer_content_item:nth-child(2) {
+        order: 3;
+    }
+    .footer_content_item:nth-child(3) {
+        order: 2;
+    }
+}

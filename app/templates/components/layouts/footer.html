@@ -1,9 +1,22 @@
 {% load static %}
+	{% block styles %}
+		<link rel="stylesheet" href="{% static 'assets\css\nhcp_css\footer.css' %}">
+	{% endblock %}
+
+
 			<!-- Footer opened -->
-			<div class="main-footer">
+			<div class="main-footer" style="background-color: var(--primary-bg-color); color: white;">
 				<div class="col-md-12 col-sm-12 text-center">
-					<div class="container-fluid pt-0 ht-100p">
-						Copyright © 2022 <a href="javascript:void(0);" class="text-primary">nowa</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0);"> Spruko </a> All rights reserved
+					<div id="footer_content" class="container-fluid pt-0 ht-100p" style="display: flex; justify-content: space-between;">
+						<div class="footer_content_item">
+							Wellness Hospitals
+						</div>
+						<div class="footer_content_item">
+							Copyright © 2024  Prodify Innovatives All rights reserved
+						</div>
+						<div class="footer_content_item">
+							Technology Partner - Prodify Innovatives
+						</div>
 					</div>
 				</div>
 			</div>

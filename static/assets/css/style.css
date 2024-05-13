@@ -26247,7 +26247,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
       .wizard > .steps .current a:hover .number,
       .wizard > .steps .current a:active .number {
         background-color: var(--primary-bg-color) !important; }
-    .wizard > .steps .done a {
+    /* .wizard > .steps .done a {
       color: #f74f75; }
       .wizard > .steps .done a:hover, .wizard > .steps .done a:active {
         color: #f74f75; }
@@ -26258,7 +26258,24 @@ table.dataTable tfoot th, table.dataTable tfoot td {
       .wizard > .steps .done a .number,
       .wizard > .steps .done a:hover .number,
       .wizard > .steps .done a:active .number {
-        background-color: #f74f75; }
+        background-color: #f74f75; } */
+      /* manually added green colour to section heading   */
+        .wizard > .steps .done a {
+          color: green; 
+        }
+        .wizard > .steps .done a:hover, .wizard > .steps .done a:active {
+          color: green; 
+        }
+        .wizard > .steps .done a .title,
+        .wizard > .steps .done a:hover .title,
+        .wizard > .steps .done a:active .title {
+          display: none; 
+        }
+        .wizard > .steps .done a .number,
+        .wizard > .steps .done a:hover .number,
+        .wizard > .steps .done a:active .number {
+          background-color: green; 
+        }
   .wizard > .content {
     border-top: 1px solid #f0f0f8;
     border-bottom: 1px solid #f0f0f8;
@@ -26289,8 +26306,11 @@ table.dataTable tfoot th, table.dataTable tfoot td {
       list-style: none;
       display: flex;
       justify-content: space-between; }
-      .wizard > .actions > ul > li:last-child a {
-        background-color: #f74f75; }
+      /* .wizard > .actions > ul > li:last-child a {
+        background-color: #f74f75; } */
+        /* manually added to green color the finish button */
+        .wizard > .actions > ul > li:last-child a {
+          background-color: green; }
     .wizard > .actions a {
       display: block;
       background-color: var(--primary-bg-color);
@@ -60311,7 +60331,6 @@ a.text-dark:hover, a.text-dark:focus {
   .know_more_btn{
     margin-right: 10px;
     background-color: #265093;
-    
     color: white;
     border-radius: 0;
   }
@@ -60329,3 +60348,17 @@ a.text-dark:hover, a.text-dark:focus {
   }
 
 /*# sourceMappingURL=style.css.map */
+/* added by vinay */
+@media screen and (max-width:450px) {
+
+  .card-body{
+    padding: 15px 0 0 0;
+  }
+  .know_more_btn, .register_btn{
+    font-size: 12px;
+    align-items: center;
+    padding: 5px;
+    height: fit-content;
+  }
+
+}

@@ -1,0 +1,77 @@
+#view_dependent_parent_div{
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+}
+#membership_card{
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ededf5;
+}
+.card{
+    width: 320px;
+    height: fit-content;
+    margin: 102px 62px 0 0px;
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+    perspective:600px;
+    }
+  
+  .card_container{
+      width: 320px;
+      height: 170px;
+      background-image:linear-gradient(to right bottom, #fd696b, #fa616e, #f65871, #f15075, #ec4879); /*linear-gradient(to right bottom, #fd8369, #fc7870, #f96e78, #f56581, #ee5d8a)*/
+      border-radius: 8px;
+      padding: 18px;
+  }
+  .card__logo {
+      height: 20px;
+  }
+  .card__square {
+      border-radius: 5px;
+      height: 30px;
+  }
+  .card_numer {
+      display: block;
+      width: 100%;
+      word-spacing: 4px;
+      font-size: 20px;
+      letter-spacing: 2px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+      margin-top: 15px;
+  }
+  .card__space-75 {
+      width: 75%;
+      float: left;
+  }
+  .card__space-25 {
+      width: 25%;
+      float: left;
+  }
+  .card__label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 1px;
+  }
+  .card__info {
+      margin-bottom: 0;
+      margin-top: 5px;
+      font-size: 16px;
+      line-height: 18px;
+      color: #fff;
+      letter-spacing: 1px;
+  }
+.view_dependent_form_field{
+    /* display: flex; */
+}
+.text-display{
+    margin-top: 10px;
+    padding: 10px 5px;
+    height: 40px;
+    border: 1px solid #ededf5;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}

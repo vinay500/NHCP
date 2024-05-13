@@ -7,152 +7,199 @@
 
     {% block content %}
 
-					<!-- breadcrumb -->
-					<!-- <div class="breadcrumb-header justify-content-between">
-						<div class="left-content">
-						  <span class="main-content-title mg-b-0 mg-b-lg-1">FORM WIZARD</span>
-						</div>
-						<div class="justify-content-center mt-2">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Form Wizard</li>
-							</ol>
-						</div>
-					</div> -->
-					<!-- /breadcrumb -->
+        <!-- breadcrumb -->
+        <!-- <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <span class="main-content-title mg-b-0 mg-b-lg-1">FORM WIZARD</span>
+            </div>
+            <div class="justify-content-center mt-2">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Forms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form Wizard</li>
+                </ol>
+            </div>
+        </div> -->
+        <!-- /breadcrumb -->
 
-					<!-- row -->
-					<div class="row">
-						<div class="col-lg-12 col-md-12">
-							<div class="card">
-                                <form action="" method="post" id="add_dependent_form">
-                                    {% csrf_token %}
-                                    <div class="card-body">
-                                        <!-- <div class="main-content-label mg-b-5">
-                                            Basic Wizard With Validation
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+    
+                <div class="card">
+                    {% if error %}
+                        <div id="signup_msg_div" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span id="signup_msg">{{error}}</span>
+                            <button id="signup_msg_btn" type="button" class="btn-close" onclick="hide_signup_msg()">
+                                <span>×</span>
+                            </button>
+                        </div> 
+                    {% endif %}
+
+                    <form action="/save_dependent" id="add_dependent_form" method="post" enctype="multipart/form-data">
+                        <div id="add_dependent_cant_change_div" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span> Dependent details can not be Changed, Once Added. For any changes, please contact our support at 1234567891 </span>
+                            <!-- <button id="signup_msg_btn" type="button" class="btn-close" onclick="hide_signup_msg()">
+                                <span>×</span>
+                            </button> -->
+                        </div> 
+                        {% if context.dependent_saved %}
+                            <!-- <div id="add_dependent_cant_change_div" class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span> Dependent Added Successfully </span>
+                                <button id="signup_msg_btn" type="button" class="btn-close">
+                                    <span>×</span>
+                                </button>
+                            </div>  -->
+                            <div class="alert alert-success alert-dismissible fade show dependent_added_success_msg" role="alert">
+                                Dependent Added Successfully
+                                <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
+                            </div>
+                        {% endif %}
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <!-- <div class="main-content-label mg-b-5">
+                                Basic Wizard With Validation
+                            </div>
+                            <p class="mg-b-20">It is Very Easy to Customize and it uses in your website application.</p> -->
+                            <div id="wizard2">
+                                <!-- <div id="user_details_already_submitted">
+                                    {{ context.user_details_already_submitted }}
+                                </div> -->
+                                {% if not context.user_details_already_submitted %}
+                                    <h3>Personal Information</h3>
+                                    <section>   
+                                        <div class="row">   
+                                            <div class="col-md-6">
+                                                <!-- this date picker uses bootstrap date picker -->
+                                                <label for="datepicker-date" class="form-label" id="dob_label">DATE OF BIRTH <span class="tx-danger">*</span></label>
+                                                <div class="input-group" id="dob_input_group">
+                                                    <div class="input-group-text">
+                                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                                    </div>
+                                                    <input class="form-control" id="datepicker-date" placeholder="MM/DD/YYYY" type="text"  
+                                                        name="datepicker-date" onchange="validateDateOfBirth(this.value)" data-parsley-errors-container="#dob_errors" 
+                                                        required data-parsley-valid-date-dd-mm-yyyy>
+                                                </div>
+                                                <div id="dob_errors">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="user_gender" class="form-label">Gender <span class="tx-danger">*</span></label>
+                                                <select id="user_gender" name="user_gender" class="form-control SlectBox"  onclick="console.log($(this).val())" onchange="console.log('change is firing')"  required data-parsley-valid-gender>
+                                                    <option selected disabled value="">Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <p class="mg-b-20">It is Very Easy to Customize and it uses in your website application.</p> -->
-                                        <div id="wizard2">
-                                            <h3>Personal Information</h3>
-                                            <section>   
-                                                <!-- <form> -->
-                                                    <!-- <div class="col-md-6">
-                                                    <label for="validationDefault03" class="form-label">City</label>
-                                                    <input type="text" class="form-control" id="validationDefault03" required>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                    <label for="validationDefault04" class="form-label">State</label>
-                                                    <select class="form-select" id="validationDefault04" required>
-                                                        <option selected disabled value="">Choose...</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                    <label for="validationDefault05" class="form-label">Zip</label>
-                                                    <input type="text" class="form-control" id="validationDefault05" required>
-                                                    </div>
-                                                    <div class="col-12">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                                                        <label class="form-check-label" for="invalidCheck2">
-                                                        Agree to terms and conditions
-                                                        </label>
-                                                    </div>
-                                                    </div> -->
-
-
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <!-- this date picker uses bootstrap date picker -->
-                                                            <label for="datepicker-date" class="form-label" id="dob_label">DATE OF BIRTH <span class="tx-danger">*</span></label>
-                                                            <div class="input-group" id="dob_input_group">
-                                                                <div class="input-group-text">
-                                                                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                                                                </div>
-                                                                <input class="form-control" id="datepicker-date" placeholder="MM/DD/YYYY" type="text"  
-                                                                    onchange="validateDateOfBirth(this.value)" data-parsley-errors-container="#dob_errors" 
-                                                                    required data-parsley-valid-date-dd-mm-yyyy>
-                                                            </div>
-                                                            <div id="dob_errors">
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label for="user_gender" class="form-label">Gender <span class="tx-danger">*</span></label>
-                                                            <select id="user_gender" name="somename" class="form-control SlectBox"  onclick="console.log($(this).val())" onchange="console.log('change is firing')" required data-parsley-valid-gender>
-                                                                <option selected disabled value="">Gender</option>
-                                                                <option value="Male">Male</option>
-                                                                <option value="Female">Female</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label for="foreign_address" class="form-label">Foreign Address <span class="tx-danger">*</span></label>
-                                                            <textarea id="foreign_address" class="form-control" placeholder="" rows="3" required></textarea>
-                                                        </div>
-                                                    </div>
-                                                <!-- </form> -->
-                                            </section>
-                                            <h3>Add Dependent</h3>
-                                            <section>
-                                                <!-- <p>Wonderful transition effects.</p> -->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Firstname <span class="tx-danger">*</span></label> <input class="form-control" id="firstname" name="firstname" placeholder="Enter firstname" required="" type="text">
-                                                    </div>
-                                                    <div class="col-md-6 mg-t-20 mg-md-t-0">
-                                                        <label class="form-label">Lastname <span class="tx-danger">*</span></label> <input class="form-control" id="lastname" name="lastname" placeholder="Enter lastname" required="" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Email <span class="tx-danger">*</span></label>
-                                                        <input class="form-control" id="email" name="email" placeholder="Enter email address" required="" type="email">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <!-- <label class="form-label">Phone Number <span class="tx-danger">*</span></label>
-                                                        <input class="form-control" id="phone_number" name="phone_number" placeholder="Enter Phone Number" required="" type="number"> -->
-                                                        
-                                                        <label class="form-label">Phone Number <span class="tx-danger">*</span></label>
-                                                        <div class="input-group telephone-input ">
-                                                            <input  class="form-control" type="tel" id="mobile-number" placeholder="e.g. +1 702 123 4567" required="" data-parsley-valid-mobile-number>
-                                                            <!-- <span class="input-group-btn">
-                                                                <button class="btn ripple btn-primary" type="button">Submit</button>
-                                                            </span> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label for="dependent_address" class="form-label">Address  <span class="tx-danger">*</span></label>
-                                                        <textarea id="dependent_address" class="form-control" placeholder="Enter Address" rows="3" required></textarea>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="current_issue_treatment_expected" class="form-label">Current Issue and Treatment Expected</label>
-                                                        <textarea id="current_issue_treatment_expected" class="form-control" placeholder="" rows="3" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label for="health_insurance_details" class="form-label">Health Insurance Details</label>
-                                                        <textarea id="health_insurance_details" class="form-control" placeholder="" rows="3" required></textarea>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="dependent_docs" class="form-label">Any Documents</label>
-                                                        <!-- <textarea id="dependent_docs" class="form-control" placeholder="" rows="3" required></textarea> -->
-                                                        <input type="file" id="dependent_doc" class="dropify" data-height="85" />
-                                                    </div>
-                                                </div>
-                                            </section>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="foreign_address" class="form-label">Foreign Address <span class="tx-danger">*</span></label>
+                                                <textarea id="foreign_address" name="foreign_address" class="form-control" placeholder="" rows="3" required></textarea>
+                                            </div>
+                                        </div>
+                                    </section>
+                                {% endif %}
+                                <h3 id="add_dependent_section_heading">Add Dependent</h3>
+                                <section id="add_dependent_section">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Firstname <span class="tx-danger">*</span></label> <input class="form-control" id="firstname" name="firstname" placeholder="Enter firstname"  type="text" required>
+                                        </div>
+                                        <div class="col-md-6 mg-t-20 mg-md-t-0">
+                                            <label class="form-label">Lastname <span class="tx-danger">*</span></label> <input class="form-control" id="lastname" name="lastname" placeholder="Enter lastname"  type="text" required>
                                         </div>
                                     </div>
-                                </form>
-							</div>
-						</div>
-					</div>
-					
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Email <span class="tx-danger">*</span></label>
+                                            <input class="form-control" id="email" name="email" placeholder="Enter email address"  type="email" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Phone Number <span class="tx-danger">*</span></label>
+                                            <div class="input-group telephone-input ">
+                                                <input  class="form-control" type="tel" id="mobile-number" name="mobile-number" placeholder="e.g. +1 702 123 4567" required data-parsley-valid-mobile-number>
+                                                <!-- <input id="mobile-number" class="form-control" name="mobile-number" placeholder="Enter your phone number"  type="tel" required data-parsley-valid-mobile-number> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="datepicker-date" class="form-label" id="dob_label" name="dob_label">DATE OF BIRTH <span class="tx-danger">*</span></label>
+                                                <div class="input-group" id="dob_input_group">
+                                                    <div class="input-group-text">
+                                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                                    </div>
+                                                    <input class="form-control" id="dependent_datepicker-date" placeholder="MM/DD/YYYY" type="text"  
+                                                    name="dependent_datepicker-date" onchange="validateDependentDateOfBirth(this.value)" data-parsley-errors-container="#dependent_dob_errors" 
+                                                    required data-parsley-valid-date-dependent-dd-mm-yyyy>
+                                                </div>
+                                                <div id="dependent_dob_errors">
 
+                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="dependent_address" class="form-label">Address  <span class="tx-danger">*</span></label>
+                                            <textarea id="dependent_address" name="dependent_address" class="form-control" placeholder="Enter Address" rows="3" required ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="dependent_gender" class="form-label">Gender <span class="tx-danger">*</span></label>
+                                            <select id="dependent_gender" name="dependent_gender" class="form-control SlectBox"  onclick="console.log($(this).val())" onchange="console.log('change is firing')"  required data-parsley-valid-gender>
+                                                <option selected disabled value="">Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="relation" class="form-label">Relation <span class="tx-danger">*</span></label>
+                                            <select id="relation" name="relation" class="form-control SlectBox"  onclick="console.log($(this).val())" onchange="console.log('change is firing')"  required data-parsley-valid-relation>
+                                                <option selected disabled value="">Relation</option>
+                                                <option value="Father">Father</option>
+                                                <option value="Mother">Mother</option>
+                                                <option value="Husband"> Husband</option>
+                                                <option value="Wife"> Wife</option>
+                                                <option value="Son"> Son</option>
+                                                <option value="Daughter"> Daughter</option>
+                                                <option value="Sibling"> Sibling</option>
+                                                <option value="Grand Father"> Grand Father</option>
+                                                <option value="Grand Mother"> Grand Mother</option>
+                                                <option value="Father In Law"> Father In Law</option>
+                                                <option value="Mother In Law"> Mother In Law</option>
+                                            </select>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="current_issue_treatment_expected" class="form-label">Current Issue and Treatment Expected</label>
+                                            <textarea id="current_issue_treatment_expected" name="current_issue_treatment_expected" class="form-control" placeholder="" rows="3"  ></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="health_insurance_details" class="form-label">Health Insurance Details</label>
+                                            <textarea id="health_insurance_details" name="health_insurance_details" class="form-control" placeholder="" rows="3"  ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="dependent_doc" class="form-label">Any Documents</label>
+                                            <input type="file" id="dependent_doc" name="dependent_doc" class="dropify" data-height="85" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="checkbox" id="finished" name="finished" disabled hidden>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" id="country" name="country" disabled hidden>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     {% endblock %}
 
     {% block scripts %}
@@ -183,12 +230,18 @@
 
 		<!-- themecolor JS -->
 		<script src="{% static 'assets/js/themecolor.js'%}"></script>
-
         <script src="{% static 'assets/js/helper_js/nhcp_registration_test.js'%}"></script>
 
         <script>
             //Date picker
             $('#datepicker-date').bootstrapdatepicker({
+                format: "dd-mm-yyyy",
+                viewMode: "date",
+                multidateSeparator: "-",
+                orientation: 'bottom',
+                todayHighlight: true,
+            })
+            $('#dependent_datepicker-date').bootstrapdatepicker({
                 format: "dd-mm-yyyy",
                 viewMode: "date",
                 multidateSeparator: "-",
@@ -204,7 +257,4 @@
         <!--Internal Fileuploads js-->
         <script src="{% static 'assets/plugins/fileuploads/js/fileupload.js'%}"></script>
         <script src="{% static 'assets/plugins/fileuploads/js/file-upload.js'%}"></script>
-        
-        
-
     {% endblock %}

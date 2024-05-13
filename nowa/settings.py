@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'authentication',
+    'beyond_borders',
+    'community_health_cards',
 ]
 
 MIDDLEWARE = [

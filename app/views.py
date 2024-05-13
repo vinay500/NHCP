@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from authentication.models import CustomUser
+from .models import Program, UsersRegistered
 from django.http import HttpResponse
 from django.conf import settings as SETTINGS
+from django.http import JsonResponse
 import logging
 import os
 
@@ -19,7 +21,106 @@ logging.basicConfig(
 
 @login_required(login_url='auth/signin')
 def index(request):
-    return render(request, 'index.html')
+    print('in index view')
+    logged_in_user = request.user
+    print('logged in user: ',logged_in_user)
+    user_register_programs = UsersRegistered.objects.filter(user = logged_in_user)
+    print('user_register_programs: ',user_register_programs)
+    if len(user_register_programs) > 0:
+        # programs_registered = {
+        #     'beyond_borders':False,
+        #     'community_health_cards':False,
+        #     'heal_in_india':False,
+        #     'home_care_services':False
+        #     }
+        # for registered_program in user_register_programs:
+        #     print('program: ',registered_program)
+        #     print('program name: ',registered_program.program)
+        #     if registered_program.program == 'Beyond Borders':
+        #         programs_registered['beyond_borders'] = True
+        #     if registered_program.program == 'Community Health Cards':
+        #         programs_registered['community_health_cards'] = True
+        #     if registered_program.program == 'Heal In India':
+        #         programs_registered['heal_in_india'] = True
+        #     if registered_program.program == 'Home Care Services':
+        #         programs_registered['home_care_services'] = True
+        # print('programs_registered: ',programs_registered)
+        # return render(request, 'index.html', {'programs_registered': programs_registered})
+
+        programs_registered = []
+        for registered_program in user_register_programs:
+            print('program: ',registered_program)
+            print('program name: ',registered_program.program)
+            programs_registered.append(registered_program.program.program_name)
+        print('programs_registered: ',programs_registered)
+        print('Beyond Borders in programs_registered: ', 'Beyond Borders' in programs_registered)
+        return render(request, 'index.html', {'programs_registered': programs_registered})
+    else:
+        return render(request, 'index.html')
+    
+
+
+@login_required(login_url='auth/signin')
+def get_user_programs(request):
+    print('in index view')
+    logged_in_user = request.user
+    print('logged in user: ',logged_in_user)
+    user_register_programs = UsersRegistered.objects.filter(user = logged_in_user)
+    print('user_register_programs: ',user_register_programs)
+    if len(user_register_programs) > 0:
+        programs_registered = []
+        for registered_program in user_register_programs:
+            print('program: ',registered_program)
+            print('program name: ',registered_program.program)
+            programs_registered.append(registered_program.program.program_name)
+        print('programs_registered: ',programs_registered)
+        print('Beyond Borders in programs_registered: ', 'Beyond Borders' in programs_registered)
+        return JsonResponse({'programs_registered':programs_registered})
+    else:
+        return JsonResponse({'programs_registered':[]})
+
+
+@login_required(login_url='auth/signin')
+def register_user_for_program(request):
+    print('in register_user_for_program')
+    user = request.user
+    print('current user:', user)
+    logging.info("Logged In User: ",user)
+    if request.method=='POST':
+        print('in post method')
+        program = request.POST.get('program_name')
+        logging.info("User trying to Register for the Program: ",program)
+        print('program: ',program)
+        user_obj = CustomUser.objects.get(email = user)
+        program_obj = Program.objects.get(program_name = program)
+        print('user_obj: ',user_obj)
+        print('program_obj: ',program_obj)
+        try:
+            if UsersRegistered.objects.filter(program = program_obj, user = user_obj).exists():
+                logging.info('User Already Registered in the Program')
+                return redirect('add_dependents_test')
+            else:
+                user_register_obj = UsersRegistered()
+                user_register_obj.program = program_obj
+                user_register_obj.user = user
+                print('user_register_obj created')
+                try:
+                    user_register_obj.save()
+                    print('user_register_obj saved')
+                    logging.info(f"User {user} Registered for the Program: {program}")
+                    return redirect('add_dependents_test')
+                except Exception as e:
+                    logging.error("Can't Register User for the Program")
+                    print('e: ',e)
+                    return render(request, 'index.html', {'error':'Unable to Register, Try Again'})
+        except Exception as e:
+            logging.error("Can't Register User for the Program")
+            print('e: ',e)
+            return render(request, 'index.html', {'error':'Unable to Register, Try Again'})
+
+
+
+
 
 @login_required(login_url='auth/signin')
 def add_dependents(request):
@@ -27,32 +128,24 @@ def add_dependents(request):
 
 @login_required(login_url='auth/signin')
 def add_dependents_test(request):
-    return render(request, 'nhcp_registration_test.html')
+    logged_in_user = request.user
+    custom_user_obj = CustomUser.objects.get(email = logged_in_user)
+    print('custom_user_obj.gender: ',custom_user_obj.gender)
+    print('custom_user_obj.date_of_birth: ',custom_user_obj.date_of_birth)
+    print('custom_user_obj.foreign_address: ',custom_user_obj.foreign_address)
+    if custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address:
+        print('in custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
+        context = {'user_details_already_submitted':'successs'}
+        print('context: ',context)
+        # return render(request, 'nhcp_registration_test.html',{'dependent_saved':'successs'})
+        return render(request, 'nhcp_registration_test.html',{'context':context})
+    else:
+        print('in else of custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
+        return render(request, 'nhcp_registration_test.html')
 
-@login_required(login_url='auth/signin')
-def save_dependent(request):
-    # print('request.data: ',request.data)
-    print("POST data:")
-    for key, value in request.POST.items():
-        print(f"{key}: {value}")
-    if request.method == 'POST':
-        uploaded_file = request.FILES.get('dependent_docs')
-        print('uploaded_file ',uploaded_file)
-        if uploaded_file:
-            # Handle file processing
-            print(f"Received file: {uploaded_file.name}")
-            save_path = os.path.join(SETTINGS.BASE_DIR, 'static', 'assets', 'img', 'beyond_border_dependents_doc', uploaded_file.name)
-            try:
-                # Writing the uploaded file to the specified directory
-                with open(save_path, 'wb+') as destination:
-                    for chunk in uploaded_file.chunks():
-                        destination.write(chunk)
-                return HttpResponse("File uploaded successfully.")
-            except Exception as e:
-                # Handle exceptions that occurred during file upload
-                print(f"Failed to upload file. Error: {e}")
-                return HttpResponse("Failed to upload file.", status=500)
-    return render(request, 'nhcp_registration_test.html')
+
+def community_health_cards(request):
+    return render(request, 'community_health_cards.html')
 
 
 

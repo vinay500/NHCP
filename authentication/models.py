@@ -13,6 +13,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+        print("user.phone_number: ",user.phone_number)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -20,12 +21,12 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
-        return self.create_user(email, password, **extra_fields)
+        phone_number = None
+        return self.create_user(email, password, phone_number=phone_number, **extra_fields)
 
 
 class CountryDialCodes(models.Model):
-    country_name = models.CharField(max_length=30)
+    country_name = models.CharField(max_length=40)
     country_short_form = models.CharField(max_length=5)
     country_dial_code = models. PositiveSmallIntegerField()
 
@@ -40,9 +41,13 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     # removing unique constraint for username
     username = models.CharField(max_length=150, unique=False)
-    # is_mail_verified = 
     phone_number = models.PositiveBigIntegerField()
     country = models.ForeignKey(CountryDialCodes, on_delete=models.PROTECT)
+    # null=True is added because when user is created while signup then date of birth, gender and foreign address are not taken
+    # date of birth, gender and foreign address are being taken while adding dependent
+    date_of_birth = models.DateField(null=True)
+    gender = models.CharField(max_length=7, null=True)
+    foreign_address = models.TextField()
     is_mail_verified = models.BooleanField(default=False)
     
     # country = models.CharField(max_length=30)

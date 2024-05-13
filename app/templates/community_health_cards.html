@@ -1,0 +1,494 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+    {% block styles %}
+        <link rel="stylesheet" href="{% static 'assets\css\nhcp_css\community_health_cards.css' %}">
+    {% endblock %}
+
+    {% block content %}
+        <div class="container">
+            <div class="hero_section">
+                <div class="hero_section_heading_div">
+                    <h1 class="hero_section_heading">Wellness Hospitals Community Health Card</h1>
+                </div>
+                <div class="hero_section_sub_heading_div">
+                    <p>Wellness Hospitals Community Health Card is a loyalty card which enables you to get massive discounts on Hospital offerings like Doctor Consultation, Lab Tests and much more. This card is applicable at Wellness Hospital Hyderabad.</p>
+                </div>
+                <div class="hero_section_btn_div">
+                    <a href="#membership_cards_div" id="hero_section_btn">Buy Wellness Hospitals Community Health Card</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="program_feature_div_parent_div">
+                <div class="program_feature_div">
+                    <div class="program_feature">
+                        <div class="icon">
+                            <!-- Icon goes here -->
+                            <img src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Frame_1000002387_e94d6fc3aa.svg" alt="Icon">
+                        </div>
+                        <div class="text">
+                            <p class="program_feature_heading">Labs & Radiology</p>
+                            <span class="program_feature_sub_heading">Get free Preventive Health Checkup</span>
+                        </div>
+                    </div>
+                    <div class="program_feature">
+                        <div class="icon">
+                            <!-- Icon goes here -->
+                            <img src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/doctor_svgrepo_com_2_1_201105f2e7.svg" alt="Icon">
+                        </div>
+                        <div class="text">
+                            <p class="program_feature_heading">Doctor Consultation</p>
+                            <span class="program_feature_sub_heading">Get upto 12 free doctor consultations</span>
+                        </div>
+                    </div>
+                    <div  class="program_feature">
+                        <div class="icon">
+                            <!-- Icon goes here -->
+                            <img src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Membership_Discounts_490075abe5_1_944a98d621.svg" alt="Icon">
+                        </div>
+                        <div class="text">
+                            <p class="program_feature_heading">Loyalty Discount</p>
+                            <span class="program_feature_sub_heading">Get upto 20% off on Hospital services</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="program_feature_img_parent_div">
+                    <p class="program_feature_img_heading">What is medicard video</p>
+                    <!-- Image goes here -->
+                    <div class="program_feature_img_div">
+                        <!-- <img src="image.jpg" alt="Image" class="program_feature_img" > -->
+                        <!-- <iframe  src="https://www.youtube.com/watch?v=qtMmhMnwDvg&ab_channel=BajajFinservHealth">
+
+                        </iframe> -->
+                        <iframe  src="https://www.youtube.com/embed/qtMmhMnwDvg" title="What is Medicard?" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="membership_cards_div" style="height: 30px; visibility: hidden;">
+
+        </div>
+        <div class="container">
+            <div class="all_cards_section_heading_div">
+                <h2>Find your best Loyalty Medicard</h2>
+                <p>Select Medicard Variant According to needs</p>
+            </div>
+            <div class="plans">
+                <div class="plan">
+                    <h3 class="plan_title">Basic</h3>
+                    <div class="plan_details">
+                        <div class="plan_img_div">
+                            <!-- <img src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Basic_6a279028ff.png" alt="Plan 1 Image" style="height: 140px; width: 220px;"> -->
+                            <img src="{% static 'assets\img\nhcp_imgs\nhcp_programs\current_basic_membership_card.png' %}" alt="Plan 1 Image" style="height: 140px; width: 220px;">
+                        </div>
+                        <div class="plan_details_div">
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\flask.png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>5% discount</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Labs & Radiology</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\stethoscope (1).png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>3 consultation free</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Doctor Consultation</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img class="loyalty_discount_img" src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Membership_Discounts_490075abe5_1_944a98d621.svg" alt="Icon 1">
+                                    <strong>5% off on pharmacy</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Loyalty Discount</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan_buy_btn_div">
+                            <button class="plan_buy_btn">Buy for &#x20B9; 99</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan">
+                    <h3 class="plan_title">Essential</h3>
+                    <div class="plan_details">
+                        <div class="plan_img_div">
+                            <img src="{% static 'assets\img\nhcp_imgs\nhcp_programs\current_essential_membership_card.png' %}" alt="Plan 1 Image" style="height: 140px; width: 220px;">
+                        </div>
+                        <div class="plan_details_div">
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\flask.png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>10% discount</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Labs & Radiology</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\stethoscope (1).png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>6 consultation free</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Doctor Consultation</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img class="loyalty_discount_img" src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Membership_Discounts_490075abe5_1_944a98d621.svg" alt="Icon 1">
+                                    <strong>10% off on pharmacy</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Loyalty Discount</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan_buy_btn_div">
+                            <button class="plan_buy_btn">Buy for &#x20B9; 799</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan">
+                    <h3 class="plan_title">Previlege</h3>
+                    <div class="plan_details">
+                        <div class="plan_img_div">
+                            <img src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Basic_6a279028ff.png" alt="Plan 1 Image" style="height: 140px; width: 220px;">
+                        </div>
+                        <div class="plan_details_div">
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\flask.png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>15% discount</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Labs & Radiology</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\stethoscope (1).png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>9 consultation free</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Doctor Consultation</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img class="loyalty_discount_img" src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Membership_Discounts_490075abe5_1_944a98d621.svg" alt="Icon 1">
+                                    <strong>15% off on pharmacy</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Loyalty Discount</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan_buy_btn_div">
+                            <button class="plan_buy_btn">Buy for &#x20B9; 1499</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan">
+                    <h3 class="plan_title">VIP</h3>
+                    <div class="plan_details">
+                        <div class="plan_img_div">
+                            <img src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Basic_6a279028ff.png" alt="Plan 1 Image" style="height: 140px; width: 220px;">
+                        </div>
+                        <div class="plan_details_div">
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\flask.png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>20% discount</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Labs & Radiology</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img src="{% static 'assets\img\png\stethoscope (1).png' %}" alt="Icon 1" style="height: 16px;">
+                                    <strong>12 consultation free</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Doctor Consultation</span>
+                                </div>
+                            </div>
+                            <div class="plan_detail">
+                                <div class="plan_detail_first_div">
+                                    <img class="loyalty_discount_img" src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Membership_Discounts_490075abe5_1_944a98d621.svg" alt="Icon 1">
+                                    <strong>20% off on pharmacy</strong>
+                                </div>
+                                <div class="plan_detail_second_div">
+                                    <span>Loyalty Discount</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan_buy_btn_div">
+                            <button class="plan_buy_btn">Buy for &#x20B9; 2999</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container table-responsive">
+            <div class="table_heading_div">
+                <h1>Loyalty plan for continuous savings</h1>
+                <p>Find the right MediCard for you</p>
+            </div>
+            <table class="table-fixed table-responsive">
+                <thead class="">
+                    <tr>
+                        <th class="table_heading"></th>
+                        <th class="table_heading">
+                            <div class="table_heading_content">
+                                <div class="active">
+                                    <img width="100" height="60"
+                                        src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Wellness_Hospital_watermark_2_26_14d31f2752_1_a37870ed65_1_0ff35fb7dc_1_ea7813356a.png"
+                                        alt="Basic">
+                                </div>
+                                <div class="plan_name">Basic</div>
+                            </div>
+                        </th>
+                        <th class="table_heading">
+                            <div class="table_heading_content">
+                                <div class="">
+                                    <img width="100" height="60"
+                                        src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Wellness_Hospital_watermark_2_24_3ed8ac1a90.png"
+                                        alt="Essential">
+                                </div>
+                                <div class="plan_name">Essential</div>
+                            </div>
+                        </th>
+                        <th class="table_heading">
+                            <div class="table_heading_content" data-testid="">
+                                <div class="" data-testid="">
+                                    <img width="100" height="60"
+                                        src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Privilege_17b715aa05.png"
+                                        alt="Privilege">
+                                </div>
+                                <div class="plan_name">Privilege</div>
+                            </div>
+                        </th>
+                        <th class="table_heading">
+                            <div class="table_heading_content">
+                                <div class="">
+                                    <img width="100" height="60"
+                                        src="https://cmsprodstorage.blob.core.windows.net/cms-prod/assets/Wellness_Hospital_watermark_2_25_41188cdb32.png"
+                                        alt="VIP">
+                                </div>
+                                <div class="plan_name">VIP</div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td class="planDetail fix">
+                            <div class="">
+                                <div  class="plan_feature">Card Fee</div>
+                            </div>
+                        </td>
+                        <td class=""><strong>₹99</strong></td>
+                        <td class=""><strong>₹799</strong></td>
+                        <td class=""><strong>₹1499</strong></td>
+                        <td class=""><strong>₹2999</strong></td>
+                    </tr>
+                    <tr class="">
+                        <td class="planDetail fix">
+                            <div class="">
+                                <div class="plan_feature">Waiting Period</div>
+                            </div>
+                        </td>
+                        <td class=""><strong>7 Days</strong></td>
+                        <td class=""><strong>7 Days</strong></td>
+                        <td class=""><strong>7 Days</strong></td>
+                        <td class=""><strong>7 Days</strong></td>
+                    </tr>
+                    <tr class="">
+                        <td class="planDetail fix">
+                            <div class="">
+                                <div class="plan_feature">Preventive Health Check Up</div>
+                            </div>
+                        </td>
+                        <td class="">-</td>
+                        <td class="">1 Voucher</td>
+                        <td class="">2 Voucher</td>
+                        <td class="">3 Voucher</td>
+                    </tr>
+                    <tr class="">
+                        <td class="">
+                            <div class="">
+                                <div class="plan_feature">Free Doctor Consultation</div>
+                            </div>
+                        </td>
+                        <td class="active">3</td>
+                        <td class="">6</td>
+                        <td class="">9</td>
+                        <td class="">12</td>
+                    </tr>
+                    <tr class="">
+                        <td class="">
+                            <div class="">
+                                <div class="plan_feature">Pharmacy Discount</div>
+                            </div>
+                        </td>
+                        <td class="">5%</td>
+                        <td class="">10%</td>
+                        <td class="">15%</td>
+                        <td class="">20%</td>
+                    </tr>
+                    <tr class="">
+                        <td class="">
+                            <div class="">
+                                <div class="plan_feature">Lab &amp; Radiology Discount</div>
+                            </div>
+                        </td>
+                        <td class="">5%</td>
+                        <td class="">10%</td>
+                        <td class="">15%</td>
+                        <td class="">20% </td>
+                    </tr>
+                    <tr class="">
+                        <td class="">
+                            <div class="">
+                                <div class="plan_feature">Personal Accident Insurance</div>
+                            </div>
+                        </td>
+                        <td class="">-</td>
+                        <td class="">Rs. 1 Lac</td>
+                        <td class="">Rs. 2 Lac</td>
+                        <td class="">Rs. 2 Lac</td>
+                    </tr>
+                    <tr class="">
+                        <td class="">
+                            <div class="">
+                                <div class="plan_feature">Lab &amp; Radiology Wallet </div>
+                            </div>
+                        </td>
+                        <td class="active">₹99</td>
+                        <td class="">-</td>
+                        <td class="">-</td>
+                        <td class="">-</td>
+                    </tr>
+                    <tr class="">
+                        <td class="">
+                            <div class="">
+                                <div class="plan_feature">Validity</div>
+                            </div>
+                        </td>
+                        <td class="">12 months</td>
+                        <td class="">12 months</td>
+                        <td class="">12 months</td>
+                        <td class="">12 months</td>
+                    </tr>
+                    <tr class="">
+                        <td class="">
+                            <div class="" data-testid="">
+                                <div data-testid=""  class="plan_feature">Members covered</div>
+                            </div>
+                        </td>
+                        <td class="">2</td>
+                        <td class="">4</td>
+                        <td class="">4</td>
+                        <td class="">6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container">
+            <!-- <div class="row">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card custom-card">
+                            <div class="vtimeline">
+                                <div class="timeline-wrapper timeline-inverted timeline-wrapper-primary">
+                                    <div class="timeline-badge success">
+                                        <img class="timeline-image" alt="img" src="{% static 'assets/img/faces/3.jpg'%}"> </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h6 class="timeline-title">Download Bajaj Finserv Health App!</h6>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Download App from Google Play Store or Apple App Store and login using your credentials. Post that - Go to Active Plans and then select Wellness Hospitals Community Health Card</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-wrapper timeline-inverted timeline-wrapper-primary">
+                                    <div class="timeline-badge"><i class="las la-business-time"></i></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h6 class="timeline-title">Select type of benefit and generate voucher</h6>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Select Labs and Radiology , Doctor Consultation, Room Rent Discount, or Pharmacy and generate Voucher accordingly. Voucher id will be sent to you via SMS and WhatsApp.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="timeline-wrapper timeline-inverted timeline-wrapper-primary">
+                                    <div class="timeline-badge"><i class="las la-business-time"></i></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h6 class="timeline-title">Visit Hospital and show voucher</h6>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Visit Hospital at selected date to avail benefits. Show voucher at Hospital's registration desk at time of bill payment and you will be able to enjoy the benefit.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="panel-group2" id="accordion11" role="tablist">
+                        <div class="card overflow-hidden">
+                            <a class="accordion-toggle panel-heading2 collapsed font-weight-semibold tx-15" data-bs-toggle="collapse" data-bs-parent="#accordion11" href="#collapseFour1" aria-expanded="false">What is Wellness Hospitals Community Health Card?</a>
+                            <div id="collapseFour1" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    <p class="text-muted mb-0 tx-14">Wellness Hospitals Community Health Card is a virtual membership card which provides healthcare benefits to the card holder. The card can be purchased through Bajaj Health App and website, as well as at Wellness Hospital Hyderabad registeration desk.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card overflow-hidden">
+                            <a class="accordion-toggle panel-heading2 collapsed font-weight-semibold tx-15" data-bs-toggle="collapse" data-bs-parent="#accordion11" href="#collapseFour2" aria-expanded="false">Where can I view my Wellness Hospitals Community Health Card?</a>
+                            <div id="collapseFour2" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    <p class="text-muted mb-0 tx-14">You can view your Wellness Hospitals Community Health Card on Bajaj Finserv Health Application in Active Plans section or in My Health Plans on Bajaj Finserv Health website.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card overflow-hidden">
+                            <a class="accordion-toggle panel-heading2 collapsed font-weight-semibold tx-15" data-bs-toggle="collapse" data-bs-parent="#accordion11" href="#collapseFour3" aria-expanded="false">How do I avail benefits provided with the card?</a>
+                            <div id="collapseFour3" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    <p class="text-muted mb-0 tx-14">In Active Plans section select Wellness Hospitals Community Health Card. Click on the benefit which you wish to avail. Generate the voucher by selecting hospital and date. Show the voucher at the hospital counter at the time of payment.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card overflow-hidden">
+                            <a class="accordion-toggle panel-heading2 collapsed font-weight-semibold tx-15" data-bs-toggle="collapse" data-bs-parent="#accordion11" href="#collapseFour4" aria-expanded="false">Who do I contact in case of any queries related to the product?</a>
+                            <div id="collapseFour4" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                <div class="panel-body">
+                                    <p class="text-muted mb-0 tx-14">You can call us at 020-4856255 or write to us at customercare@bajajfinservhealth.in</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block scripts %}
+        
+    {% endblock %}
