@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", async function (event) {
     // preventing form from reloading when submitted
     event.preventDefault();
-
-    
     
     const mobile_country_data = window.intlTelInputGlobals.getInstance(input).selectedCountryData;
     const fullName = document.getElementById("signup_fullname").value;
@@ -180,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         } catch (error) {
         // displaying loader
-        document.getElementById('global-loader').style.display='none';
+        document.getElementById('global-loader').style.display='none';  
 
         // displaying signup message
         let signup_msg_div = document.getElementById('signup_msg_div');
@@ -190,7 +188,20 @@ document.addEventListener("DOMContentLoaded", function () {
         signup_msg_div.style.display = 'block';
       }
     }
-    
   });
 });
+
+
+function hide_signup_msg_div(){
+  console.log("in hide_signup_msg_div")
+  document.getElementById('signup_msg_div').style.display='none';
+}
+
+
+function preventSpace(event) {
+  if (event.key === ' ') {
+      // console.log("space entered")
+      event.preventDefault();
+  }
+}
 

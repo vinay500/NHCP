@@ -80,73 +80,106 @@ def get_user_programs(request):
         return JsonResponse({'programs_registered':[]})
 
 
+# @login_required(login_url='auth/signin')
+# def register_user_for_program(request, program):
+#     print("program name in register_user_for_program at 85:", program)
+#     print('in register_user_for_program')
+#     user = request.user
+#     print('current user:', user)
+#     logging.info("Logged In User: ",user)
+#     if request.method=='POST':
+#         print('in post method')
+#         program = request.POST.get('program_name')
+#         logging.info("User trying to Register for the Program: ",program)
+#         print('program: ',program)
+#         user_obj = CustomUser.objects.get(email = user)
+#         program_obj = Program.objects.get(program_name = program)
+#         print('user_obj: ',user_obj)
+#         print('program_obj: ',program_obj)
+#         try:
+#             if UsersRegistered.objects.filter(program = program_obj, user = user_obj).exists():
+#                 logging.info('User Already Registered in the Program')
+#                 if program == "beyond_borders":
+#                     return redirect('add_dependents_test')
+#                 elif program == "community_health_cards":
+#                     return redirect('view_health_cards')
+#             else:
+#                 user_register_obj = UsersRegistered()
+#                 user_register_obj.program = program_obj
+#                 user_register_obj.user = user
+#                 try:
+#                     user_register_obj.save()
+#                     print('user_register_obj saved')
+#                     logging.info(f"User {user} Registered for the Program: {program}")
+#                     return redirect('add_dependents_test')
+#                 except Exception as e:
+#                     logging.error("Can't Register User for the Program")
+#                     print('e: ',e)
+#                     return render(request, 'index.html', {'error':'Unable to Register, Try Again'})
+#         except Exception as e:
+#             logging.error("Can't Register User for the Program")
+#             print('e: ',e)
+#             return render(request, 'index.html', {'error':'Unable to Register, Try Again'})
+#     else:
+#         return HttpResponse("<h1>not post request</h1>")
+
+
+
+
 @login_required(login_url='auth/signin')
-def register_user_for_program(request):
+def register_user_for_program(request, program_url_param):
+    print("program_url_param", program_url_param)
     print('in register_user_for_program')
     user = request.user
     print('current user:', user)
-    logging.info("Logged In User: ",user)
-    if request.method=='POST':
+    logging.info("Logged In User: %s", user)
+    
+    if request.method == 'POST':
         print('in post method')
         program = request.POST.get('program_name')
-        logging.info("User trying to Register for the Program: ",program)
-        print('program: ',program)
-        user_obj = CustomUser.objects.get(email = user)
-        program_obj = Program.objects.get(program_name = program)
-        print('user_obj: ',user_obj)
-        print('program_obj: ',program_obj)
+        logging.info("User trying to Register for the Program: %s", program)
+        print('program: ', program)
+        
         try:
-            if UsersRegistered.objects.filter(program = program_obj, user = user_obj).exists():
+            user_obj = CustomUser.objects.get(email=user.email)
+            program_obj = Program.objects.get(program_name=program)
+            print('user_obj: ', user_obj)
+            print('program_obj: ', program_obj)
+            
+            if UsersRegistered.objects.filter(program=program_obj, user=user_obj).exists():
                 logging.info('User Already Registered in the Program')
-                return redirect('add_dependents_test')
+                if program_url_param == "beyond_borders":
+                    return redirect('add_dependents_test')
+                elif program_url_param == "community_health_cards":
+                    return redirect('view_health_cards')
+                elif program_url_param == "home_care_services":
+                    return redirect('home_care_services')
+                else:
+                    return render(request, 'index.html', {'error': 'Unknown program'})
             else:
-                user_register_obj = UsersRegistered()
-                user_register_obj.program = program_obj
-                user_register_obj.user = user
-                print('user_register_obj created')
+                user_register_obj = UsersRegistered(program=program_obj, user=user_obj)
                 try:
                     user_register_obj.save()
                     print('user_register_obj saved')
                     logging.info(f"User {user} Registered for the Program: {program}")
-                    return redirect('add_dependents_test')
+                    if program_url_param == "beyond_borders":
+                        return redirect('add_dependents_test')
+                    elif program_url_param == "community_health_cards":
+                        return redirect('view_health_cards')
+                    elif program_url_param == "home_care_services":
+                        return redirect('home_care_services')
+                    else:
+                        return render(request, 'index.html', {'error': 'Unknown program'})
                 except Exception as e:
-                    logging.error("Can't Register User for the Program")
-                    print('e: ',e)
-                    return render(request, 'index.html', {'error':'Unable to Register, Try Again'})
+                    logging.error("Can't Register User for the Program: %s", e)
+                    print('e: ', e)
+                    return render(request, 'index.html', {'error': 'Unable to Register, Try Again'})
         except Exception as e:
-            logging.error("Can't Register User for the Program")
-            print('e: ',e)
-            return render(request, 'index.html', {'error':'Unable to Register, Try Again'})
-
-
-
-
-
-@login_required(login_url='auth/signin')
-def add_dependents(request):
-    return render(request, 'nhcp_registration.html')
-
-@login_required(login_url='auth/signin')
-def add_dependents_test(request):
-    logged_in_user = request.user
-    custom_user_obj = CustomUser.objects.get(email = logged_in_user)
-    print('custom_user_obj.gender: ',custom_user_obj.gender)
-    print('custom_user_obj.date_of_birth: ',custom_user_obj.date_of_birth)
-    print('custom_user_obj.foreign_address: ',custom_user_obj.foreign_address)
-    if custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address:
-        print('in custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
-        context = {'user_details_already_submitted':'successs'}
-        print('context: ',context)
-        # return render(request, 'nhcp_registration_test.html',{'dependent_saved':'successs'})
-        return render(request, 'nhcp_registration_test.html',{'context':context})
+            logging.error("Can't Register User for the Program: %s", e)
+            print('e: ', e)
+            return render(request, 'index.html', {'error': 'Unable to Register, Try Again'})
     else:
-        print('in else of custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
-        return render(request, 'nhcp_registration_test.html')
-
-
-def community_health_cards(request):
-    return render(request, 'community_health_cards.html')
-
+        return HttpResponse("<h1>not post request</h1>")
 
 
     

@@ -61,7 +61,13 @@ ul[role="menu"] li:nth-child(2) {
     margin-right: 10px;
     border: none;
 }
+#document_tooltip{
+    font-size: 11px;
+}
 
+#firstname::first-letter {
+    text-transform: uppercase
+  }
 
 @keyframes slideIn {
     0% {

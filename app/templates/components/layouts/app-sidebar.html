@@ -49,58 +49,55 @@
 						</li>
 					{% endif %}
 					{% if 'Community Health Cards' in programs_registered %}
-					<li class="slide">
-						<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
-								xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
-								viewBox="0 0 24 24">
-								<path
-									d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
-							</svg><span class="side-menu__label" style="" disabled>Community Health Cards</span>
-							<!-- <i class="angle fe fe-chevron-right"></i> -->
-						</a>
-						<ul class="slide-menu">
-							<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
-							<li><a class="slide-item active" href="index">Dashboard-1</a></li>
-							<li><a class="slide-item" href="index1">Dashboard-2</a></li>
-							<li><a class="slide-item" href="index2">Dashboard-3</a></li>
-						</ul>
-					</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
+									xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
+									viewBox="0 0 24 24">
+									<path
+										d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
+								</svg><span class="side-menu__label" style="" disabled>Community Health Cards</span>
+								<!-- <i class="angle fe fe-chevron-right"></i> -->
+							</a>
+							<ul class="slide-menu">
+								<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
+								<li><a class="slide-item active" href="index">Dashboard-1</a></li>
+								<li><a class="slide-item" href="index1">Dashboard-2</a></li>
+								<li><a class="slide-item" href="index2">Dashboard-3</a></li>
+							</ul>
+						</li>
 					{% endif %}
 					{% if 'Heal In India' in programs_registered %}
-					<li class="slide">
-						<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
-								xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
-								viewBox="0 0 24 24">
-								<path
-									d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
-							</svg><span class="side-menu__label" style="" disabled>Heal In India</span>
-							<!-- <i class="angle fe fe-chevron-right"></i> -->
-						</a>
-						<ul class="slide-menu">
-							<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
-							<li><a class="slide-item active" href="index">Dashboard-1</a></li>
-							<li><a class="slide-item" href="index1">Dashboard-2</a></li>
-							<li><a class="slide-item" href="index2">Dashboard-3</a></li>
-						</ul>
-					</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
+									xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
+									viewBox="0 0 24 24">
+									<path
+										d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
+								</svg><span class="side-menu__label" style="" disabled>Heal In India</span>
+								<!-- <i class="angle fe fe-chevron-right"></i> -->
+							</a>
+							<ul class="slide-menu">
+								<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
+								<li><a class="slide-item active" href="{% url 'home_care_services' %}"></a></li>
+							</ul>
+						</li>
 					{% endif %}
 					{% if 'Home Care Services' in programs_registered %}
-					<li class="slide">
-						<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
-								xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
-								viewBox="0 0 24 24">
-								<path
-									d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
-							</svg><span class="side-menu__label" style="" disabled>Home Care Services</span>
-							<!-- <i class="angle fe fe-chevron-right"></i> -->
-						</a>
-						<ul class="slide-menu">
-							<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
-							<li><a class="slide-item active" href="index">Dashboard-1</a></li>
-							<li><a class="slide-item" href="index1">Dashboard-2</a></li>
-							<li><a class="slide-item" href="index2">Dashboard-3</a></li>
-						</ul>
-					</li>
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><svg
+									xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24"
+									viewBox="0 0 24 24">
+									<path
+										d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" />
+								</svg><span class="side-menu__label" style="" disabled>Home Care Services</span>
+								<!-- <i class="angle fe fe-chevron-right"></i> -->
+							</a>
+							<ul class="slide-menu">
+								<li class="side-menu__label1"><a href="javascript:void(0);"></a></li>
+								<li><a class="slide-item active" href="{% url 'home_care_services' %}">Book Appointment</a></li>
+								<li><a class="slide-item" href="{% url 'booked_services' %}">View Appointments</a></li>
+							</ul>
+						</li>
 					{% endif %}
 				{% endif %}
 				<!-- <li class="side-item side-item-category">WEB APPS</li>
@@ -372,7 +369,7 @@ const programsData = {
                                 <span class="side-menu__label">Community Health Cards</span>
                               </a>
                               <ul class="slide-menu" id="community_health_cards_submenu" style="display:none">
-                                <li><a class="slide-item" href="/community_health_cards">Buy Health Card</a></li>
+                                <li><a class="slide-item" href="{% url 'view_health_cards' %}">Health Cards</a></li>
                               </ul>
                             </li>`,
   'Home Care Services': `<li class="slide" onclick="display_submenu_options('home_care_services_submenu')" style="cursor:pointer">
@@ -381,9 +378,8 @@ const programsData = {
                             <span class="side-menu__label">Home Care Services</span>
                           </a>
                           <ul class="slide-menu" id="home_care_services_submenu" style="display:none">
-                            <li><a class="slide-item" href="index">Dashboard-1</a></li>
-                            <li><a class="slide-item" href="index1">Dashboard-2</a></li>
-                            <li><a class="slide-item" href="index2">Dashboard-3</a></li>
+                            <li><a class="slide-item" href="{% url 'home_care_services' %}">Book Appointment</a></li>
+							<li><a class="slide-item" href="{% url 'booked_services' %}">View Appointments</a></li>
                           </ul>
                         </li>`,
   'Heal In India': `<li class="slide" onclick="display_submenu_options('heal_in_india_submenu')"  style="cursor:pointer">
@@ -392,9 +388,8 @@ const programsData = {
                         <span class="side-menu__label">Heal In India</span>
                       </a>
                       <ul class="slide-menu" id="heal_in_india_submenu" style="display:none">
-                        <li><a class="slide-item" href="index">Dashboard-1</a></li>
-                        <li><a class="slide-item" href="index1">Dashboard-2</a></li>
-                        <li><a class="slide-item" href="index2">Dashboard-3</a></li>
+                        <li><a class="slide-item" href="{% url 'home_care_services' %}">Book an Appointment</a></li>
+						
                       </ul>
                     </li>`
 };

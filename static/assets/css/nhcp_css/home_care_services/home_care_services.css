@@ -1,0 +1,94 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 20px; */
+    justify-content: center;
+    /* row-gap: 20px; */
+    margin-top: 40px;
+}
+.service-card {
+    flex: 1 1 100%; /* Default to 100% width for mobile devices */
+    /* border: 1px solid #ddd; */
+    /* border-radius: 8px; */
+    border-left: 1px solid #ddd;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+    padding:20px 40px 10px 40px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.no-border-bottom{
+    border-bottom: 0;
+}
+.service-info{
+    margin-bottom: 30px;
+}
+.service-card img {
+    /* width: 30%; */
+    width: 80px;
+    height: auto;
+    margin-bottom: 5px;
+}
+.service-name{
+    font-weight: 600;
+    font-size: 18px;
+}
+.appointment_book_btn {
+    /* padding: 15px;   */
+    /* font-size: 16px; */
+    background-color: #f7f7f7;
+    /* width: 70%; */
+    /* width: fit-content; */
+    padding: 5px 5px;
+    transition: transform 1s ease;
+    transform: translateY(250%);
+    border: none;
+}
+.service-card:hover .appointment_book_btn {
+    transform: translateY(-20%); 
+}
+.appointment_book_btn:hover{
+    cursor: pointer;
+}
+.appointment_book_btn a{
+    color: white;
+}
+@media (max-width: 579px) {
+    .appointment_book_btn {
+        display: none; /* 2 cards per row for tablets */
+    }
+    
+}
+@media (min-width: 768px) {
+    .service-card {
+        flex: 1 1 calc(50% - 20px); /* 2 cards per row for tablets */
+    }
+    
+}
+
+@media (min-width: 1100px) {
+    .service-card {
+        flex: 1 1 calc(33.333% - 20px); /* 3 cards per row for desktops/laptops */
+        max-width: calc(33.333% - 20px); /* 3 cards per row for desktops/laptops */
+    }
+    .appointment_book_btn{
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .service-card {
+        flex: 1 1 calc(33.333% - 20px); /* 3 cards per row for desktops/laptops */
+        max-width: calc(33.333% - 20px); /* 3 cards per row for desktops/laptops */
+    }
+    .appointment_book_btn{
+        width: 50%;
+    }
+}

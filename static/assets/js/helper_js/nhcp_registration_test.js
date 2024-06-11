@@ -226,6 +226,7 @@ async function submitFormData(formData) {
     }
     try{
         console.log('submitting using this.submit()')
+        document.getElementById('global-loader').style.display="block";
         document.getElementById("add_dependent_form").submit();
     }catch (error) {
             console.error('Error:', error);
@@ -714,4 +715,11 @@ function save_dependent_and_add_another(){
                 dependent_gender.validate();
                 dependent_relation.validate();
             }
+}
+
+function preventSpace(event) {
+    if (event.key === ' ') {
+        // console.log("space entered")
+        event.preventDefault();
+    }
 }

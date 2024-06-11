@@ -8,9 +8,13 @@ from django.db import models
     
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, password=None,  phone_number=None, country=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
+        if not phone_number and not extra_fields.get('is_superuser', False):
+            raise ValueError('The Phone number field must be set for regular users')
+        if not country and not extra_fields.get('is_superuser', False):
+            raise ValueError('The Country field must be set for regular users')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         print("user.phone_number: ",user.phone_number)
@@ -41,8 +45,8 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     # removing unique constraint for username
     username = models.CharField(max_length=150, unique=False)
-    phone_number = models.PositiveBigIntegerField()
-    country = models.ForeignKey(CountryDialCodes, on_delete=models.PROTECT)
+    phone_number = models.PositiveBigIntegerField(null=True, blank=True)
+    country = models.ForeignKey(CountryDialCodes, null=True, blank=True, on_delete=models.PROTECT)
     # null=True is added because when user is created while signup then date of birth, gender and foreign address are not taken
     # date of birth, gender and foreign address are being taken while adding dependent
     date_of_birth = models.DateField(null=True)

@@ -34,7 +34,10 @@
                                         <!-- alert-warning -->
                                         <div id="signup_msg_div" class="alert alert-dismissible fade show" role="alert">
                                             <span id="signup_msg"></span>
-                                            <button id="signup_msg_btn" type="button" class="btn-close" onclick="hide_signup_msg()">
+                                            <!-- <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button">
+                                                <span aria-hidden="true">×</span>
+                                            </button> -->
+                                            <button  class="btn-close"  type="button" onclick="hide_signup_msg_div()">
                                                 <span>×</span>
                                             </button>
                                         </div>    
@@ -58,7 +61,7 @@
                                             </div> -->
                                             <div class="form-group">
                                                 <label>Email</label> 
-                                                <input id="signup_email" class="form-control" placeholder="Enter your email" type="text">
+                                                <input id="signup_email" class="form-control" placeholder="Enter your email" onkeypress="preventSpace(event)" type="text">
                                                 <span style="color:red; display:none;" id="email_required_msg" class="signup_error_msg">Email is required.</span>
                                                 <span style="color:red; display:none;" id="valid_email_required_msg" class="signup_error_msg">Enter Valid Email</span>
                                             </div>
@@ -148,13 +151,7 @@
         confirm_password_field.type = 'text';
     }
 
-    // var instance = $("[name=phone_no]")
-    // instance.intlTelInput();
 
-    // $("[name=phone_no]").on("blur", function() {
-    // console.log($(this).val())
-    // //get counrty code
-    // })
 </script>
 
 {% endblock %}
