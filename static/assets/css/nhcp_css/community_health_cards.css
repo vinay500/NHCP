@@ -190,11 +190,12 @@ td{
     width: 8.875rem;
     height: 2.25rem;
     font-weight: bolder;
-    color: white;
     border: none;
     background-color: #005DAC;
 }
-
+.plan_buy_btn a {
+    color: white; 
+}
 @media screen and (max-width:850px) { 
     .program_feature_div_parent_div{
         flex-direction: column;

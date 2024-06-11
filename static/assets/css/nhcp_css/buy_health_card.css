@@ -37,13 +37,23 @@
     padding-bottom: 15px;
 }
 .plan_benefits_div{
-    margin: 20px 10px 0 20px;
+    /* margin: 20px 10px 0 20px; */
     overflow:auto hidden;
+}
+.plan_benefits_heading{
+    color: rgb(0, 93, 172);
+    line-height: 1.5;
+    font-size: 18px;
+    font-weight: 600;
+    text-shadow: 0px 0px, 0px 0px, rgb(136, 136, 136) 0px 0px;
+    text-align: center;
+    margin: 20px 10px 0 20px;
 }
 .plan_benefits{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 0 20px;
 }
 .plan_benefit{
     display: flex;
@@ -55,17 +65,13 @@
     box-shadow: rgba(164, 169, 173, 0.2) 0px 0px 33px 0px;
     background-color: #fff;
 }
-.plan_benefits_heading{
-    color: rgb(0, 93, 172);
-    line-height: 1.5;
-    font-size: 18px;
-    font-weight: 600;
-    text-shadow: 0px 0px, 0px 0px, rgb(136, 136, 136) 0px 0px;
-    text-align: center;
-    margin: 0px 10px 15px;
+
+.form_content{
+    /* margin: 0 20px; */
 }
-.payment_form_div{
-    
+.plan_benefit_second_div{
+    font-weight: 600;
+    font-size: 15px;
 }
 .intl-tel-input{
     width: 100%;
@@ -78,7 +84,7 @@
     text-align: center;
     background-color: #fff; 
     box-shadow: rgba(0, 0, 0, 0.26) 0px -4px 12px 0px;
-    margin-top: 40px;
+    margin-top: 20px;
     position: sticky;
     bottom: 0;
 }
@@ -89,16 +95,42 @@
     padding: 10px 10px;
     color: white;
 }
+@media  screen and (max-width:950px){
+    .main_container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 0;
+    }
+    .community_health_cards_poster{
+        margin-bottom: 20px;
+        width: 75%;
+    }
+    .main_content{
+        /* margin-top: 20px; */
+        width: 75%;
+    }
+}
 @media  screen and (max-width:700px) {
     .membership_card_div img{
         width: 40%;
     }
+    #community_health_cards_poster_img{
+        max-width: 80%;
+    }
+    
 }
 
 
 @media  screen and (max-width:500px) {
     .membership_card_div img{
         width: 70%;
+    }
+    #community_health_cards_poster_img{
+        max-width: 90%;
+    }
+    .main_content{
+        width: 100%;
     }
 }
 

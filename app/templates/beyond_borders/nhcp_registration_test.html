@@ -104,20 +104,20 @@
                                 <section id="add_dependent_section">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label class="form-label">Firstname <span class="tx-danger">*</span></label> <input class="form-control" id="firstname" name="firstname" placeholder="Enter firstname"  type="text" required>
+                                            <label class="form-label">Firstname <span class="tx-danger">*</span></label> <input class="form-control" id="firstname" name="firstname" onkeypress="preventSpace(event)" placeholder="Enter firstname"  type="text" required>
                                         </div>
                                         <div class="col-md-6 mg-t-20 mg-md-t-0">
-                                            <label class="form-label">Lastname <span class="tx-danger">*</span></label> <input class="form-control" id="lastname" name="lastname" placeholder="Enter lastname"  type="text" required>
+                                            <label class="form-label">Lastname <span class="tx-danger">*</span></label> <input class="form-control" id="lastname" name="lastname" onkeypress="preventSpace(event)" placeholder="Enter lastname"  type="text" required>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label class="form-label">Email <span class="tx-danger">*</span></label>
-                                            <input class="form-control" id="email" name="email" placeholder="Enter email address"  type="email" required>
+                                            <input class="form-control" id="email" name="email" placeholder="Enter email address" onkeypress="preventSpace(event)" type="email" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Phone Number <span class="tx-danger">*</span></label>
-                                            <div class="input-group telephone-input ">
+                                            <div class="input-group telephone-input">
                                                 <input  class="form-control" type="tel" id="mobile-number" name="mobile-number" placeholder="e.g. +1 702 123 4567" required data-parsley-valid-mobile-number>
                                                 <!-- <input id="mobile-number" class="form-control" name="mobile-number" placeholder="Enter your phone number"  type="tel" required data-parsley-valid-mobile-number> -->
                                             </div>
@@ -184,6 +184,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="dependent_doc" class="form-label">Any Documents</label>
+                                            <!-- <span id="document_tooltip">Only Images are Accepted</span> -->
                                             <input type="file" id="dependent_doc" name="dependent_doc" class="dropify" data-height="85" />
                                         </div>
                                         <div class="col-md-3">
@@ -221,16 +222,18 @@
         <script src="{% static 'assets/plugins/jquery-steps/jquery.steps.min.js'%}"></script>
         
 
-        <!--Internal Fancy uploader js-->
-        <!-- <script src="{% static 'assets/plugins/fancyuploder/jquery.ui.widget.js'%}"></script>
-        <script src="{% static 'assets/plugins/fancyuploder/jquery.fileupload.js'%}"></script>
-        <script src="{% static 'assets/plugins/fancyuploder/jquery.iframe-transport.js'%}"></script>
-        <script src="{% static 'assets/plugins/fancyuploder/jquery.fancy-fileupload.js'%}"></script>
-        <script src="{% static 'assets/plugins/fancyuploder/fancy-uploader.js'%}"></script> -->
 
 		<!-- themecolor JS -->
 		<script src="{% static 'assets/js/themecolor.js'%}"></script>
         <script src="{% static 'assets/js/helper_js/nhcp_registration_test.js'%}"></script>
+
+        <!-- Internal TelephoneInput js-->
+        <script src="{% static 'assets/plugins/telephoneinput/telephoneinput.js'%}"></script>
+        <script src="{% static 'assets/plugins/telephoneinput/inttelephoneinput.js'%}"></script>
+
+        <!--Internal Fileuploads js-->
+        <script src="{% static 'assets/plugins/fileuploads/js/fileupload.js'%}"></script>
+        <script src="{% static 'assets/plugins/fileuploads/js/file-upload.js'%}"></script>
 
         <script>
             //Date picker
@@ -248,6 +251,15 @@
                 orientation: 'bottom',
                 todayHighlight: true,
             })
+            document.addEventListener("DOMContentLoaded", function() {
+                var input = document.querySelector("#mobile-number");
+                window.intlTelInput(input, {
+                initialCountry: "in", // Set the initial country to India
+                utilsScript: "{% static 'assets/plugins/telephoneinput/utils.js' %}" // Ensure you reference the utils.js file
+                });
+            });
+
+            
         </script>
 
         <!-- Internal TelephoneInput js-->

@@ -1,0 +1,4 @@
+#responsive-datatable tbody tr:hover {
+    background-color: rgb(226, 225, 225);
+    cursor: pointer;
+}

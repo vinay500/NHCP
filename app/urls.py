@@ -4,12 +4,11 @@ from . import views
 
 urlpatterns = [
         # new paths
-        path('add_dependents', views.add_dependents , name = 'add_dependents'),
-        path('add_dependents_test', views.add_dependents_test , name = 'add_dependents_test'),
-        path('register_user',views.register_user_for_program, name="register_user_for_program"),
+        
+        path('register_user/<str:program_url_param>',views.register_user_for_program, name="register_user_for_program"),
         path('get_user_programs',views.get_user_programs, name="get_user_programs"),
         # path('reset_password_invalid_token', views.reset_password_invalid_token , name = 'reset_password_invalid_token'),
-        path('community_health_cards', views.community_health_cards, name="community_health_cards"),
+        
         path('', views.index , name = 'index'),
 
 

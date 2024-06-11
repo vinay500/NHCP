@@ -17,8 +17,8 @@ class MembershipCard(models.Model):
     free_doctor_consultation = models.IntegerField()
     pharmacy_discount = models.IntegerField()
     lab_radiology_discount = models.IntegerField()
-    personal_accident_insurance = models.DecimalField(max_digits=8, decimal_places=2)
-    lab_radiology_wallet = models.DecimalField(max_digits=6, decimal_places=2)
+    personal_accident_insurance = models.IntegerField()
+    lab_radiology_wallet = models.IntegerField()
     members_covered = models.IntegerField()
 
 
@@ -28,8 +28,8 @@ class MembershipCard(models.Model):
 
 
 class MembershipCardRegistrations(models.Model):
-    user = models.ForeignKey(CustomUser,  on_delete = models.CASCADE)
-    card = models.OneToOneField(MembershipCard, on_delete = models.CASCADE)
+    user = models.OneToOneField(CustomUser,  on_delete = models.CASCADE)
+    card = models.ForeignKey(MembershipCard, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.card.type+" "+self.user.username

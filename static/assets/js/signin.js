@@ -144,13 +144,17 @@ document.addEventListener("DOMContentLoaded", function () {
         display_error_msg("Something went wrong, try again", [])
       }
     }
-
   });
 });
 
-// function submit_func() {
-//   console.log('in submit_func()')
-//   var input = document.querySelector('#phone');
-//   console.log('input', input);
-//   window.intlTelInput(input, {})
-// }
+function hide_signin_msg_div(){
+  console.log("in hide_signin_msg_div")
+  document.getElementById('error_container').style.display='none';
+}
+
+function preventSpace(event) {
+  if (event.key === ' ') {
+      // console.log("space entered")
+      event.preventDefault();
+  }
+}

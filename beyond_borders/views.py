@@ -6,6 +6,7 @@ from .models import BeyondBordersDependents
 from authentication.models import CountryDialCodes,CustomUser
 from datetime import datetime
 from django.forms.models import model_to_dict 
+from django.db import IntegrityError
 import os
 import logging
 import base64
@@ -23,7 +24,32 @@ logging.basicConfig(
 # logging.error("Log Error Message")
 
 
-# Create your views here
+
+@login_required(login_url='auth/signin')
+def add_dependents(request):
+    return render(request, 'nhcp_registration.html')
+
+
+
+@login_required(login_url='auth/signin')
+def add_dependents_test(request):
+    logged_in_user = request.user
+    custom_user_obj = CustomUser.objects.get(email = logged_in_user)
+    print('custom_user_obj.gender: ',custom_user_obj.gender)
+    print('custom_user_obj.date_of_birth: ',custom_user_obj.date_of_birth)
+    print('custom_user_obj.foreign_address: ',custom_user_obj.foreign_address)
+    if custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address:
+        print('in custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
+        context = {'user_details_already_submitted':'successs'}
+        print('context: ',context)
+        # return render(request, 'nhcp_registration_test.html',{'dependent_saved':'successs'})
+        return render(request, 'beyond_borders/nhcp_registration_test.html',{'context':context})
+    else:
+        print('in else of custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
+        return render(request, 'beyond_borders/nhcp_registration_test.html')
+
+
+
 @login_required(login_url='auth/signin')
 def save_dependent(request):
     # print('request.data: ',request.data)
@@ -77,18 +103,9 @@ def save_dependent(request):
         current_issue_treatment_expected = request.POST.get('current_issue_treatment_expected')
         health_insurance_details = request.POST.get('health_insurance_details')
         dependent_doc = request.FILES.get('dependent_doc')
-        print('first_name ',first_name)
-        print('last_name ',last_name)
-        print('email ',email)
-        print('dependent_dob ',dependent_dob)
-        print('dependent_gender ',dependent_gender)
-        print('dependent_relation ',dependent_relation)
-        print('phone_number_with_country_code ',phone_number_with_country_code)
-        print('country: ',country)
-        print('dependent_address ',dependent_address)
-        print('current_issue_treatment_expected ',current_issue_treatment_expected)
-        print('health_insurance_details ',health_insurance_details)
-        print('dependent_doc ',dependent_doc)
+        print("firstname: ",first_name)
+        print("lastname: ",last_name)
+        print("email: ",email)
         # beyond_borders_obj = BeyondBordersDependents( first_name = first_name, last_name = last_name, email = email, date_of_birth = dependent_dob, gender = dependent_gender, relation = dependent_relation, phone_number = phone_number, 
         #                                               country = , address = dependent_address, current_issue_treatment_expected = current_issue_treatment_expected, health_insurance_details = health_insurance_details )
         try:
@@ -142,7 +159,8 @@ def save_dependent(request):
                                                                             address = dependent_address, current_issue_treatment_expected = current_issue_treatment_expected, 
                                                                             country = dependent_country, health_insurance_details = health_insurance_details, image_filename = new_filename )
                     logging.info("Saving beyond borders dependent object")
-                    beyond_borders_dependent_obj.save()
+                    dependent_saved = beyond_borders_dependent_obj.save()
+                    print("dependent_saved: ",dependent_saved)
                     if request.POST.get('finished') == 'on':
                         return redirect('/view_dependents')
                         # return render(request, 'nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
@@ -152,41 +170,35 @@ def save_dependent(request):
                             'user_details_already_submitted':'successs'
                         }
                         print('context: ',context)
-                        return render(request, 'nhcp_registration_test.html',{'context':context})
-                        # return render(request, 'nhcp_registration_test.html',{'dependent_saved':'success'})
+                        return render(request, 'beyond_borders/nhcp_registration_test.html',{'context':context})
+                except IntegrityError as e:
+                    if 'UNIQUE constraint failed' in str(e):
+                        print(f"Error: A record with the email '{email}' already exists.")
+                    return render(request, 'beyond_borders/nhcp_registration_test.html',{'error':"Email already exists, Try Again"})
                 except Exception as e:
                     print('e: ',e)
                     logging.error("")
-                    return render(request, 'nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
+                    return render(request, 'beyond_borders/nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
             except Exception as e:
                 print('e: ',e)
                 logging.error("Can't get Reffered User Object")
-                return render(request, 'nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
+                return render(request, 'beyond_borders/nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
         except Exception as e:
             print('e: ',e)
             logging.error("Can't get Country details for Phone Number")
-            return render(request, 'nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
+            return render(request, 'beyond_borders/nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
     else:
         logged_in_user = request.user
         custom_user_obj = CustomUser.objects.get(email = logged_in_user)
-        print('custom_user_obj.gender: ',custom_user_obj.gender)
-        print('custom_user_obj.date_of_birth: ',custom_user_obj.date_of_birth)
-        print('custom_user_obj.foreign_address: ',custom_user_obj.foreign_address)
         if custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address:
             print('in custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
             context = {'user_details_already_submitted':'successs'}
             print('context: ',context)
             # return render(request, 'nhcp_registration_test.html',{'dependent_saved':'successs'})
-            return render(request, 'nhcp_registration_test.html',{'context':context})
+            return render(request, 'beyond_borders/nhcp_registration_test.html',{'context':context})
         else:
             print('in else of custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
-            return render(request, 'nhcp_registration_test.html')
-        
-        
-        # context = {'dependent_saved':'successs','user_details_already_submitted':'successs'}
-        # print('context: ',context)
-        # return render(request, 'nhcp_registration_test.html',{'context':context})
-        # # return render(request, 'nhcp_registration_test.html',{'dependent_saved':'successs'})
+            return render(request, 'beyond_borders/nhcp_registration_test.html')
 
 
 
@@ -204,16 +216,14 @@ def view_dependents(request):
         print('dependent: ', dependent.country)
         # Convert each dependent object to a dictionary
         dependent_dict = model_to_dict(dependent)
-        print(dependent_dict)  # This prints the dependent's details as a dict
+        print(dependent_dict)  
 
         dependent_dict['country'] = dependent.country.country_name
         
         dependents_list.append(dependent_dict)
-        # Append the dependent_dict to the dependents_list
-        # dependents_list.append(dependent_dict)
+        
 
-    # If you need to pass the dependents_list to your template, you can do so as follows
-    return render(request, 'view_dependents.html', {'dependents_list': dependents_list})
+    return render(request, 'beyond_borders/view_dependents.html', {'dependents_list': dependents_list})
 
 
 
@@ -245,11 +255,9 @@ def view_dependent(request,dep_id):
     else:
         image_data = None
 
-
     # Add the image data to the dependent dictionary
     dependent_dict['image_data'] = image_data
-
-    return render(request, 'view_dependent.html', {'dependent_dict': dependent_dict})
+    return render(request, 'beyond_borders/view_dependent.html', {'dependent_dict': dependent_dict})
 
 
 

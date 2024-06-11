@@ -1,0 +1,71 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+    {% block styles %}
+        <link rel="stylesheet" href="{% static 'assets\css\nhcp_css\home_care_services\view_booked_services.css' %}">
+    {% endblock %}
+
+    {% block content %}
+
+        <div class="row row-sm">
+            <div class="col-lg-12">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <!-- <div>
+                            <h6 class="main-content-label mb-1">Deleted Row DataTable</h6>
+                            <p class="text-muted card-sub-title">Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.</p>
+                        </div> -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap border-bottom" id="responsive-datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>E-mail</th>
+                                        <th>Service</th>
+                                        <th>Gender</th>
+                                        <th>Mobile Number</th>
+                                        <th>Pin Code</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Country</th>
+                                        <th>Booked At</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for service in services_list %}
+                                        <tr mem_id="{{ dependent.membership_id }}">
+                                            <td>{{ service.name }}</td>
+                                            <td>{{ service.email }}</td>
+                                            <td>{{ service.service }}</td>
+                                            <td>{{ service.gender }}</td>
+                                            <td>{{ service.mobile_number }}</td>
+                                            <td>{{ service.pin_code }}</td>
+                                            <td>{{ service.city }}</td>
+                                            <td>{{ service.state }}</td>
+                                            <td>{{ service.country }}</td>
+                                            <td>{{ service.created_at|date:"F j, Y" }}</td>
+                                            <!-- <td>
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </td> -->
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block scripts %}
+        <script src="{% static 'assets/plugins/datatable/dataTables.responsive.min.js'%}"></script>
+        <script src="{% static 'assets/plugins/datatable/js/jquery.dataTables.min.js'%}"></script>
+		<script src="{% static 'assets/plugins/datatable/dataTables.responsive.min.js'%}"></script>
+		<script src="{% static 'assets/plugins/datatable/responsive.bootstrap5.min.js'%}"></script>
+		<script src="{% static 'assets/js/table-data.js'%}"></script>
+
+        <script src="{% static 'assets/js/helper_js/view_dependents.js'%}"></script>
+    {% endblock %}

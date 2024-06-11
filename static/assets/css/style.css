@@ -11084,6 +11084,9 @@ a.tag-addon {
   width: 100%;
   margin: 0 auto;
   text-align: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .loader-img {
@@ -25766,10 +25769,14 @@ table.dataTable {
     font-weight: 500; }
 
 .dataTables_wrapper .dataTables_length {
-  text-align: left; }
+  text-align: left; 
+  
+}
   .dataTables_wrapper .dataTables_length label {
     display: block;
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    display: none;
+   }
   .dataTables_wrapper .dataTables_length .select2-container--default {
     margin-right: 5px;
     width: 50px !important; }
@@ -31807,7 +31814,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
     content: "\e903"; }
 
 .group {
-  *zoom: 1; }
+  *zoom: 1; 
+}
   .group:before {
     display: table;
     content: "";

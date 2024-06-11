@@ -1,0 +1,112 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+    {% block styles %}
+        <link rel="stylesheet" href="{% static 'assets\css\nhcp_css\home_care_services\book_home_care_service.css' %}">
+    {% endblock %}
+    
+    {% block content %} 
+        <!-- <h1>Home Care Services</h1> -->
+        <div class="container">
+            <form action="{% url 'book_home_care_service' 'service_name' %}"  method="post">
+                <!-- <div id="add_dependent_cant_change_div" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span> Dependent details can not be Changed, Once Added. For any changes, please contact our support at 1234567891 </span>
+                </div>  -->
+                {% csrf_token %}
+                <div class="card-body form_content">
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">Name <span class="tx-danger">*</span></label> 
+                            <input class="form-control" id="name" name="name" placeholder="Enter fullname"  type="text" required>
+                        </div>
+                        
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">Email <span class="tx-danger">*</span></label>
+                            <input class="form-control" id="email" name="email" placeholder="Enter email address"  type="email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">Phone Number <span class="tx-danger">*</span></label>
+                            <div class="input-group telephone-input ">
+                                <input  class="form-control" type="tel" id="mobile-number" name="mobile-number" placeholder="e.g. +1 702 123 4567" required data-parsley-valid-mobile-number>
+                                <!-- <input id="mobile-number" class="form-control" name="mobile-number" placeholder="Enter your phone number"  type="tel" required data-parsley-valid-mobile-number> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12" style="display: none;">
+                            <label class="form-label">Country</label>
+                            <div class="input-group telephone-input ">
+                                <input  class="form-control" id="country" name="country">
+                                <!-- <input id="mobile-number" class="form-control" name="mobile-number" placeholder="Enter your phone number"  type="tel" required data-parsley-valid-mobile-number> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="gender" class="form-label">Gender <span class="tx-danger">*</span></label>
+                            <select id="gender" name="gender" class="form-control SlectBox"  onclick="console.log($(this).val())" required data-parsley-valid-gender>
+                                <option selected disabled value="">Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">Service <span class="tx-danger">*</span></label> 
+                            <input class="form-control" id="service" name="service"  value="{{ service_name }}" type="text" required readonly>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">Pincode <span class="tx-danger">*</span></label> 
+                            <input class="form-control" id="pincode" name="pincode" placeholder="Enter Pincode"  type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">City <span class="tx-danger">*</span></label> 
+                            <input class="form-control" id="city" name="city" placeholder="Enter City"  type="text" required>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label class="form-label">State <span class="tx-danger">*</span></label> 
+                            <input class="form-control" id="state" name="state" placeholder="Enter State"  type="text" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row"> -->
+                <div class="col-md-12 submit_div">
+                    <button type="submit"> Submit</button>
+                </div>
+                <!-- </div> -->
+            </form>
+        </div>
+    {% endblock %}
+
+    {% block scripts %}
+        <!-- Internal TelephoneInput js-->
+        <script src="{% static 'assets/plugins/telephoneinput/telephoneinput.js'%}"></script>
+        <script src="{% static 'assets/plugins/telephoneinput/inttelephoneinput.js'%}"></script>
+
+        <script>
+            function handlePhoneNumberChange() {
+            let selectedCountryElement = document.querySelector('.country-list .country.active');
+            // Check if a country is selected
+            if (selectedCountryElement) {
+                // Extract country information
+                var countryName = selectedCountryElement.querySelector('.country-name').textContent;
+                var dialCode = selectedCountryElement.querySelector('.dial-code').textContent;
+                var countryCode = selectedCountryElement.getAttribute('data-country-code');
+
+                // Print or use the extracted information as needed
+                console.log('Selected Country:', countryName);
+                console.log('Dial Code:', dialCode);
+                console.log('Country Code:', countryCode);
+
+                document.getElementById('country').disabled = false;
+                document.getElementById('country').value = countryName;
+                }
+            console.log("document.getElementById('country').value: ", document.getElementById('country').value);
+            }
+            document.getElementById('mobile-number').addEventListener('input', handlePhoneNumberChange);
+            console.log("document.getElementById('country').value: ",document.getElementById('country').value);
+        </script>
+       
+    {% endblock %}

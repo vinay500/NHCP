@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'authentication',
     'beyond_borders',
     'community_health_cards',
+    'home_care_services',
+    # 'home_care_services.apps.HomeCareServicesConfig',
 ]
 
 MIDDLEWARE = [
@@ -177,4 +179,7 @@ EMAIL_VERIFICATION_SECRET_KEY = "4f9d3eb982fcf9c1c240d4e73f1103c8f0a1e1c7b0133b6
 # http://127.0.0.1:8000/
 IP_ADDRESS = '127.0.0.1'
 PORT = '8000'
+
+
+NHCP_ADMIN_MAIL = 'vinaymadugula1@gmail.com'
 

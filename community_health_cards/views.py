@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from community_health_cards.models import MembershipCard
 import logging
 import base64
 
@@ -17,11 +18,31 @@ logging.basicConfig(
 # logging.error("Log Error Message")
 
 
-
-# Create your views here.
 @login_required(login_url='auth/signin')
-def buy_health_card(request):
-    return render(request, 'buy_health_card.html')
+def view_health_cards(request):
+    return render(request, 'community_health_cards/community_health_cards.html')
+    # return render(request, 'components/base.html')
+
+
+@login_required(login_url='auth/signin')
+def buy_health_card(request, card_type):
+    context = {}
+    
+    print("card_type:",card_type)
+    if card_type == "basic":
+        context['health_card_img'] = r"assets\img\nhcp_imgs\nhcp_programs\current_basic_membership_card.png"
+        # get membership plan benefits
+        memberhip_card_obj = MembershipCard.objects.get(type = 'Basic')
+        print("memberhip_card_obj: ",memberhip_card_obj)
+        context['membership_card'] = memberhip_card_obj
+    if card_type == "essential":
+        context['health_card_img'] = r'assets\img\nhcp_imgs\nhcp_programs\current_essential_membership_card.png'
+        # get membership plan benefits
+        memberhip_card_obj = MembershipCard.objects.get(type = 'Essential')
+        print("memberhip_card_obj: ",memberhip_card_obj)
+        context['membership_card'] = memberhip_card_obj
+
+    return render(request, 'community_health_cards/buy_health_card.html', context)
 
 
 

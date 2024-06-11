@@ -52,16 +52,28 @@
                                                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                                                     <span>{{ reset_password_success_msg }}</span>
                                                                     <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
+                                                                    <!-- <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button> -->
                                                                 </div>
                                                             {% endif %} 
                                                             <div id="error_container">
                                                                 <span id="error_msg">Try Again</span>
+                                                                <button  class="btn-close"  type="button" onclick="hide_signin_msg_div()">
+                                                                    <span>×</span>
+                                                                </button>
                                                             </div>
+                                                            <!-- <div id="error_container" class="alert alert-dismissible fade show" role="alert">
+                                                                <span id="error_msg"></span>
+                                                                <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div> -->
                                                             <form id="signin-form" method="post">
                                                                 {% csrf_token %}
                                                                 <div class="form-group">
                                                                     <label>Email</label> 
-                                                                    <input id="signin_email" class="form-control" placeholder="Enter your email" type="text">
+                                                                    <input id="signin_email" class="form-control" placeholder="Enter your email" onkeypress="preventSpace(event)" type="text">
                                                                     <span style="color:red; display:none;" id="email_required_msg" class="signin_error_msg">Mail is required</span>
                                                                     <span style="color:red; display:none;" id="valid_email_required_msg" class="signin_error_msg">Enter Valid Email</span>
                                                                 </div>
