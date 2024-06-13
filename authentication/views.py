@@ -41,6 +41,7 @@ def signup(request):
             return HttpResponse('This email is already registered. Please use a different email')
         else:
             try:
+                
                 country = CountryDialCodes.objects.get(country_name = country)
                 logging.info(f"User Country {country}")
                 try:

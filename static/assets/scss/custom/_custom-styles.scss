@@ -3631,7 +3631,9 @@ div.dt-button-info h2 {
   line-height: 1;
   font-size: 24px;
   background-image: none;
-  color: #000;
+  // changed black color to red for changing closing button color in signin page error message
+  // color: #000;
+  color: red;
 
   &:focus {
     box-shadow: none !important;
