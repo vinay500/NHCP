@@ -83,7 +83,7 @@ def send_forgot_password_mail(recipient_email, recipient_name, token, expiry_tim
         logging.info("User Registration Mail Sent Successfully")
         return True
     except Exception as e:
-        print('e: ',e)
+        logging.error('e: ',e)
         logging.error("Email Sending Failed, Error in send_registration_mail() :{email_token}")
         # return HttpResponse('Email sent successfully!')
         return False
