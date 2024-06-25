@@ -81,7 +81,7 @@ def save_dependent(request):
                     print('formatted_dependent_dob: ',formatted_date_of_birth)
                     user_obj.date_of_birth = formatted_date_of_birth
                 except Exception as e:
-                    logging.error('e: ',e)
+                    logging.error(f"exception: {e}")
                     return render(request, 'nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
             if gender:
                 user_obj.gender = gender
