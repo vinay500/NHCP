@@ -18,7 +18,7 @@ def send_registration_mail(recipient_email, recipient_name):
     logging.info(F"email_token in send_registration_mail:{email_token}")
 
     # Render the email template
-    email_content = render_to_string('user_registration_mail.html', 
+    email_content = render_to_string('authentication/user_registration_mail.html', 
                                         {
                                             'recipient_name': recipient_name,
                                             'recipient_email': recipient_email,
@@ -41,7 +41,7 @@ def send_registration_mail(recipient_email, recipient_name):
         logging.info("User Registration Mail Sent Successfully")
         return True
     except Exception as e:
-        print('e: ',e)
+        logging.error('Exception: ',e)
         logging.error("Email Sending Failed, Error in send_registration_mail() :{email_token}")
         # return HttpResponse('Email sent successfully!')
         return False

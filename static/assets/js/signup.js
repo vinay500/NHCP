@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // sending data to backend
       try {
         // displaying loader
-      document.getElementById('global-loader').style.display='block';
+        document.getElementById('global-loader').style.display='block';
       
         const response = await fetch("", {
           method: "POST",
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         if (response.ok) {
           let data = await response.text();
-          // console.log('Server Response:', data);
+          console.log('Server Response:', data);
 
           if (data === 'signup_success') {
             // displaying loader
@@ -152,17 +152,26 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('redirect user');
             window.location.href = "/auth/signin";
             return;
-          } else if (data = "This email is already registered. Please use a different email"){
+          } else if (data === "This email is already registered. Please use a different email"){
               console.log('in different email');
               // displaying loader
               document.getElementById('global-loader').style.display='none';
-
               // displaying signup message
               let signup_msg_div = document.getElementById('signup_msg_div');
               signup_msg_div.classList.add("alert-danger");
               let msg = document.getElementById('signup_msg');
               msg.innerText='This email is already registered. Please use a different email';
               signup_msg_div.style.display = 'block';
+          } else if (data === "User Signup Failed, Try Again"){
+            console.log('User Signup Failed, Try Again');
+            // displaying loader
+            document.getElementById('global-loader').style.display='none';
+            // displaying signup message
+            let signup_msg_div = document.getElementById('signup_msg_div');
+            signup_msg_div.classList.add("alert-danger");
+            let msg = document.getElementById('signup_msg');
+            msg.innerText='User registration Failed, Try Again';
+            signup_msg_div.style.display = 'block';
           }
           else{
             // displaying loader
@@ -179,7 +188,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
         // displaying loader
         document.getElementById('global-loader').style.display='none';  
-
         // displaying signup message
         let signup_msg_div = document.getElementById('signup_msg_div');
         signup_msg_div.classList.add("alert-danger");

@@ -30,7 +30,7 @@ from cryptography.fernet import Fernet
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'beyond_borders',
     'community_health_cards',
     'home_care_services',
-    # 'home_care_services.apps.HomeCareServicesConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'nowa.middleware.ExceptionLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'nowa.urls'
@@ -146,8 +146,8 @@ HTML_MINIFY = False
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [STATIC_DIR]
-print(STATIC_DIR)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -175,6 +175,53 @@ EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
 # key for encrypting and decrypting email and expiry time for forgot password token
 EMAIL_VERIFICATION_SECRET_KEY = "4f9d3eb982fcf9c1c240d4e73f1103c8f0a1e1c7b0133b63f02d2c047b855f97"
 
+
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+# Logger: writes log records. - logger logs 
+# Formatter: specifies the structure of each log record. - formatter sets log format
+# Handler: determines the destination for each records. - handlers handles the logs to the file
+# Filter: determines which log records get sent to the configured destination.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'syslog': {
+            'level': 'INFO',
+            'class': 'logging.handlers.SysLogHandler',
+            'address': ('localhost', 514),
+        },
+        'exception_handler': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(LOG_DIR, 'error.log'),
+            'formatter': 'standard',
+        },
+    },
+    'formatters': {
+        'standard': {
+            # 'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+            'format': '%(asctime)s [%(filename)s:%(lineno)d] %(levelname)-8s %(message)s',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['syslog'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'exception_logger': {
+            'handlers': ['exception_handler'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
+
+LOGIN_URL = '/auth/signin'
 
 # http://127.0.0.1:8000/
 IP_ADDRESS = '127.0.0.1'

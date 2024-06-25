@@ -30,3 +30,7 @@ function healthcard_and_condition_register_btn(checkbx,button_id) {
         btn.disabled = true;
     }
 }
+
+function hide_index_msg_div(){
+    document.getElementById("index_msg_div").style.display="none";
+}

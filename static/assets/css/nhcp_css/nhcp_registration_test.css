@@ -1,3 +1,7 @@
+#dependent_msg_div{
+    margin-top: 10px;
+}
+
 .dependent_added_success_msg{
     margin: 20px auto 0 auto;
     width: 57%;

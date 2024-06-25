@@ -42,9 +42,11 @@
                                                 {% endif %}
                                                 <div id="error_container">
                                                     <span id="error_msg">Try Again</span>
+                                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button" onclick="remove_error_container()" style="color: red"><span aria-hidden="true">×</span></button>
                                                 </div>
                                                 <div id="success_container">
                                                     <span id="success_msg">Try Again</span>
+                                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button" onclick="remove_success_container()" style="color: green"><span aria-hidden="true">×</span></button>
                                                 </div>
                                                 <div class="main-signin-header">
                                                     <h2>Forgot Password!</h2>

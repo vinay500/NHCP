@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from community_health_cards.models import MembershipCard
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.models import Group
 import logging
 import base64
 
@@ -24,7 +26,8 @@ def view_health_cards(request):
     # return render(request, 'components/base.html')
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
+@permission_required('community_health_cards.add_membershipcard', raise_exception=True)
 def buy_health_card(request, card_type):
     context = {}
     
@@ -58,3 +61,10 @@ def assign_membership_card(request):
     else:
         logging.info("In assign_membership_card get request")
         return HttpResponse("assign_membership_card get data")
+    
+
+
+@login_required(login_url='auth/signin')
+def assign_health_card_role(request):
+    group = Group.objects.get(name='Health Cards Admin')
+    request.user.groups.add(group)

@@ -4,6 +4,10 @@
     margin-left: 0px;
 }
 
+#index_msg_div{
+    width: 50%;
+    margin: 0 auto 20px auto;
+}
 .project_img{
     height: 40vh;
 }
