@@ -49,6 +49,49 @@ def notify_admin(sender, instance, created, **kwargs):
             logging.info("Mail Sent Successfully to NHCP Admin")
             return True
         except Exception as e:
-            print('e: ',e)
+            logging.error('e: ',e)
             logging.error("Email Sending Failed, Error in send_registration_mail() :{email_token}")
+            return False
+        
+
+
+
+@receiver(post_save, sender=ServiceRegistrations) 
+def notify_user(sender, instance, created, **kwargs):
+    logging.info("in notify_admin")
+    print("in notify_admin")
+    print("instance.name: ",instance.name)
+    print("link: ",'http://{SETTINGS.IP_ADDRESS}:{SETTINGS.PORT}/booked_services')
+    if created:
+        logging.info(F"sending mail to User")
+        email_content = render_to_string('email_templates/home_care_lead_notify.html',
+                                            {
+                                                'mail_heading': 'New Home Care Service Booking',
+                                                'mail_msg': 'You have received a new home care service booking',
+                                                'recipient_name': 'NHCP Admin',
+                                                'recipient_email': instance.email,
+                                                'booking_details_first_name': instance.name,
+                                                'booking_details_mail': instance.email,
+                                                'booking_details_service': instance.service,
+                                                'booking_details_created_at': instance.created_at,
+                                                'ref_link':f'http://{SETTINGS.IP_ADDRESS}:{SETTINGS.PORT}/booked_services',
+                                                'model':'home_care_services'
+                                            }
+                                        )
+        # Send the email
+        try:
+            send_mail_status = send_mail(
+                'Home Care Service Booked',
+                email_content,
+                SETTINGS.EMAIL_HOST_USER,  # Sender's email address
+                [instance.email,],      # Recipient's email address
+                # fail_silently=False,
+                html_message=email_content,
+            )
+            logging.info(f"send_mail_status : {send_mail_status}")
+            logging.info("Mail Sent Successfully to User")
+            return True
+        except Exception as e:
+            logging.error('e: ',e)
+            logging.error(f"Email Sending Failed, Error in send_registration_mail()")
             return False

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Service Booking Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 20px 0;
+            font-size: 1em;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button p{
+            color: white;
+        }
+        a{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- <h1>New Home Care Service Booking</h1> -->
+            <h1>{{ mail_heading }}</h1>
+        </div>
+        <div class="content">
+            <p>Dear Admin,</p>
+            <!-- <p>You have received a new home care service booking. Here are the details:</p> -->
+            <p>{{ mail_msg }}. Here are the details:</p>
+            <table>
+                <tr>
+                    <td><strong>User Name:</strong></td>
+                    <td>{{booking_details_first_name}}</td>
+                </tr>
+                <tr>
+                    <td><strong>User email:</strong></td>
+                    <td>{{booking_details_mail}}</td>
+                </tr>
+                
+                {% if model == 'home_care_services' %}
+                    <tr>
+                        <td><strong>Service Booked:</strong></td>
+                        <td>{{booking_details_service}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Booked at:</strong></td>
+                        <td>{{booking_details_created_at}}</td>
+                    </tr>
+                {% endif  %}
+            </table>
+            <p>Please login to the admin panel to view more details and manage the booking.</p>
+            <a href="{{ref_link}}" class="button">Go to Admin Panel</a>
+        </div>
+        <div class="footer">
+            <p>Thank you,<br>Wellness Hospitals</p>
+        </div>
+    </div>
+</body>
+</html>
