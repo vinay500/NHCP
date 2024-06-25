@@ -18,10 +18,7 @@ logging.basicConfig(
     format='%(asctime)s [%(filename)s:%(lineno)d] %(levelname)-8s %(message)s',
     level=logging.INFO,
     datefmt='[%d/%b/%Y %H:%M:%S]')
-# examples
-# logging.info("Log Info Message")
-# logging.warning("Log Warning Message")
-# logging.error("Log Error Message")
+
 
 
 
@@ -90,7 +87,14 @@ def save_dependent(request):
                 user_obj.gender = gender
             if gender:
                 user_obj.foreign_address = foreign_address
-            user_obj.save()
+            try:
+                logging.info("saving user gender,dob, address")
+                user_obj.save()
+                logging.info("user gender,dob, address saved")
+            except Exception as e:
+                    print('e: ',e)
+                    logging.error("can't save User")
+                    return render(request, 'beyond_borders/nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
         first_name = request.POST.get('firstname')
         last_name = request.POST.get('lastname')
         email = request.POST.get('email')

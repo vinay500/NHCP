@@ -24,9 +24,14 @@
 					<!-- /breadcrumb -->
 					
 					<!-- Programs Container -->
-					<div id="error_div">
-						{{ error }}
-					</div>
+					{% if error %}
+						<div id="index_msg_div" class="alert alert-danger alert-dismissible fade show" role="alert">
+							<span id="index_msg">{{ error }}</span>
+							<button  class="btn-close"  type="button" onclick="hide_index_msg_div()">
+								<span>×</span>
+							</button>
+						</div> 
+					{% endif %}
 					<div class="row" style="height: 50%;">
 						<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12" id="card_upper_div">
 							<div class="card overflow-hidden">
@@ -44,13 +49,16 @@
 										<div class="d-sm-flex ms-sm-auto nhcp_programs_div">
 											{% if programs_registered %}
 												{% if 'Beyond Borders' in programs_registered %}
-												<a href="/add_dependents_test">
-													<button class="mr-3 btn  know_more_btn">Explore</button>
-												</a>
+													<a href="/add_dependents_test">
+														<button class="mr-3 btn  know_more_btn">Explore</button>
+													</a>
+												{% else %}
+													<button class="mr-3 btn  know_more_btn">Know More</button>
+													<button class="btn btn-success register_btn" data-bs-target="#beyond_border_scrollmodal" data-bs-toggle="modal" href>Register</button>
 												{% endif %}
 											{% else %}
-											<button class="mr-3 btn  know_more_btn">Know More</button>
-											<button class="btn btn-success register_btn" data-bs-target="#beyond_border_scrollmodal" data-bs-toggle="modal" href>Register</button>
+												<button class="mr-3 btn  know_more_btn">Know More</button>
+												<button class="btn btn-success register_btn" data-bs-target="#beyond_border_scrollmodal" data-bs-toggle="modal" href>Register</button>
 											{% endif %}
 										</div>
 									</div>
@@ -75,13 +83,16 @@
 											<a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 tx-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a> -->
 											{% if programs_registered %}
 												{% if 'Community Health Cards' in programs_registered %}
-												<a href="/health_cards">
-													<button class="mr-3 btn  know_more_btn">Explore</button>
-												</a>
+													<a href="/health_cards">
+														<button class="mr-3 btn  know_more_btn">Explore</button>
+													</a>
+												{% else %}
+													<button class="mr-3 btn know_more_btn">Know More</button>
+													<button class="btn btn-success register_btn" data-bs-target="#community_health_cards_scrollmodal" data-bs-toggle="modal" href>Register</button>
 												{% endif %}
 											{% else %}
-											<button class="mr-3 btn know_more_btn">Know More</button>
-											<button class="btn btn-success register_btn" data-bs-target="#community_health_cards_scrollmodal" data-bs-toggle="modal" href>Register</button>
+												<button class="mr-3 btn know_more_btn">Know More</button>
+												<button class="btn btn-success register_btn" data-bs-target="#community_health_cards_scrollmodal" data-bs-toggle="modal" href>Register</button>
 											{% endif %}
 										</div>
 									</div>
@@ -134,15 +145,16 @@
 												{% if 'Home Care Services' in programs_registered %}
 													<a href="{% url 'home_care_services' %}">
 														<a href="/home_care_services">
-															<button class="mr-3 btn  know_more_btn">
-																Explore
-															</button>
+															<button class="mr-3 btn  know_more_btn">Explore</button>
 														</a>
 													</a>
+												{% else %}
+													<button class="mr-3 btn know_more_btn">Know More</button>
+													<button class="btn btn-success register_btn" data-bs-target="#home_care_services_scrollmodal" data-bs-toggle="modal" href>Register</button>
 												{% endif %}
 											{% else %}
-											<button class="mr-3 btn know_more_btn">Know More</button>
-											<button class="btn btn-success register_btn" data-bs-target="#home_care_services_scrollmodal" data-bs-toggle="modal" href>Register</button>
+												<button class="mr-3 btn know_more_btn">Know More</button>
+												<button class="btn btn-success register_btn" data-bs-target="#home_care_services_scrollmodal" data-bs-toggle="modal" href>Register</button>
 											{% endif %}
 										</div>
 									</div>

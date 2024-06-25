@@ -723,3 +723,7 @@ function preventSpace(event) {
         event.preventDefault();
     }
 }
+
+function hide_dependent_msg_div(){
+    document.getElementById("dependent_msg_div").style.display="none"
+}

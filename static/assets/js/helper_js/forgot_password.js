@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       
       if(!error_in_signin_data){
         try {
+            document.getElementById('global-loader').style.display='block';
             const response = await fetch("", {
               method: "POST",
               headers: {
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
               body: formData,
             });
             if (response.ok) {
+              document.getElementById('global-loader').style.display='none';
               let data = await response.text();
               console.log('Server Response:', data);
       
@@ -87,3 +89,12 @@ document.addEventListener("DOMContentLoaded", function () {
       
     });
   });
+
+
+function remove_success_container(){
+  document.getElementById("success_container").style.display="none";
+}
+
+function remove_error_container(){
+  document.getElementById("error_container").style.display="none";
+}

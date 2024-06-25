@@ -25,6 +25,7 @@ logging.basicConfig(
 
 def signup(request):
     if request.method=='POST':
+        # try:
         if request.POST['full_name']:
             full_name = request.POST['full_name']
         if request.POST['email']:
@@ -32,32 +33,37 @@ def signup(request):
         if request.POST['hashedPassword']:
             password = request.POST['hashedPassword']
         if request.POST['phone_number']:
-            phone_number = request.POST['phone_number']
+            user_phone_number = request.POST['phone_number']
         if request.POST['country']:
             country = request.POST['country']
-        logging.info("{0} - User entered details full_name: {1}, email: {2}, password: {3}, phone number: {4}, country: {5}".format(email,full_name,email,password,phone_number,country))
+        logging.info("{0} - User entered details full_name: {1}, email: {2}, password: {3}, phone number: {4}, country: {5}".format(email, full_name, email, password, user_phone_number, country))
         if CustomUser.objects.filter(email = email).exists():
             logging.warning('{0} - User already exists'.format(email))
             return HttpResponse('This email is already registered. Please use a different email')
         else:
             try:
-                
-                country = CountryDialCodes.objects.get(country_name = country)
+                country_obj = CountryDialCodes.objects.get(country_name = country)
                 logging.info(f"User Country {country}")
                 try:
-                    user = CustomUser.objects.create_user(email = email, password = password, username = full_name, phone_number = phone_number, country = country)
+                    logging.info(f"user phone number: {user_phone_number}")
+                    logging.info(f"user country: {country_obj}")
+                    user = CustomUser.objects.create_user(email = email, password = password, username = full_name, phone_number = user_phone_number, country = country_obj)
                     # user.phone_number = phone_number
-                    user.save()
-                    logging.info("{0} - User signed up successfully".format(email))
                     try:
-                        logging.info("{0} - Email Sending Started".format(email))
-                        send_registration_mail(email, full_name)
+                        user.save()
+                        logging.info("{0} - User signed up successfully".format(email))
+                        try:
+                            logging.info("{0} - Email Sending Started".format(email))
+                            send_registration_mail(email, full_name)
+                        except Exception as e:
+                            logging.info("{0} - Error in send_registration_mail()".format(email))
+                            print('e: ',e)
+                            return HttpResponse('Registration Mail not Sent')  
+                        finally:
+                            return HttpResponse('signup_success')
                     except Exception as e:
-                        logging.info("{0} - Error in send_registration_mail()".format(email))
-                        print('e: ',e)
-                        return HttpResponse('Registration Mail not Sent')  
-                    finally:
-                        return HttpResponse('signup_success')
+                        logging.error('e',e)
+                        return HttpResponse("User Signup Failed, Try Again")
                 except Exception as e:
                     print('e',e)
                     return HttpResponse('Something Went Wrong, Try Again')
@@ -65,6 +71,10 @@ def signup(request):
                 print('e',e)
                 logging.error("Can't Find Country Object")
                 return HttpResponse('Something Went Wrong, Try Again')
+        # except Exception as e:
+        #     logging.error("Issue in getting Signup Form Data")
+        #     logging.error(f'exception: {e}')
+        #     return HttpResponse('Something Went Wrong, Try Again')
     else:
         logging.warning('Not post request')
         return render(request, 'signup.html')
@@ -255,58 +265,73 @@ def forgot_password_page(request, error_msg=None):
 
 
 def reset_password(request, token):
+    logging.info("in reset_password")
     if request.method=="POST":
-        logging.info(f'Reset Password Token Received: {token}')
-        token_expired_or_not = reset_password_token_expired_or_not(token)
-        if token_expired_or_not == 'Reset Password Token not Expired':
-            new_password = request.POST['new_password']
-            new_confirm_password = request.POST['new_confirm_password']
-            logging.info(f'User Reset Password new_password: {new_password} new_confirm_password: {new_confirm_password}')
-            if new_password == new_confirm_password:
-                forgot_password_request_obj = Forgot_Password_Request.objects.get(token = token)
-                if forgot_password_request_obj:
-                    logging.info(f'Resetting Password for Forgot Password Request: {forgot_password_request_obj}')
-                    user_obj = forgot_password_request_obj.user
-                    user_obj.set_password(new_password)
-                    user_obj.save()
-                    return HttpResponse('Password Reset Successful')
-                    # return render(request, 'index.html', {'verify_mail_sucess_message':'Password Reset Successful'})
+        if Forgot_Password_Request.objects.filter(token = token).exists():
+            forgot_password_request_obj = Forgot_Password_Request.objects.get(token = token)
+            logging.info(f'Reset Password Token Received: {token}')
+            token_expired_or_not = reset_password_token_expired_or_not(token)
+            if token_expired_or_not == 'Reset Password Token not Expired':
+                new_password = request.POST['new_password']
+                new_confirm_password = request.POST['new_confirm_password']
+                logging.info(f'User Reset Password new_password: {new_password} new_confirm_password: {new_confirm_password}')
+                if new_password == new_confirm_password:
+                    if forgot_password_request_obj:
+                        logging.info(f'Resetting Password for Forgot Password Request: {forgot_password_request_obj}')
+                        user_obj = forgot_password_request_obj.user
+                        user_obj.set_password(new_password)
+                        user_obj.save()
+                        forgot_password_request_obj.delete()
+                        return HttpResponse('Password Reset Successful')
+                        # return render(request, 'index.html', {'verify_mail_sucess_message':'Password Reset Successful'})
+                    else:
+                        logging.error(f"Forgot Password Request Object doesn't exist")
+                        return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again With Link Sent In The Mail"})  
                 else:
-                    logging.error(f"Forgot Password Request Object doesn't exist")
-                    return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again With Link Sent In The Mail"})  
+                    logging.error(f"New Password and New Confirm Password are not Equal")
+                    return render(request, 'reset.html', {'reset_password_failure':"Password and Confirm Password are not Equal"})
+            elif token_expired_or_not == "Can't Decode Token, Try Again":
+                return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
+            elif (token_expired_or_not == 'Token has expired') or (token_expired_or_not == 'Reset Password Token Expired'):
+                return HttpResponse('Reset Password Link Expired, Try Again')
+                # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Reset Password Link Expired, Try Again"})
+            elif token_expired_or_not == "Can't Decode Token, Try Again":
+                return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
+            elif token_expired_or_not == "Link Doesn't Exists, May be Link has been used already. Please Request a new password reset":
+                return render(request, 'reset_password_invalid_token.html',{'msg':"Link Doesn't Exists, May be Link has been used already. Please Request a new password reset"})
             else:
-                logging.error(f"New Password and New Confirm Password are not Equal")
-                return render(request, 'reset.html', {'reset_password_failure':"Password and Confirm Password are not Equal"})
-        elif token_expired_or_not == "Can't Decode Token, Try Again":
-             return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
-        elif (token_expired_or_not == 'Token has expired') or (token_expired_or_not == 'Reset Password Token Expired'):
-            return HttpResponse('Reset Password Link Expired, Try Again')
-            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Reset Password Link Expired, Try Again"})
+                logging.error(f'Something Went Wrong')
+                return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
         else:
-            logging.error(f'Something Went Wrong')
-            return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+            logging.info("Forgot Password Request token doesn't Exists")
+            return render(request, 'forgot.html',{'forgot_password_mail_failure':"Link Doesn't Exists, May be Used Already. Please Request a new password reset"})
     else:
-        token_expired_or_not = reset_password_token_expired_or_not(token)
-        if token_expired_or_not == 'Reset Password Token not Expired':
-            logging.info('Reset Password Token not Expired')
-            return render(request, 'reset.html')
-        elif token_expired_or_not == "Invalid Token":
-             logging.info("Invalid Token")
-             return render(request, 'reset_password_invalid_token.html',{'msg':'Invalid Link, Try Again With Link Sent In The Mail'})
-        elif token_expired_or_not == "Can't Decode Token, Try Again":
-             logging.info("Can't Decode Token, Try Again")
-             return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
-        elif (token_expired_or_not == 'Reset Password Token Expired'):
-            logging.info('Token has expired')
-            # if render() is used then forgot.html is rendering but the url is not changing to forgot_password_page instead it is 
-            # being http://127.0.0.1:8000/auth/reset_password/token
-            # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Reset Password Link Expired, Try Again"})
-            # below redirect will hit the dynamic url of forgot_password_page 
-            # ie., path('forgot_password_page/<str:error_msg>', views.forgot_password_page, name = 'forgot_password_page'), 
-            return redirect('forgot_password_page', error_msg='Reset Password Link Expired, Try Again')
+        if Forgot_Password_Request.objects.filter(token = token).exists():
+            forgot_password_request_obj = Forgot_Password_Request.objects.get(token = token)
+            token_expired_or_not = reset_password_token_expired_or_not(token)
+            if token_expired_or_not == 'Reset Password Token not Expired':
+                logging.info('Reset Password Token not Expired')
+                return render(request, 'reset.html')
+            elif token_expired_or_not == "Invalid Token":
+                logging.info("Invalid Token")
+                return render(request, 'reset_password_invalid_token.html',{'msg':'Invalid Link, Try Again With Link Sent In The Mail'})
+            elif token_expired_or_not == "Can't Decode Token, Try Again":
+                logging.info("Can't Decode Token, Try Again")
+                return render(request, 'reset_password_invalid_token.html',{'msg':"Can't Decode Link, Try Again With Link Sent In The Mail"})
+            elif (token_expired_or_not == 'Reset Password Token Expired'):
+                logging.info('Token has expired')
+                # if render() is used then forgot.html is rendering but the url is not changing to forgot_password_page instead it is 
+                # being http://127.0.0.1:8000/auth/reset_password/token
+                # return render(request, 'forgot.html', {'forgot_password_mail_failure':"Reset Password Link Expired, Try Again"})
+                # below redirect will hit the dynamic url of forgot_password_page 
+                # ie., path('forgot_password_page/<str:error_msg>', views.forgot_password_page, name = 'forgot_password_page'), 
+                return redirect('forgot_password_page', error_msg='Reset Password Link Expired, Try Again')
+            else:
+                logging.info('Something Went Wrong, Try Again')
+                return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
         else:
-            logging.info('Something Went Wrong, Try Again')
-            return render(request, 'forgot.html', {'forgot_password_mail_failure':"Something Went Wrong, Try Again"})
+            logging.info("Can't Decode Token, Try Again")
+            return render(request, 'forgot.html',{'forgot_password_mail_failure':"Link Doesn't Exists, May be Used Already. Please Request a new password reset"})
 
 
 

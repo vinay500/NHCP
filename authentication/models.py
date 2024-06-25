@@ -4,19 +4,29 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils import timezone
 from django.db import models
+import logging
 
-    
+# log configuration
+logging.basicConfig(
+    format='%(asctime)s [%(filename)s:%(lineno)d] %(levelname)-8s %(message)s',
+    level=logging.INFO,
+    datefmt='[%d/%b/%Y %H:%M:%S]')
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None,  phone_number=None, country=None, **extra_fields):
+        logging.info("in create_user")
         if not email:
             raise ValueError('The Email field must be set')
         if not phone_number and not extra_fields.get('is_superuser', False):
-            raise ValueError('The Phone number field must be set for regular users')
+            logging.info("phone number is required")
+            raise ValueError('The Phone number field must be set')
         if not country and not extra_fields.get('is_superuser', False):
-            raise ValueError('The Country field must be set for regular users')
+            logging.info("country is required")
+            raise ValueError('The Country field must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        logging.info(f"phone number:{phone_number} country:{country}")
+        user = self.model(email = email, phone_number = phone_number, country = country, **extra_fields)
         print("user.phone_number: ",user.phone_number)
         user.set_password(password)
         user.save(using=self._db)
