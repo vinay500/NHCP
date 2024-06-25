@@ -49,7 +49,7 @@ def notify_admin(sender, instance, created, **kwargs):
             logging.info("Mail Sent Successfully to NHCP Admin")
             return True
         except Exception as e:
-            logging.error('e: ',e)
+            logging.error(f"exception: {e}")
             logging.error("Email Sending Failed, Error in send_registration_mail() :{email_token}")
             return False
         
@@ -92,6 +92,6 @@ def notify_user(sender, instance, created, **kwargs):
             logging.info("Mail Sent Successfully to User")
             return True
         except Exception as e:
-            logging.error('e: ',e)
+            logging.error(f"exception: {e}")
             logging.error(f"Email Sending Failed, Error in send_registration_mail()")
             return False
