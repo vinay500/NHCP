@@ -41,7 +41,7 @@ def send_registration_mail(recipient_email, recipient_name):
         logging.info("User Registration Mail Sent Successfully")
         return True
     except Exception as e:
-        logging.error('Exception: ',e)
+        logging.error(f"exception: {e}")
         logging.error("Email Sending Failed, Error in send_registration_mail() :{email_token}")
         # return HttpResponse('Email sent successfully!')
         return False

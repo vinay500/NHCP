@@ -71,6 +71,7 @@ def send_forgot_password_mail(recipient_email, recipient_name, token, expiry_tim
                                     )
     # Send the email
     try:
+        # raise Exception("testing logging for forgot password mail")
         send_mail_status = send_mail(
             'Welcome to Swasth Medical Associates',
             email_content,
