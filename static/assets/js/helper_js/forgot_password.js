@@ -67,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
               if (data === 'forgot_password_success') {
                 document.getElementById('success_msg').innerText = 'Reset Password Link Sent, Kindly Check Your Mail';
                 document.getElementById('success_container').style.display='block';
+              } else if (data == "Can't Send Mail, Try Again"){
+                document.getElementById('error_msg').innerText = "Can't Send Mail, Try Again";
+                document.getElementById('error_container').style.display='block';
               } else if (data == "Something Went Wrong, Try Again"){
                 document.getElementById('error_msg').innerText = 'Something Went Wrong, Try Again';
                 document.getElementById('error_container').style.display='block';

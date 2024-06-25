@@ -191,9 +191,13 @@ def forgot_password_page(request, error_msg=None):
                             logging.info(f'Generating Token for Forgot Password Request')
                             logging.info(f'Sending Mail for Forgot Password Request with Existing Token')
                             #sending mail with existing token
-                            send_forgot_password_mail(email, username, user_forgot_password_req.token, expiration_time)
+                            mail_status = send_forgot_password_mail(email, username, user_forgot_password_req.token, expiration_time)
                             # return render(request, 'forgot.html', {'forgot_password_mail_success':"Reset Password Link Sent, Kindly Check Your Mail"})
-                            return HttpResponse('forgot_password_success')
+                            logging.info("mail_status: ",mail_status)
+                            if mail_status:
+                                return HttpResponse('forgot_password_success')
+                            else:
+                                return HttpResponse("Can't Send Mail, Try Again")
                         except Exception as e:
                             logging.error(f'e: {e}')
                             logging.error("Can't Send Forgot Password Mail")
@@ -229,9 +233,13 @@ def forgot_password_page(request, error_msg=None):
                             expiry_time = timezone.now() + timezone.timedelta(hours=1)
                             logging.info(f'Sending Forgot Password Mail for {user_obj}')
                             #sending forgot password mail
-                            send_forgot_password_mail(email, username, reset_password_token, expiry_time)
+                            mail_status = send_forgot_password_mail(email, username, reset_password_token, expiry_time)
                             # return render(request, 'forgot.html', {'forgot_password_mail_success':"Reset Password Link Sent, Kindly Check Your Mail"})
-                            return HttpResponse('forgot_password_success')
+                            logging.info("mail_status: ",mail_status)
+                            if mail_status:
+                                return HttpResponse('forgot_password_success')
+                            else:
+                                return HttpResponse("Can't Send Mail, Try Again")
                         except Exception as e:
                             logging.error(f'e: {e}')
                             logging.error("Can't Send Forgot Password Mail")
