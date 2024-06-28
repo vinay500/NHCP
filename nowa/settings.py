@@ -147,7 +147,7 @@ HTML_MINIFY = False
 
 STATIC_URL = 'static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [STATIC_DIR]
+STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -169,7 +169,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'care@wellnesshospitals.co.in'
-EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
+# EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
+EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfd'
 
 
 # key for encrypting and decrypting email and expiry time for forgot password token
