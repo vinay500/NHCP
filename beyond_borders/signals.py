@@ -13,7 +13,6 @@ logging.basicConfig(
     )
 
 
-
 @receiver(post_save, sender=BeyondBordersDependents) 
 def notify_admin(sender, instance, created, **kwargs):
     logging.info("Sending mail to NHCP Admin")
@@ -47,5 +46,5 @@ def notify_admin(sender, instance, created, **kwargs):
             return True
         except Exception as e:
             print('e: ',e)
-            logging.error("Email Sending Failed, Error in send_registration_mail() :{email_token}")
+            logging.error("Email Sending Failed, Error in send_registration_mail()")
             return False

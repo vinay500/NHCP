@@ -27,7 +27,7 @@ def view_health_cards(request):
 
 
 @login_required(login_url='/auth/signin')
-@permission_required('community_health_cards.add_membershipcard', raise_exception=True)
+# @permission_required('community_health_cards.add_membershipcard', raise_exception=True)
 def buy_health_card(request, card_type):
     context = {}
     
