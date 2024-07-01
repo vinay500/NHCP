@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from smtplib import SMTPAuthenticationError
 from django.conf import settings as SETTINGS
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -83,10 +84,13 @@ def send_forgot_password_mail(recipient_email, recipient_name, token, expiry_tim
         logging.info(f"send_mail_status : {send_mail_status}")
         logging.info("User Registration Mail Sent Successfully")
         return True
+    except SMTPAuthenticationError as e:
+        logging.error(f"exception: {e}")
+        logging.error("Email Sending Failed, SMTPAuthenticationError")
+        return False
     except Exception as e:
         logging.error(f"exception: {e}")
         logging.error("Email Sending Failed, Error in send_registration_mail()")
-        # return HttpResponse('Email sent successfully!')
         return False
     
 

@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log('error_in_signin_data',error_in_signin_data)
     if (!error_in_signin_data) {
       try {
-        const response = await fetch("/auth/signin", {
+        const response = await fetch("/auth/signin/", {
           method: "POST",
           headers: {
             "X-CSRFToken": csrfToken,

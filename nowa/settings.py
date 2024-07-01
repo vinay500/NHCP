@@ -169,8 +169,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'care@wellnesshospitals.co.in'
-# EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
-EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfd'
+EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
 
 
 # key for encrypting and decrypting email and expiry time for forgot password token
@@ -190,7 +189,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'syslog': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.handlers.SysLogHandler',
             'address': ('localhost', 514),
         },
