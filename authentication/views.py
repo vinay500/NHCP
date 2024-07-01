@@ -113,7 +113,7 @@ def signin(request, reset_password_msg=None):
         else:
             logging.error('{0} - User not found, Please Sign Up'.format(email))
             return HttpResponse("No account found for this email. Please verify email or sign up") 
-    elif reset_password_msg!=None:
+    elif reset_password_msg != None:
         logging.info(f'reset password msg: {reset_password_msg}')  
         return render(request, 'signin.html',{'reset_password_msg':reset_password_msg})
     else:
