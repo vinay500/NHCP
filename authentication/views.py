@@ -235,7 +235,7 @@ def forgot_password_page(request, error_msg=None):
                             #sending forgot password mail
                             mail_status = send_forgot_password_mail(email, username, reset_password_token, expiry_time)
                             # return render(request, 'forgot.html', {'forgot_password_mail_success':"Reset Password Link Sent, Kindly Check Your Mail"})
-                            logging.info("mail_status: ",mail_status)
+                            logging.info(f"mail_status: {mail_status}",)
                             if mail_status:
                                 return HttpResponse('forgot_password_success')
                             else:

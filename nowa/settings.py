@@ -26,11 +26,31 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path, os
 from cryptography.fernet import Fernet
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
+# Initialize environment variables
+env = environ.Env(
+    DJANGO_ENV=(str, 'development')
+)
+
+# Read .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# Get the value of DJANGO_ENV environment variable, defaulting to 'development' if not set
+DJANGO_ENV = env('DJANGO_ENV')
+
+# setting IP_ADDRESS value based on production or development
+if DJANGO_ENV == "production":
+    IP_ADDRESS = '54.152.110.233'
+else:
+    IP_ADDRESS = '127.0.0.1:8000'
+
+PORT = '8000'
 
 
 # Quick-start development settings - unsuitable for production
@@ -59,11 +79,13 @@ INSTALLED_APPS = [
     'beyond_borders',
     'community_health_cards',
     'home_care_services',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     
     # other middleware classes
+    'corsheaders.middleware.CorsMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -223,10 +245,9 @@ LOGGING = {
 
 LOGIN_URL = '/auth/signin'
 
-# http://127.0.0.1:8000/
-IP_ADDRESS = '127.0.0.1'
-PORT = '8000'
 
 
 NHCP_ADMIN_MAIL = 'vinaymadugula1@gmail.com'
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
