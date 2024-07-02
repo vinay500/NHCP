@@ -79,13 +79,11 @@ INSTALLED_APPS = [
     'beyond_borders',
     'community_health_cards',
     'home_care_services',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
     
     # other middleware classes
-    'corsheaders.middleware.CorsMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
