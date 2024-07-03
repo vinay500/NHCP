@@ -219,6 +219,11 @@ LOGGING = {
             'filename': os.path.join(LOG_DIR, 'error.log'),
             'formatter': 'standard',
         },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        }
     },
     'formatters': {
         'standard': {
@@ -238,6 +243,10 @@ LOGGING = {
             'propagate': True,
         },
     },
+    'root':{
+        "level": 'DEBUG',
+        "handlers": ['console'],
+    }
 }
 
 
