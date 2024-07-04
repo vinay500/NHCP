@@ -49,7 +49,7 @@ if DJANGO_ENV == "production":
     IP_ADDRESS = '54.152.110.233'
     PORT = ''
 else:
-    IP_ADDRESS = '127.0.0.1:8000'
+    IP_ADDRESS = '127.0.0.1'
     PORT = '8000'
 
 
@@ -184,13 +184,24 @@ AUTHENTICATION_BACKENDS = [
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
 
-# configuration for sending mail
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+# configuration for sending mail - gmail
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'care@wellnesshospitals.co.in'
+# EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
+
+
+# configuration for sending mail - hostinger mail
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.hostinger.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'care@wellnesshospitals.co.in'
-EMAIL_HOST_PASSWORD = 'lfln njqx qoln wfda'
+EMAIL_HOST_USER = 'care@wellnesshospitalsnxp.in'
+EMAIL_HOST_PASSWORD = 'Wellness#2024'
+
+
 
 
 # key for encrypting and decrypting email and expiry time for forgot password token

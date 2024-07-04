@@ -6,8 +6,13 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from jwt.exceptions import ExpiredSignatureError, InvalidTokenError, DecodeError, InvalidSignatureError
 from authentication.models import Forgot_Password_Request
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import logging
 import jwt
+import smtplib
+
+
 
 
 logging.basicConfig(
@@ -60,7 +65,34 @@ def decode_forgot_password_token(token):
 def send_forgot_password_mail(recipient_email, recipient_name, token, expiry_time):
     logging.info(F"Generating Token for Forgot Password")
     logging.info(F"email_token in send_registration_mail: {token}")
-    email_content = render_to_string('forgot_password.html',
+
+    #------------------ sending mail with gmail -------------------------------
+    # email_content = render_to_string('forgot_password.html',
+    #                                     {
+    #                                         'recipient_name': recipient_name,
+    #                                         'recipient_email': recipient_email,
+    #                                         'email_token': token,
+    #                                         'IP_ADDRESS': SETTINGS.IP_ADDRESS,
+    #                                         'PORT': SETTINGS.PORT,
+    #                                         'expiry_time': expiry_time,
+    #                                     }
+    #                                 )
+    # # Send the email
+    # try:
+    #     # raise Exception("testing logging for forgot password mail")
+    #     send_mail_status = send_mail(
+    #         'Welcome to Swasth Medical Associates',
+    #         email_content,
+    #         SETTINGS.EMAIL_HOST_USER,  # Sender's email address
+    #         [recipient_email],      # Recipient's email address
+    #         # fail_silently=False,
+    #         html_message=email_content,
+    #     )
+
+
+    #------------------ sending mail with hostinger mail -------------------------------
+    subject = "Reset Your Password"
+    html_content = render_to_string('forgot_password.html',
                                         {
                                             'recipient_name': recipient_name,
                                             'recipient_email': recipient_email,
@@ -70,18 +102,24 @@ def send_forgot_password_mail(recipient_email, recipient_name, token, expiry_tim
                                             'expiry_time': expiry_time,
                                         }
                                     )
+
+    # Create the email
+    msg = MIMEMultipart("alternative")
+    msg['From'] = SETTINGS.EMAIL_HOST_USER
+    msg['To'] = recipient_email
+    msg['Subject'] = subject
+
+    # Attach the HTML content
+    msg.attach(MIMEText(html_content, "html"))
+
     # Send the email
     try:
-        # raise Exception("testing logging for forgot password mail")
-        send_mail_status = send_mail(
-            'Welcome to Swasth Medical Associates',
-            email_content,
-            SETTINGS.EMAIL_HOST_USER,  # Sender's email address
-            [recipient_email],      # Recipient's email address
-            # fail_silently=False,
-            html_message=email_content,
-        )
-        logging.info(f"send_mail_status : {send_mail_status}")
+        server = smtplib.SMTP(SETTINGS.EMAIL_HOST, SETTINGS.EMAIL_PORT)
+        server.starttls()
+        server.login(SETTINGS.EMAIL_HOST_USER, SETTINGS.EMAIL_HOST_PASSWORD)
+        server.sendmail(SETTINGS.EMAIL_HOST_USER, recipient_email, msg.as_string())
+        server.quit()
+        # logging.info(f"send_mail_status : {send_mail_status}")
         logging.info("User Registration Mail Sent Successfully")
         return True
     except SMTPAuthenticationError as e:
