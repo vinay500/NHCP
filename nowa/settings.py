@@ -41,7 +41,7 @@ env = environ.Env(
 # Read .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# Get the value of DJANGO_ENV environment variable, defaulting to 'development' if not set
+# Get the value of DJANGO_ENV environment variable
 DJANGO_ENV = env('DJANGO_ENV')
 
 # setting IP_ADDRESS value based on production or development
@@ -198,8 +198,11 @@ AUTH_USER_MODEL = 'authentication.CustomUser'
 EMAIL_HOST = 'smtp.hostinger.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'care@wellnesshospitalsnxp.in'
-EMAIL_HOST_PASSWORD = 'Wellness#2024'
+EMAIL_HOST_USER = env('HOSTINGER_MAIL_USER')
+EMAIL_HOST_PASSWORD = env('HOSTINGER_MAIL_PASSWORD')
+print("env('EMAIL_HOST_USER'): ",env('HOSTINGER_MAIL_USER'))
+print("env('HOSTINGER_MAIL_PASSWORD'): ",env('HOSTINGER_MAIL_PASSWORD'))
+# EMAIL_HOST_PASSWORD = env('HOSTINGER_MAIL_PASSWORD')
 
 
 
