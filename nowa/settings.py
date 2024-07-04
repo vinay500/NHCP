@@ -47,10 +47,11 @@ DJANGO_ENV = env('DJANGO_ENV')
 # setting IP_ADDRESS value based on production or development
 if DJANGO_ENV == "production":
     IP_ADDRESS = '54.152.110.233'
+    PORT = ''
 else:
     IP_ADDRESS = '127.0.0.1:8000'
+    PORT = '8000'
 
-PORT = '8000'
 
 
 # Quick-start development settings - unsuitable for production
@@ -252,9 +253,11 @@ LOGGING = {
 
 LOGIN_URL = '/auth/signin'
 
-
-
 NHCP_ADMIN_MAIL = 'vinaymadugula1@gmail.com'
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+
+
+
 
