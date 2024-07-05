@@ -1,5 +1,4 @@
 from django.apps import AppConfig
-import logging
 
 
 class HomeCareServicesConfig(AppConfig):
