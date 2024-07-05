@@ -8,4 +8,3 @@ class HomeCareServicesConfig(AppConfig):
  
     def ready(self):
         import home_care_services.signals
-        logging.info("Signals module imported in YourAppConfig.ready()")
