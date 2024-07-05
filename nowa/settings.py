@@ -44,7 +44,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # setting IP_ADDRESS value based on production or development
 if env('DJANGO_ENV') == "production":
-    IP_ADDRESS = '54.152.110.233'
+    IP_ADDRESS = env('IP_ADDRESS')
     PORT = ''
 else:
     IP_ADDRESS = '127.0.0.1'
