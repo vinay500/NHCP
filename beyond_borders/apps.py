@@ -7,4 +7,3 @@ class BeyondBordersConfig(AppConfig):
 
     def ready(self):
         import beyond_borders.signals
-        logging.info("Signals module imported in YourAppConfig.ready()")
