@@ -160,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
               let signup_msg_div = document.getElementById('signup_msg_div');
               signup_msg_div.classList.add("alert-danger");
               let msg = document.getElementById('signup_msg');
+              console.log("msg div",msg)
               msg.innerText='This email is already registered. Please use a different email';
               signup_msg_div.style.display = 'block';
           } else if (data === "User Signup Failed, Try Again"){

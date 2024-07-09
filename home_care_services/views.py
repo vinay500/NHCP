@@ -7,7 +7,7 @@ from django.forms.models import model_to_dict
 
 
 # Create your views here.
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def home_care_services(request):
     return render(request, 'home_care_services/home_care_services.html')
 
@@ -46,7 +46,7 @@ def book_home_care_service(request, service_name):
     
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def view_booked_services(request):
     services_booked = ServiceRegistrations.objects.filter(user=request.user).order_by('-created_at')
 

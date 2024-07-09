@@ -20,7 +20,7 @@ logging.basicConfig(
 # logging.error("Log Error Message")
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def view_health_cards(request):
     return render(request, 'community_health_cards/community_health_cards.html')
     # return render(request, 'components/base.html')
@@ -49,7 +49,7 @@ def buy_health_card(request, card_type):
 
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def assign_membership_card(request):
     if request.method == 'POST':
         logging.info("In assign_membership_card post request")
@@ -64,7 +64,7 @@ def assign_membership_card(request):
     
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def assign_health_card_role(request):
     group = Group.objects.get(name='Health Cards Admin')
     request.user.groups.add(group)

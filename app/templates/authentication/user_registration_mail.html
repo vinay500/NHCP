@@ -14,17 +14,14 @@
         <div class="content">
             <p>Hello {{ recipient_name|title }},</p>
             <p>Your login id: {{ recipient_email }}</p>
-            <!-- http://127.0.0.1:8000/auth/signin
-            http://http//127.0.0.1:8000/auth/verify_mail/?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpbmF5bWFkdWd1bGEyMEBnbWFpbC5jb20ifQ.pPpzvdLAdhI7xCfKjuTK5I7d_KG0z7brNZyc3NpSKGc -->
             
             <p>Thank you for registering with Neighbourhood Healthcare Program!</p>
             <p>Click on the below button to Verify Your Email</p>
             <button class="complete_registration_button" style="background-color: #2490ef; color: white; padding: 10px 15px; text-decoration: none; display: inline-block; font-size: 16px; margin-top: 15px; border-radius: 5px; border: none;">
-                <a href="http://{{IP_ADDRESS}}:{{PORT}}/auth/verify_mail/{{email_token}}" style="text-decoration: none; color: white;">Verify Your Mail</a>
+                <a href="http://{{IP_ADDRESS}}{{PORT}}/auth/verify_mail/{{email_token}}" style="text-decoration: none; color: white;">Verify Your Mail</a>
             </button>
             <p>If the button above does not work, you can also copy and paste the following link into your browser:</p>
-            <!-- <p><a href="https://insider.wellnesshospitals.co.in/update-password?key=qXmsfu2kngaFBi2nmVlchcyy7ReobVYG">https://insider.wellnesshospitals.co.in/update-password?key=qXmsfu2kngaFBi2nmVlchcyy7ReobVYG</a></p> -->
-            <p>http://{{IP_ADDRESS}}:{{PORT}}/auth/verify_mail/{{email_token}}</p>
+            <p>http://{{IP_ADDRESS}}{{PORT}}/auth/verify_mail/{{email_token}}</p>
             <span>Best Regards,</span><br>
             <span>Wellness Hospitals</span>
         </div>

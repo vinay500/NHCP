@@ -348,7 +348,7 @@ def reset_password_invalid_token(request):
     return render(request, 'reset_password_invalid_token.html')
 
 
-@login_required(login_url='signin')
+@login_required(login_url='/auth/signin')
 def signout(request):
     try: 
         user_email = request.user.email
@@ -360,9 +360,3 @@ def signout(request):
         logging.error("{0} - User logout failed".format(user_email))
         return redirect('/auth/signin')
 
-# # Signals
-
-
-# @receiver(models.signals.post_save, sender=User)
-# def do_something(sender, instance, created, **kwargs):
-#     print('in post_save function of user model')

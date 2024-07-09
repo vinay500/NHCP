@@ -9,9 +9,7 @@ urlpatterns = [
         path('get_user_programs',views.get_user_programs, name="get_user_programs"),
         # path('reset_password_invalid_token', views.reset_password_invalid_token , name = 'reset_password_invalid_token'),
         
-        path('', views.index , name = 'index'),
-
-
+        path('home', views.index , name = 'index'),
 
         path('aboutus', views.aboutus , name = 'aboutus'),
         path('accordion', views.accordion , name = 'accordion'),
