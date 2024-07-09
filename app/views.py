@@ -19,7 +19,7 @@ logging.basicConfig(
 # logging.error("Log Error Message")
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def index(request):
     print('in index view')
     logged_in_user = request.user
@@ -60,7 +60,7 @@ def index(request):
     
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def get_user_programs(request):
     print('in index view')
     logged_in_user = request.user
@@ -81,7 +81,7 @@ def get_user_programs(request):
 
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def register_user_for_program(request, program_url_param):
     print("program_url_param", program_url_param)
     print('in register_user_for_program')

@@ -18,7 +18,7 @@ def notify_admin(sender, instance, created, **kwargs):
     logging.info("in notify_admin")
     print("in notify_admin")
     print("instance.name: ",instance.name)
-    print("link: ",'http://{SETTINGS.IP_ADDRESS}:{SETTINGS.PORT}/booked_services')
+    print("link: ",'http://{SETTINGS.IP_ADDRESS}{SETTINGS.PORT}/booked_services')
     if created:
         logging.info(F"sending mail to NHCP Admin")
         email_content = render_to_string('email_templates/nhcp_lead_notify.html',
@@ -31,7 +31,7 @@ def notify_admin(sender, instance, created, **kwargs):
                                                 'booking_details_mail': instance.email,
                                                 'booking_details_service': instance.service,
                                                 'booking_details_created_at': instance.created_at,
-                                                'ref_link':f'http://{SETTINGS.IP_ADDRESS}:{SETTINGS.PORT}/booked_services',
+                                                'ref_link':f'http://{SETTINGS.IP_ADDRESS}{SETTINGS.PORT}/booked_services',
                                                 'model':'home_care_services'
                                             }
                                         )

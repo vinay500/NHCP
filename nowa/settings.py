@@ -205,61 +205,12 @@ EMAIL_HOST_PASSWORD = env('HOSTINGER_MAIL_PASSWORD')
 
 
 # key for encrypting and decrypting email and expiry time for forgot password token
-EMAIL_VERIFICATION_SECRET_KEY = "4f9d3eb982fcf9c1c240d4e73f1103c8f0a1e1c7b0133b63f02d2c047b855f97"
+EMAIL_VERIFICATION_SECRET_KEY = env('EMAIL_VERIFICATION_SECRET_KEY')
 
 
 LOG_DIR = os.path.join(BASE_DIR, 'logs')
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
-
-# Logger: writes log records. - logger logs 
-# Formatter: specifies the structure of each log record. - formatter sets log format
-# Handler: determines the destination for each records. - handlers handles the logs to the file
-# Filter: determines which log records get sent to the configured destination.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'syslog': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.SysLogHandler',
-            'address': ('localhost', 514),
-        },
-        'exception_handler': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOG_DIR, 'error.log'),
-            'formatter': 'standard',
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard',
-        }
-    },
-    'formatters': {
-        'standard': {
-            # 'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
-            'format': '%(asctime)s [%(filename)s:%(lineno)d] %(levelname)-8s %(message)s',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['syslog'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-        'exception_logger': {
-            'handlers': ['exception_handler'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    },
-    'root':{
-        "level": 'DEBUG',
-        "handlers": ['console'],
-    }
-}
 
 
 LOGIN_URL = '/auth/signin'
@@ -267,6 +218,122 @@ LOGIN_URL = '/auth/signin'
 NHCP_ADMIN_MAIL = 'vinaymadugula1@gmail.com'
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+
+# Logger: writes log records. - logger logs 
+# Formatter: specifies the structure of each log record. - formatter sets log format
+# Handler: determines the destination for each records. - handlers handles the logs to the file
+# Filter: determines which log records get sent to the configured destination.
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'syslog': {
+#             'level': 'DEBUG',
+#             'class': 'logging.handlers.SysLogHandler',
+#             'address': ('localhost', 514),
+#         },
+#         'exception_handler': {
+#             'level': 'ERROR',
+#             'class': 'logging.FileHandler',
+#             'filename': os.path.join(LOG_DIR, 'error.log'),
+#             'formatter': 'standard',
+#         },
+#         'console': {
+#             'level': 'INFO',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'standard',
+#         }
+#     },
+#     'formatters': {
+#         'standard': {
+#             # 'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+#             'format': '%(asctime)s [%(filename)s:%(lineno)d] %(levelname)-8s %(message)s',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['syslog'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#         'exception_logger': {
+#             'handlers': ['exception_handler'],
+#             'level': 'ERROR',
+#             'propagate': True,
+#         },
+#     },
+#     'root':{
+#         "level": 'DEBUG',
+#         "handlers": ['console'],
+#     }
+# }
+
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            # "format": "{levelname} {asctime:s} {name} {threadName} {thread:d} {module} {filename} {lineno:d} {name} {funcName} {process:d} {message}",
+            "format": "%(levelname)s %(asctime)s %(name)s %(threadName)s %(thread)d %(module)s %(filename)s %(lineno)d %(name)s %(funcName)s %(process)d %(message)s",
+            # "style": "{",
+        },
+        "simple": {
+            "format": "%(levelname)s %(asctime)s %(name)s %(module)s %(filename)s %(lineno)d %(funcName)s %(message)s",
+            # "style": "{",
+        },
+    },
+    "handlers": {
+        "console_handler": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+            "level": "DEBUG"
+        },
+        "info_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": f"{BASE_DIR}/logs/all_info.log",
+            "mode": "a",
+            "encoding": "utf-8",
+            "formatter": "verbose",
+            "level": "INFO",
+            "backupCount": 5,
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+        },
+        "error_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": f"{BASE_DIR}/logs/error.log",
+            "mode": "a",
+            "formatter": "verbose",
+            "level": "WARNING",
+            "backupCount": 5,
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console_handler", "info_handler"],
+            "level": "INFO",
+        },
+        "django.request": {
+            "handlers": ["error_handler"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "django.template": {
+            "handlers": ["error_handler"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "django.server": {
+            "handlers": ["error_handler"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}
+
 
 
 

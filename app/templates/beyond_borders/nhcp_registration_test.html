@@ -33,9 +33,10 @@
                                 <span>×</span>
                             </button>
                         </div> 
+                    {% else %}
                     {% endif %}
 
-                    <form action="/save_dependent" id="add_dependent_form" method="post" enctype="multipart/form-data">
+                    <form action="{% url 'save_dependent' %}" id="add_dependent_form" method="post" enctype="multipart/form-data">
                         <div id="add_dependent_cant_change_div" class="alert alert-danger alert-dismissible fade show" role="alert">
                             <span> Dependent details can not be Changed, Once Added. For any changes, please contact our support at 1234567891 </span>
                             <!-- <button id="signup_msg_btn" type="button" class="btn-close" onclick="hide_signup_msg()">
@@ -53,6 +54,7 @@
                                 Dependent Added Successfully
                                 <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
                             </div>
+                        {% else %}
                         {% endif %}
                         {% csrf_token %}
                         <div class="card-body">
@@ -61,11 +63,9 @@
                             </div>
                             <p class="mg-b-20">It is Very Easy to Customize and it uses in your website application.</p> -->
                             <div id="wizard2">
-                                <!-- <div id="user_details_already_submitted">
-                                    {{ context.user_details_already_submitted }}
-                                </div> -->
                                 {% if not context.user_details_already_submitted %}
                                     <h3>Personal Information</h3>
+                                    <h1 id="user_details_already_submitted">{{ context.user_details_already_submitted }}</h1>
                                     <section>   
                                         <div class="row">   
                                             <div class="col-md-6">
@@ -251,13 +251,7 @@
                 orientation: 'bottom',
                 todayHighlight: true,
             })
-            document.addEventListener("DOMContentLoaded", function() {
-                var input = document.querySelector("#mobile-number");
-                window.intlTelInput(input, {
-                initialCountry: "in", // Set the initial country to India
-                utilsScript: "{% static 'assets/plugins/telephoneinput/utils.js' %}" // Ensure you reference the utils.js file
-                });
-            });
+            
 
             
         </script>

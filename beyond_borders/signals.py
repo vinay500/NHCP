@@ -27,7 +27,7 @@ def notify_admin(sender, instance, created, **kwargs):
                                                 'recipient_email': SETTINGS.NHCP_ADMIN_MAIL,
                                                 'booking_details_first_name': instance.first_name,
                                                 'booking_details_mail': instance.email,
-                                                'ref_link':f'http://{SETTINGS.IP_ADDRESS}:{SETTINGS.PORT}/view_dependents',
+                                                'ref_link':f'http://{SETTINGS.IP_ADDRESS}{SETTINGS.PORT}/view_dependents',
                                                 'model':'beyond_borders'
                                             }
                                         )

@@ -22,13 +22,13 @@ logging.basicConfig(
 
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def add_dependents(request):
     return render(request, 'nhcp_registration.html')
 
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def add_dependents_test(request):
     logged_in_user = request.user
     custom_user_obj = CustomUser.objects.get(email = logged_in_user)
@@ -47,7 +47,7 @@ def add_dependents_test(request):
 
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def save_dependent(request):
     # print('request.data: ',request.data)
     print("POST data:")
@@ -85,7 +85,7 @@ def save_dependent(request):
                     return render(request, 'nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
             if gender:
                 user_obj.gender = gender
-            if gender:
+            if foreign_address:
                 user_obj.foreign_address = foreign_address
             try:
                 logging.info("saving user gender,dob, address")
@@ -169,16 +169,25 @@ def save_dependent(request):
                         return redirect('/view_dependents')
                         # return render(request, 'nhcp_registration_test.html',{'error':"Something Went Wrong, Try Again"})
                     else:
+                        # dependent_saved and user_details_already_submitted are of two different purposes
+                        # dependent_saved is to show 'Dependent Saved' Successfully
+                        # user_details_already_submitted is to skip the Personal Information Section in add dependent
                         context = {
-                            'dependent_saved':'successs',
-                            'user_details_already_submitted':'successs'
+                            'dependent_saved': True,
+                            'user_details_already_submitted':'success'
                         }
                         print('context: ',context)
                         return render(request, 'beyond_borders/nhcp_registration_test.html',{'context':context})
                 except IntegrityError as e:
                     if 'UNIQUE constraint failed' in str(e):
-                        print(f"Error: A record with the email '{email}' already exists.")
-                    return render(request, 'beyond_borders/nhcp_registration_test.html',{'error':"Email already exists, Try Again"})
+                        logging.info(f"Error: A record with the email '{email}' already exists.")
+                        context = {
+                            'user_details_already_submitted':'success',
+                            'error':"Email already exists, Try Again",
+                        }
+                        logging.info(f'context latest: {context}')
+                        print('context latest: ',context)
+                    return render(request, 'beyond_borders/nhcp_registration_test.html',{'context':context})
                 except Exception as e:
                     print('e: ',e)
                     logging.error("")
@@ -196,7 +205,7 @@ def save_dependent(request):
         custom_user_obj = CustomUser.objects.get(email = logged_in_user)
         if custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address:
             print('in custom_user_obj.gender and custom_user_obj.date_of_birth and custom_user_obj.foreign_address')
-            context = {'user_details_already_submitted':'successs'}
+            context = {'user_details_already_submitted':'success'}
             print('context: ',context)
             # return render(request, 'nhcp_registration_test.html',{'dependent_saved':'successs'})
             return render(request, 'beyond_borders/nhcp_registration_test.html',{'context':context})
@@ -206,7 +215,7 @@ def save_dependent(request):
 
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def view_dependents(request):
     logged_in_user = request.user
     print('logged_in_user: ', logged_in_user)
@@ -231,7 +240,7 @@ def view_dependents(request):
 
 
 
-@login_required(login_url='auth/signin')
+@login_required(login_url='/auth/signin')
 def view_dependent(request,dep_id):
     print('dep_id: ',dep_id)
     dependent = BeyondBordersDependents.objects.get(membership_id = dep_id)
@@ -242,9 +251,12 @@ def view_dependent(request,dep_id):
     # Retrieve the image filename from the dependent details
     image_filename = dependent_dict.get('image_filename')  # Replace 'image_field_name_here' with the actual name of the image field in your model
     print('image_filename: ',image_filename)
-    if image_filename != '':
+    logging.info("image_filename != None: ",image_filename != None)
+    if  image_filename != "" and image_filename is not None:
         print('image_filename is None')
         # Construct the image path
+        print("SETTINGS.BASE_DIR: ",SETTINGS.BASE_DIR)
+        print("image_filename: ",image_filename)
         image_path = os.path.join(SETTINGS.BASE_DIR, 'static', 'assets', 'img', 'beyond_border_dependents_doc', image_filename)
 
         # Check if the image file exists
